@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyNagement - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/login_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="vue-container">
+        <div class="content">
+            <!--Form per il login-->
+            <div class="form">
+                <form method="" action="" id="login">
+                    <img src="../IMG/logo.jpeg" alt="" id="logo">
+                    <!--div contenente i campi per email e password e il bottone per loggarsi-->
+                    <div id="dati" v-if="checkLogin" ref="dati">
+                        <div class="campo">
+                            <img src="../IMG/icona_mail.png" class="icon">
+                            <div class="testoCampo">
+                                <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <img src="../IMG/icona_mail.png" class="icon">
+                            <div class="testoCampo">
+                                <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
+                            </div>
+                        </div>
+                        <button type="button" class="bConferma" @click="controlloLogin()">
+                            <p id="bTesto">LOGIN</p>
+                        </button>
+                        <button type="button" class="bCrea" @click="switch2Register(true)">
+                            <p id="bTesto">CREA ACCOUNT</p>
+                        </button>
+                        <p id="pError" class="pError">&nbsp</p>
+                    </div>
+                    <div id="registra" v-if="checkRegistra">
+                        <div class="campo">
+                            <img src="../IMG/icona_mail.png" class="icon">
+                            <div class="testoCampo">
+                                <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <img src="../IMG/icona_mail.png" class="icon">
+                            <div class="testoCampo">
+                                <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
+                            </div>
+                        </div>
+                        <button type="button" class="bConferma" @click="registraAccount()">
+                            <p id="bTesto">REGISTRATI</p>
+                        </button>
+                        <p id="pError2" class="pError">&nbsp</p>
+                    </div>
+                </form>
+            </div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+
+    </div>
+    <script src="../JS/login.js"></script>
+
+</body>
+
+</html>

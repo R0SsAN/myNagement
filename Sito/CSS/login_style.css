@@ -1,0 +1,214 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background-color: lightgray;
+}
+
+.form{
+    z-index:5;
+    transform: scale(0.5,0.5);
+    animation: compari 0.5s forwards;
+
+    width: 450px;
+    height: 600px;
+    background-color: white;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    border-radius: 50px;
+    overflow: hidden;
+}
+@keyframes compari {
+    to {
+      opacity: 1;
+      transform: scale(1,1);
+    }
+}
+#logo{
+    width: 150px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#login{
+    width:450px;
+    height:600px;
+    padding-top:50px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    flex-wrap: nowrap;
+}
+.campo{
+    transition: transform .2s; 
+    height:50px;
+    width:300px;
+    background-color: lightgray;
+    margin:auto;
+    margin-top:15px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+}
+.campo:hover{
+    transform: scale(1.02);
+}
+.bConferma{
+    height:45px;
+    width:300px;
+    background-color: rgb(170, 255, 172);
+    margin:auto;
+    margin-top:15px;
+    border-radius: 30px;
+    display: flex;
+    justify-content:center;
+    border:1px solid rgb(184, 184, 184);
+}
+.bCrea{
+    height:45px;
+    width:300px;
+    background-color: rgb(148, 240, 235);
+    margin:auto;
+    margin-top:20px;
+    border-radius: 30px;
+    display: flex;
+    justify-content:center;
+    border:1px solid rgb(184, 184, 184);
+
+}
+.icon{
+    width:22px;
+    margin-left:30px;
+    margin-top:5px;
+    align-self: center;
+}
+.testoCampo{
+    width: 200px;
+    height: 30px;
+    margin-left: 10px;
+    margin-top:5px;
+    border:0;
+    background-color: lightgray;
+}
+#bTesto{
+    padding-top:10px;
+}
+button{
+    transition: transform .2s; 
+    border:0;
+}
+button:hover{
+    transform: scale(1.1);
+}
+.pError{
+    color:red;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+#registra{
+    transition: transform .2s; 
+    margin-top:65px;
+}
+/*.entrata_uscita-enter-active 
+{
+    animation: fade .2s;
+}
+.entrata_uscita-leave-active 
+{
+    animation: fade .2s reverse;
+}*/
+.entrata_uscita-enter-active 
+{
+    animation: fade .5s;
+}
+.entrata_uscita-leave-active 
+{
+    animation: fade .5s reverse;
+}
+.cube {
+    z-index: 3;
+    position: absolute;
+    top: 80vh;
+    left: 45vw;
+    width: 10px;
+    height: 10px;
+    border: solid 1px rgb(175,175,175);
+    transform-origin: top left;
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    -webkit-animation: cube 12s ease-in forwards infinite;
+            animation: cube 12s ease-in forwards infinite;
+  }
+  .cube:nth-child(2n) {
+    border-color: rgb(175,175,175);
+  }
+  .cube:nth-child(2) {
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+    left: 25vw;
+    top: 40vh;
+  }
+  .cube:nth-child(3) {
+    -webkit-animation-delay: 3s;
+            animation-delay: 3s;
+    left: 75vw;
+    top: 50vh;
+  }
+  .cube:nth-child(4) {
+    -webkit-animation-delay: 5s;
+            animation-delay: 5s;
+    left: 90vw;
+    top: 10vh;
+  }
+  .cube:nth-child(5) {
+    -webkit-animation-delay: 5s;
+            animation-delay: 5s;
+    left: 10vw;
+    top: 85vh;
+  }
+  .cube:nth-child(6) {
+    -webkit-animation-delay: 9s;
+            animation-delay: 9s;
+    left: 50vw;
+    top: 10vh;
+  }
+  .cube:nth-child(7) {
+    -webkit-animation-delay: 10s;
+            animation-delay: 10s;
+    left: 12vw;
+    top: 10vh;
+  }
+  .cube:nth-child(8) {
+    -webkit-animation-delay: 11s;
+            animation-delay: 11s;
+    left: 85vw;
+    top: 80vh;
+  }
+  
+  @-webkit-keyframes cube {
+    from {
+      transform: scale(0) rotate(0deg) translate(-50%, -50%);
+      opacity: 1;
+    }
+    to {
+      transform: scale(20) rotate(960deg) translate(-50%, -50%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes cube {
+    from {
+      transform: scale(0) rotate(0deg) translate(-50%, -50%);
+      opacity: 1;
+    }
+    to {
+      transform: scale(20) rotate(960deg) translate(-50%, -50%);
+      opacity: 0;
+    }
+  }
