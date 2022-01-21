@@ -15,8 +15,27 @@ var app = new Vue({
             if(!(this.controlloValiditaEmail() || document.getElementById("tPassword").value==""))
             {
                 //controllo login da database e eventuali errori
-
-
+                var httpr=new XMLHttpRequest();
+                httpr.open("POST","../PHP/login_api.php",true);
+                httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                httpr.onreadystatechange=function(){
+                    if(httpr.readyState==4 && httpr.status==200){
+                        if(httpr.responseText=="true")
+                        {
+                            //loggato
+                            console.log("entrato");
+                            window.location.href="dashboard.html";
+                        }
+                        else if(httpr.responseText=="false")
+                        {
+                            //credenziali errate
+                            console.log("credenziali sbagliate")
+                            error="Credenziali non valide!";
+                            document.getElementById("pError").innerHTML=error;
+                        }
+                    }
+                }
+                httpr.send("email="+document.getElementById("tLogin").value +"&password="+document.getElementById("tPassword").value);
 
             }
             else
@@ -50,13 +69,27 @@ var app = new Vue({
                 //effettuo controllo presenza database
                 //  se non è già presente regstro accountù
                 //  se è già presente genero errore
-
+                var httpr=new XMLHttpRequest();
+                httpr.open("POST","../PHP/register_api.php",true);
+                httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                httpr.onreadystatechange=function(){
+                    if(httpr.readyState==4 && httpr.status==200){
+                        if(httpr.responseText=="false")
+                        {
+                            //credenziali errate
+                            error="Email già registrata!";
+                            document.getElementById("pError2").innerHTML=error;
+                        }
+                        else
+                            app.switch2Register(false);
+                    }
+                }
+                httpr.send("email="+document.getElementById("tLogin").value +"&password="+document.getElementById("tPassword").value);
 
 
             }
             else
                 error="Campi inseriti non validi";
-                this.switch2Register(false);
             document.getElementById("pError2").innerHTML=error;
         },
         switch2Register(check)
