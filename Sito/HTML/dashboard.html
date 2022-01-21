@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfxpqpZZVQGK6TAh5PV1GOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/f69c57d50d.js" crossorigin="anonymous"></script>
-    <script src="../JS/dashboard_script.js"></script>
 </head>
 
 <body>
@@ -55,19 +53,23 @@
         </div>
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
+                <div class="toggle" onclick="toggleMenu()">
                 </div>
                 <div class="search">
                     <label>
                         <input type="text" placeholder="Search here">
+                        <i class="fas fa-search"></i>
                     </label>
-                    <div class="user">
-                        <img src="user.jpg">
-                    </div>
+                </div>                
+                <div class="user">
+                    <!-- da sistemare -->
+                    <img src="R:/Documents/Immagini/a18.jpg">
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://kit.fontawesome.com/f69c57d50d.js" crossorigin="anonymous"></script>
+    <script src="../JS/dashboard_script.js"></script>
 </body>
 
 </html>
