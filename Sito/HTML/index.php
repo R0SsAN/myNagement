@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+if(isset($_POST['nome'])&&isset($_POST['cognome'])&&isset($_POST['ruolo'])&&isset($_POST['telefono'])&&isset($_POST['societa'])&&isset($_POST['mail']))
+{
+    //invio mail
+}else 
+{
+echo '<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="contatti.css">
+    <link rel="stylesheet" href="../CSS/contattiStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap" rel="stylesheet">
@@ -60,4 +66,5 @@
 
 </body>
 
-</html>
+</html>';
+}

@@ -1,0 +1,101 @@
+.titolo{
+    text-align: center;
+    padding:0px;
+    margin-left: 35%;
+    margin-right: 35%;
+    border-radius: 10px;
+}
+.tutto{
+    background-color: lightgray;
+}
+.contatti{
+    
+    width: 800px;
+    margin-left:auto;
+    margin-right:auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.contatti-full{
+    border: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding-left: 60px;
+}
+.contatti-semi{
+    width: 300px;
+    padding-left: 20px;
+    overflow: hidden;
+}
+@media (max-width: 800px) {
+    .contatti-full{
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        overflow: hidden;
+        padding-left: 60px;
+        height:auto;
+    }
+    .contatti{
+        width: 500px;
+        height:600px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+  }
+#testo_richiesta{
+    width:99%;
+    height:40px;
+}
+.invia{
+    margin:10px;
+    background-color: lightgreen;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block; 
+    border-radius: 10px;
+    border-radius: 30px;
+    justify-content:center;
+}
+.titoletti{
+    font-family: 'Dongle', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    margin:0px;
+    
+}
+.contatti-testo{
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        overflow: hidden;
+        height:auto;
+}
+#testo_richiesta{
+    border:none;
+    outline: none;    
+    border-radius: 10px;
+    
+
+}
+.campi_info{
+    border:none;
+    outline: none;    
+    border-radius: 10px;
+}
