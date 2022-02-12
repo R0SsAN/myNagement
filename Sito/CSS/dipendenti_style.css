@@ -14,22 +14,20 @@ body {
 }
 
 .insert {
+    width:80%;
     border-radius: 20px;
     background-color: #fff;
     display: flex;
     justify-content: row;
     flex-wrap: wrap;
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
+    margin:auto;
 }
 
 .form {
     display: block;
     box-sizing: border-box;
     padding: 20px;
-    width: 500px;
+    width: 50%;
 }
 
 .subtitle {
@@ -123,6 +121,7 @@ body {
     font-size: 18px;
     height: 50px;
     margin-top: 38px;
+    margin-right: 20px;
     outline: 0;
     text-align: center;
     width: 100%;

@@ -1,0 +1,247 @@
+body{
+    background-color: lightgray;
+    height:100%;
+}
+.titolo{
+    text-align: center;
+    padding:0px;
+    margin-left: 35%;
+    margin-right: 35%;
+    border-radius: 10px;
+}
+.tutto{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.contatti{
+    margin:auto;
+    background-color: white;
+    border-radius: 20px;
+    width:70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.contatti-full{
+    background-color: white;
+    border: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    overflow: hidden;
+    padding-left: 60px;
+}
+.contatti-semi{
+    width: 40%;
+    padding-left: 20px;
+    overflow: hidden;
+}
+@media (max-width: 800px) {
+    .contatti-full{
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        overflow: hidden;
+        padding-left: 60px;
+        height:auto;
+    }
+    .contatti{
+        width: 500px;
+        height:600px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+  }
+#testo_richiesta{
+    height:40px;
+    margin-left:5px;
+    margin-right:5px;
+}
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+ }
+.invia{
+    margin:10px;
+    background-color: lightgreen;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block; 
+    border-radius: 10px;
+    border-radius: 30px;
+    justify-content:center;
+}
+.titoletti{
+    font-family: 'Dongle', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    margin:0px;
+    
+}
+.contatti-testo{
+        width: 80%;
+        margin-left:auto;
+        margin-right: auto;
+        border: 2px solid lightgrey;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        overflow: hidden;
+        height:auto;
+}
+#testo_richiesta{
+    border:none;
+    outline: none;    
+    border-radius: 10px;
+    
+
+}
+.campi_info{
+    border:none;
+    outline: none;    
+    border-radius: 10px;
+}
+
+.insert {
+    width:80%;
+    border-radius: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: row;
+    flex-wrap: wrap;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+
+.form {
+    display: block;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 50%;
+}
+
+.subtitle {
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.ic1 {
+    margin-top: 40px;
+}
+
+.ic2 {
+    margin-top: 30px;
+}
+
+.input {
+    background-color: #fff;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: black;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+}
+
+.cut {
+    background-color: #fff;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+}
+
+.cut-short {
+    width: 50px;
+}
+
+.input:focus~.cut,
+.input:not(:placeholder-shown)~.cut {
+    transform: translateY(8px);
+}
+
+.placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+}
+
+.input:focus~.placeholder,
+.input:not(:placeholder-shown)~.placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input:not(:placeholder-shown)~.placeholder {
+    color: #808097;
+}
+
+.input:focus~.placeholder {
+    color: #dc2f55;
+}
+
+.submit {
+    position:relative;
+    background-color: red;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    margin-bottom: 38px;
+    outline: 0;
+    text-align: center;
+    width: 50%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.submit:active {
+    background-color: #06b;
+}
+.divSubmit{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-widtj, initial-scale=1.0" />
     <title>Admin dashboard</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/dipendenti_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../CSS/dipendenti_style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -59,7 +59,7 @@
                     <div class="cut"></div>
                     <label for="lastname" class="placeholder">Tipo contratto</label>
                     <br><br><br>
-                    <input type="radio" name="contratto"> Indeterminato
+                    <input type="radio" name="contratto"> Indeterminato <br>
                     <input type="radio" name="contratto"> Determinato
                 </div>
                 <br><br>

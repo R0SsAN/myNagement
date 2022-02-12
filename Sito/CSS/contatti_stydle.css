@@ -1,15 +1,11 @@
+.tutto{
+    width: 60%;
+}
 .titolo{
     text-align: center;
     padding:0px;
-    margin-left: 35%;
-    margin-right: 35%;
-    border-radius: 10px;
-}
-.tutto{
-    background-color: lightgray;
 }
 .contatti{
-    
     width: 800px;
     margin-left:auto;
     margin-right:auto;
@@ -59,24 +55,16 @@
 }
 .invia{
     margin:10px;
-    background-color: lightgreen;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     display: block; 
     border-radius: 10px;
-    border-radius: 30px;
-    justify-content:center;
 }
 .titoletti{
     font-family: 'Dongle', sans-serif;
     font-size: 25px;
     font-weight: bold;
     margin:0px;
-    
 }
 .contatti-testo{
         border: 2px solid black;
@@ -93,9 +81,4 @@
     border-radius: 10px;
     
 
-}
-.campi_info{
-    border:none;
-    outline: none;    
-    border-radius: 10px;
 }

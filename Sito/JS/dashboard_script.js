@@ -22,7 +22,7 @@ var app = new Vue({
             httpr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             httpr.onreadystatechange = function () {
                 if (httpr.readyState == 4 && httpr.status == 200) {
-                    document.getElementById("content").innerHTML = httpr.responseText;
+                    document.getElementsByClassName("content")[0].innerHTML = httpr.responseText;
                 }
             }
             httpr.send();
