@@ -1,3 +1,10 @@
+<?php
+/*
+  session_start();
+  if(!isset($_SESSION["email"]))
+    header("Location: login.html");*/
+
+?>
 <!DOCTYPE html>
 <html>
 <!-- https://www.youtube.com/watch?v=gdA1G5h-D80 18:35-->
@@ -28,13 +35,37 @@
         <li>
           <a href="#">
             <span class="icon"><i class="fas fa-home"></i></span>
-            <span class="title">Dashboard</span>
+            <span class="title">Home</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="apriIngaggio()">
             <span class="icon"><i class="fas fa-users" aria-hidden="true"></i></span>
-            <span class="title">Clienti</span>
+            <span class="title">Gestione dipendenti</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" @click="apriIngaggio()">
+            <span class="icon"><i class="fas fa-calendar-check" aria-hidden="true"></i></span>
+            <span class="title">Gestione presenze</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" @click="apriIngaggio()">
+            <span class="icon"><i class="fas fa-user" aria-hidden="true"></i></span>
+            <span class="title">Ingaggio dipendenti</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" @click="apriIngaggio()">
+            <span class="icon"><i class="fas fa-dollar" aria-hidden="true"></i></span>
+            <span class="title">Gestione contabilita'</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" @click="apriIngaggio()">
+            <span class="icon"><i class="fas fa-warehouse" aria-hidden="true"></i></span>
+            <span class="title">Gestione magazzino</span>
           </a>
         </li>
         <li>
@@ -44,7 +75,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="logout()">
             <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
             <span class="title">Logout</span>
           </a>

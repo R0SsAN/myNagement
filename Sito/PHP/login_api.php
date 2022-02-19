@@ -1,5 +1,8 @@
 <?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
+    session_start();
+    if(isset($_SESSION["email"]))
+        header("Location: dashboard.html");
     if(isset($_POST["email"]) && isset($_POST["password"]))
     {
         $email=$_POST["email"];

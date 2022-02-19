@@ -115,6 +115,16 @@ button:hover{
 #registra{
     transition: transform .2s; 
     margin-top:65px;
+    
+}
+.registra-full{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.registra-semi{
+  margin:10px;
 }
 /*.entrata_uscita-enter-active 
 {

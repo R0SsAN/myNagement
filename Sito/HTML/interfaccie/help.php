@@ -20,16 +20,68 @@ if (isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['oggettoSe
             "<br>" . "Ha riscontrato il seguente problema: " . $_POST['testo_richiesta'] . "<br>" .
             "Recapito telefonico: " . $_POST['telefono'] . "<br>" . "Mail: " . $_POST['mail'];
         $mail->send();
-        echo '<p style="font-size:25px;">Segnalazione inviata con successo</p>';
+        echo '<div class="esito"><p style="font-size:50px; text-align:center;">Segnalazione inviata con successo</p></div>';
     } catch (Exception $e) {
-        echo '<p style="font-size:25px;">'."Errore nell'invio della segnalazione</p>";
+        echo '<div class="esito"><p style="font-size:50px;">'."Errore nell'invio della segnalazione</p></esito>";
     }
-} else {
+}
+else
+{
     echo '
-    
-    
+    <div class="tutto">
+        <div class="contatti">
+            <form action="" method="POST">
+                <div class="contatti-full">
+                    <div class="contatti-semi">
+                        <div class="input-container ic2">
+                            <input id="lastname" class="input" type="text" placeholder=" " name="nome" />
+                            <div class="cut"></div>
+                            <label for="lastname" class="placeholder">Nome</label>
+                        </div>
 
-';
+                        <div class="input-container ic2">
+                        <input id="lastname" class="input" type="text" placeholder=" " name="cognome"/>
+                        <div class="cut"></div>
+                        <label for="lastname" class="placeholder">Cognome</label>
+                        </div>
+
+                        <div class="input-container ic2">
+                        <input id="lastname" class="input" type="text" placeholder=" " name="societa" />
+                        <div class="cut"></div>
+                        <label for="lastname" class="placeholder">Società</label>
+                        </div>
+                    </div>
+                    <div class="contatti-semi">
+                        <div class="input-container ic2">
+                            <input id="lastname" class="input" type="text" placeholder=" " name="oggettoSegnalazione" />
+                            <div class="cut"></div>
+                            <label for="lastname" class="placeholder">Oggetto della segnalazione</label>
+                        </div>
+
+                        <div class="input-container ic2">
+                        <input id="lastname" class="input" type="text" placeholder=" " name="mail"/>
+                        <div class="cut"></div>
+                        <label for="lastname" class="placeholder">Mail</label>
+                        </div>
+
+                        <div class="input-container ic2">
+                        <input id="lastname" class="input" type="text" placeholder=" " name="telefono" />
+                        <div class="cut"></div>
+                        <label for="lastname" class="placeholder">Telefono</label>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br>
+                <div class="contatti-testo">
+                    <textarea name="testo_richiesta" id="testo_richiesta" placeholder="Inserisci testo..."></textarea>
+                </div>
+                <div class="divSubmit">
+                    <input type="submit" class="submit" value="Invia Messaggio"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    ';
 }
 ?>
 <!DOCTYPE html>
@@ -43,59 +95,12 @@ if (isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['oggettoSe
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap" rel="stylesheet">
-
+    <style>
+    </style>
 </head>
 <body>
-<div class="tutto">
-        <div class="contatti">
-            <div class="contatti-full">
-                <div class="contatti-semi">
-                    <div class="input-container ic2">
-                        <input id="lastname" class="input" type="text" placeholder=" " name="nome" />
-                        <div class="cut"></div>
-                        <label for="lastname" class="placeholder">Nome</label>
-                    </div>
+    
 
-                    <div class="input-container ic2">
-                    <input id="lastname" class="input" type="text" placeholder=" " name="cognome"/>
-                    <div class="cut"></div>
-                    <label for="lastname" class="placeholder">Cognome</label>
-                    </div>
-
-                    <div class="input-container ic2">
-                    <input id="lastname" class="input" type="text" placeholder=" " name="societa" />
-                    <div class="cut"></div>
-                    <label for="lastname" class="placeholder">Società</label>
-                    </div>
-                </div>
-                <div class="contatti-semi">
-                    <div class="input-container ic2">
-                        <input id="lastname" class="input" type="text" placeholder=" " name="oggettoSegnalazione" />
-                        <div class="cut"></div>
-                        <label for="lastname" class="placeholder">Oggetto della segnalazione</label>
-                    </div>
-
-                    <div class="input-container ic2">
-                    <input id="lastname" class="input" type="text" placeholder=" " name="mail"/>
-                    <div class="cut"></div>
-                    <label for="lastname" class="placeholder">Mail</label>
-                    </div>
-
-                    <div class="input-container ic2">
-                    <input id="lastname" class="input" type="text" placeholder=" " name="telefono" />
-                    <div class="cut"></div>
-                    <label for="lastname" class="placeholder">Telefono</label>
-                    </div>
-                </div>
-            </div>
-            <br><br><br><br><br><br><br>
-            <div class="contatti-testo">
-                <textarea name="testo_richiesta" id="testo_richiesta" placeholder="Inserisci testo..."></textarea>
-            </div>
-            <div class="divSubmit">
-                <button class="submit" onclick="inviaHelp()" > Invia Messaggio </button>
-            </div>
-        </div>
-    </div>
+    </form>
 </body>
 </html>

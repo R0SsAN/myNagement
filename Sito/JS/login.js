@@ -100,6 +100,8 @@ var app = new Vue({
                 this.checkLogin=false;
                 setTimeout(function() {app.vis2=true }, 500);
                 this.checkRegistra=true;
+                document.getElementById("login").style.width="700px";
+                document.getElementsByClassName("form")[0].style.width="700px";
             }
             else
             {

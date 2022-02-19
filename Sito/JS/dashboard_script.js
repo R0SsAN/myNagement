@@ -17,20 +17,16 @@ var app = new Vue({
             main.classList.toggle('active');
         },
         apriHelp() {
-            var httpr = new XMLHttpRequest();
-            httpr.open("POST", "interfaccie/help.php", true);
-            httpr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpr.onreadystatechange = function () {
-                if (httpr.readyState == 4 && httpr.status == 200) {
-                    document.getElementsByClassName("content")[0].innerHTML = httpr.responseText;
-                }
-            }
-            httpr.send();
-            setTimeout(function () {
-                app.$forceUpdate();
-            }, 500)
+            document.getElementById("iframe").src="interfaccie/help.php";
         },
-        inviaHelp() {
+        apriIngaggio(){
+            document.getElementById("iframe").src="interfaccie/ingaggio.php";
+        },
+        logout()
+        {
+            window.location.href="../PHP/logout.php";
+        },
+        /*inviaHelp() {
             if (document.getElementById("nome").value != "" && document.getElementById("cognome").value != "" && document.getElementById("telefono").value != "" && document.getElementById("mail").value != "" && document.getElementById("oggettoSegnalazione").value != "" && document.getElementById("societa").value != "" && document.getElementById("testo_richiesta").value != "") {
                 var httpr = new XMLHttpRequest();
                 httpr.open("POST", "interfaccie/help.php", true);
@@ -42,7 +38,7 @@ var app = new Vue({
                 }
                 httpr.send("nome=" + document.getElementById("nome").value + "&cognome=" + document.getElementById("cognome").value + "&telefono=" + document.getElementById("telefono").value + "&societa=" + document.getElementById("societa").value + "&mail=" + document.getElementById("mail").value + "&oggettoSegnalazione=" + document.getElementById("oggettoSegnalazione").value + "&testo_richiesta=" + document.getElementById("testo_richiesta").value);
             }
-        },
+        },*/
     }
 });
 function inviaHelp() {
