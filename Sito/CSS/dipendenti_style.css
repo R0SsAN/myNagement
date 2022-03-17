@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+	
 }
 
 .dipendenti {
@@ -9,7 +10,7 @@ body {
     height: 100%;
     background-color: lightgrey;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -23,6 +24,7 @@ body {
     justify-content: row;
     flex-wrap: wrap;
     margin: auto;
+	padding-bottom:50px;
 }
 
 @keyframes compari {
@@ -35,8 +37,12 @@ body {
 .form {
     display: block;
     box-sizing: border-box;
-    padding: 20px;
+	padding-bottom: 20px;
+	padding-left:20px;
+	padding-right:20px;
     width: 50%;
+	margin:auto;
+	
 }
 
 .subtitle {
