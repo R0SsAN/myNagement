@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Struttura della tabella `aziende`
 --
 
-CREATE TABLE `aziende` (
+CREATE TABLE `MyNagamet_aziende` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) NOT NULL,
   `RagioneSociale` varchar(20) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `aziende` (
 -- Struttura della tabella `contratti`
 --
 
-CREATE TABLE `contratti` (
+CREATE TABLE `MyNagamet_contratti` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Salario` int(11) NOT NULL,
   `Durata` tinyint(1) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `contratti` (
 -- Struttura della tabella `dipendenti`
 --
 
-CREATE TABLE `dipendenti` (
+CREATE TABLE `MyNagamet_dipendenti` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `CodiceFiscale` char(16) NOT NULL,
   `Nome` varchar(20) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `dipendenti` (
 -- Struttura della tabella `prodotti_acquistati`
 --
 
-CREATE TABLE `prodotti_acquistati` (
+CREATE TABLE `MyNagamet_prodotti_acquistati` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Seriale` varchar(50) NOT NULL,
   `Nome` varchar(50) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE `prodotti_acquistati` (
 -- Struttura della tabella `prodotti_da_vendere`
 --
 
-CREATE TABLE `prodotti_da_vendere` (
+CREATE TABLE `MyNagamet_prodotti_da_vendere` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Seriale` varchar(50) NOT NULL,
   `Nome` varchar(50) NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `prodotti_da_vendere` (
 -- Struttura della tabella `prodotti_venduti`
 --
 
-CREATE TABLE `prodotti_venduti` (
+CREATE TABLE `MyNagamet_prodotti_venduti` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Seriale` varchar(50) NOT NULL,
   `Nome` varchar(50) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `prodotti_venduti` (
 -- Struttura della tabella `titolari`
 --
 
-CREATE TABLE `titolari` (
+CREATE TABLE `MyNagamet_titolari` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(20) NOT NULL,
   `Cognome` varchar(20) NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE `titolari` (
 --
 -- Indici per le tabelle `aziende`
 --
-ALTER TABLE `aziende`
+ALTER TABLE `MyNagamet_aziende`
   ADD PRIMARY KEY (`Cod`),
   ADD UNIQUE KEY `Email` (`Email`),
   ADD UNIQUE KEY `Telefono` (`Telefono`),
@@ -148,14 +148,14 @@ ALTER TABLE `aziende`
 --
 -- Indici per le tabelle `contratti`
 --
-ALTER TABLE `contratti`
+ALTER TABLE `MyNagamet_contratti`
   ADD PRIMARY KEY (`Cod`),
   ADD KEY `Riguarda` (`CodDipendente`);
 
 --
 -- Indici per le tabelle `dipendenti`
 --
-ALTER TABLE `dipendenti`
+ALTER TABLE `MyNagamet_dipendenti`
   ADD PRIMARY KEY (`Cod`),
   ADD UNIQUE KEY `CodiceFiscale` (`CodiceFiscale`),
   ADD UNIQUE KEY `Telefono` (`Telefono`),
@@ -167,26 +167,26 @@ ALTER TABLE `dipendenti`
 --
 -- Indici per le tabelle `prodotti_acquistati`
 --
-ALTER TABLE `prodotti_acquistati`
+ALTER TABLE `MyNagamet_prodotti_acquistati`
   ADD PRIMARY KEY (`Cod`),
   ADD KEY `Acquista` (`CodAzienda`);
 
 --
 -- Indici per le tabelle `prodotti_da_vendere`
 --
-ALTER TABLE `prodotti_da_vendere`
+ALTER TABLE `MyNagamet_prodotti_da_vendere`
   ADD KEY `DeveVendere` (`CodAzienda`);
 
 --
 -- Indici per le tabelle `prodotti_venduti`
 --
-ALTER TABLE `prodotti_venduti`
+ALTER TABLE `MyNagamet_prodotti_venduti`
   ADD KEY `Vende` (`CodAzienda`);
 
 --
 -- Indici per le tabelle `titolari`
 --
-ALTER TABLE `titolari`
+ALTER TABLE `MyNagamet_titolari`
   ADD PRIMARY KEY (`Cod`),
   ADD UNIQUE KEY `Telefono` (`Telefono`),
   ADD UNIQUE KEY `Email` (`Email`),
@@ -199,31 +199,31 @@ ALTER TABLE `titolari`
 --
 -- AUTO_INCREMENT per la tabella `aziende`
 --
-ALTER TABLE `aziende`
+ALTER TABLE `MyNagamet_aziende`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `contratti`
 --
-ALTER TABLE `contratti`
+ALTER TABLE `MyNagamet_contratti`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `dipendenti`
 --
-ALTER TABLE `dipendenti`
+ALTER TABLE `MyNagamet_dipendenti`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotti_acquistati`
 --
-ALTER TABLE `prodotti_acquistati`
+ALTER TABLE `MyNagamet_prodotti_acquistati`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `titolari`
 --
-ALTER TABLE `titolari`
+ALTER TABLE `MyNagamet_titolari`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -233,38 +233,38 @@ ALTER TABLE `titolari`
 --
 -- Limiti per la tabella `contratti`
 --
-ALTER TABLE `contratti`
-  ADD CONSTRAINT `Riguarda` FOREIGN KEY (`CodDipendente`) REFERENCES `dipendenti` (`Cod`);
+ALTER TABLE `MyNagamet_contratti`
+  ADD CONSTRAINT `Riguarda` FOREIGN KEY (`CodDipendente`) REFERENCES `MyNagamet_dipendenti` (`Cod`);
 
 --
 -- Limiti per la tabella `dipendenti`
 --
-ALTER TABLE `dipendenti`
-  ADD CONSTRAINT `Lavora` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+ALTER TABLE `MyNagamet_dipendenti`
+  ADD CONSTRAINT `Lavora` FOREIGN KEY (`CodAzienda`) REFERENCES `MyNagamet_aziende` (`Cod`);
 
 --
 -- Limiti per la tabella `prodotti_acquistati`
 --
-ALTER TABLE `prodotti_acquistati`
-  ADD CONSTRAINT `Acquista` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+ALTER TABLE `MyNagamet_prodotti_acquistati`
+  ADD CONSTRAINT `Acquista` FOREIGN KEY (`CodAzienda`) REFERENCES `MyNagamet_aziende` (`Cod`);
 
 --
 -- Limiti per la tabella `prodotti_da_vendere`
 --
-ALTER TABLE `prodotti_da_vendere`
-  ADD CONSTRAINT `DeveVendere` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+ALTER TABLE `MyNagamet_prodotti_da_vendere`
+  ADD CONSTRAINT `DeveVendere` FOREIGN KEY (`CodAzienda`) REFERENCES `MyNagamet_aziende` (`Cod`);
 
 --
 -- Limiti per la tabella `prodotti_venduti`
 --
-ALTER TABLE `prodotti_venduti`
-  ADD CONSTRAINT `Vende` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+ALTER TABLE `MyNagamet_prodotti_venduti`
+  ADD CONSTRAINT `Vende` FOREIGN KEY (`CodAzienda`) REFERENCES `MyNagamet_aziende` (`Cod`);
 
 --
 -- Limiti per la tabella `titolari`
 --
-ALTER TABLE `titolari`
-  ADD CONSTRAINT `Gestisce` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+ALTER TABLE `MyNagamet_titolari`
+  ADD CONSTRAINT `Gestisce` FOREIGN KEY (`CodAzienda`) REFERENCES `MyNagamet_aziende` (`Cod`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
