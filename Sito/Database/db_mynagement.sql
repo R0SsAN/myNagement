@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 12, 2022 alle 10:19
--- Versione del server: 10.4.21-MariaDB
--- Versione PHP: 8.0.12
+-- Creato il: Mar 19, 2022 alle 11:42
+-- Versione del server: 10.4.6-MariaDB
+-- Versione PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,11 +31,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `aziende` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) NOT NULL,
-  `RagioneSociale` varchar(20) NOT NULL,
-  `Email` varchar(30) NOT NULL,
+  `RagioneSociale` varchar(50) NOT NULL,
+  `Email` varchar(40) NOT NULL,
   `Telefono` varchar(10) NOT NULL,
   `Indirizzo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dump dei dati per la tabella `aziende`
+--
+
+INSERT INTO `aziende` (`Cod`, `Nome`, `RagioneSociale`, `Email`, `Telefono`, `Indirizzo`) VALUES
+(1, 'Trafilspec', 'Trafilspec ITS S.p.A', ' info@trafilspec.it', ' 031.33561', 'Via Cà Bianca, 2'),
+(2, 'Telefonia e Sicurezza', 'Telefonia e Sicurezza S.r.l', 'commerciale@telefoniaesicurezz', '031.699991', 'Via Roma 109');
 
 -- --------------------------------------------------------
 
@@ -47,9 +56,16 @@ CREATE TABLE `contratti` (
   `Salario` int(11) NOT NULL,
   `Durata` tinyint(1) NOT NULL,
   `DataInizio` date NOT NULL,
-  `DataFine` date NOT NULL,
+  `DataFine` date DEFAULT NULL,
   `CodDipendente` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dump dei dati per la tabella `contratti`
+--
+
+INSERT INTO `contratti` (`Cod`, `Salario`, `Durata`, `DataInizio`, `DataFine`, `CodDipendente`) VALUES
+(1, 1850, 8, '2019-04-10', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -63,12 +79,20 @@ CREATE TABLE `dipendenti` (
   `Nome` varchar(20) NOT NULL,
   `Cognome` varchar(20) NOT NULL,
   `Telefono` varchar(10) NOT NULL,
-  `Email` varchar(20) NOT NULL,
+  `Email` varchar(200) NOT NULL,
   `DataNascita` date NOT NULL,
   `Indirizzo` varchar(50) NOT NULL,
   `TitoloStudio` varchar(20) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dump dei dati per la tabella `dipendenti`
+--
+
+INSERT INTO `dipendenti` (`Cod`, `CodiceFiscale`, `Nome`, `Cognome`, `Telefono`, `Email`, `DataNascita`, `Indirizzo`, `TitoloStudio`, `CodAzienda`) VALUES
+(1, 'BRMLSS80A06D416J', 'ALESSIO', 'BRAMBILLA', '031562291', 'alessiobrambilla@gma', '1980-01-06', 'via abbadia lariana 3', 'Diploma ', 2),
+(2, 'RSSSVT03P06D416F', 'SALVATORE', 'ROSSINI', '3290492948', 'rossinisalvatore@hotmail.com', '2003-09-06', 'via parma 28', 'Diploma ', 1);
 
 -- --------------------------------------------------------
 
@@ -131,6 +155,14 @@ CREATE TABLE `titolari` (
   `Email` varchar(20) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dump dei dati per la tabella `titolari`
+--
+
+INSERT INTO `titolari` (`Cod`, `Nome`, `Cognome`, `Telefono`, `Email`, `CodAzienda`) VALUES
+(1, 'Marco', 'Rossi', '3334789855', 'marcorossi@gmail.com', 2),
+(2, 'Davide', 'Gerosa', '6578665499', 'davidegerosa@gmail.c', 1);
 
 --
 -- Indici per le tabelle scaricate
@@ -200,19 +232,19 @@ ALTER TABLE `titolari`
 -- AUTO_INCREMENT per la tabella `aziende`
 --
 ALTER TABLE `aziende`
-  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `contratti`
 --
 ALTER TABLE `contratti`
-  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `dipendenti`
 --
 ALTER TABLE `dipendenti`
-  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotti_acquistati`
@@ -224,7 +256,7 @@ ALTER TABLE `prodotti_acquistati`
 -- AUTO_INCREMENT per la tabella `titolari`
 --
 ALTER TABLE `titolari`
-  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Limiti per le tabelle scaricate
