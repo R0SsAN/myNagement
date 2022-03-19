@@ -1,5 +1,19 @@
 <?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
+    if(isset($_POST["tipo"]))
+    {
+        if($_POST["tipo"]=="titolare")
+        {
+            //registrazione di un titolare
+        }
+        else if($_POST["tipo"]=="azienda")
+        {
+            //registrazione di un azienda
+            
+        }
+    }
+    else
+        
     if(isset($_POST["email"]) && isset($_POST["password"]))
     {
         $email=$_POST["email"];
