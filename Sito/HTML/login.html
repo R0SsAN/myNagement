@@ -10,6 +10,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/login_style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -50,19 +51,19 @@
                                 <div class="campo">
                                     <img src="../IMG/icona_mail.png" class="icon">
                                     <div class="testoCampo">
-                                        <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                                        <input type="text" id="tNome" class="testoCampo" placeholder="Nome">
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <img src="../IMG/icona_mail.png" class="icon">
                                     <div class="testoCampo">
-                                        <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
+                                        <input type="text" id="tCognome" class="testoCampo" placeholder="Cognome">
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <img src="../IMG/icona_mail.png" class="icon">
                                     <div class="testoCampo">
-                                        <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                                        <input type="number" id="tTelefono" class="testoCampo" placeholder="Telefono">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +71,7 @@
                                 <div class="campo">
                                     <img src="../IMG/icona_mail.png" class="icon">
                                     <div class="testoCampo">
-                                        <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                                        <input type="text" id="tEmail" class="testoCampo" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="campo">
@@ -82,7 +83,7 @@
                                 <div class="campo">
                                     <img src="../IMG/icona_mail.png" class="icon">
                                     <div class="testoCampo">
-                                        <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
+                                        <select name="azienda" id="tAzienda" class="testoCampo"></select>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +160,7 @@
     </div>
     <script src="../JS/login.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

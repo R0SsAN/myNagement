@@ -23,7 +23,7 @@
 
                 <?php
                 // Include config file
-                require_once "../../PHP/conncet_db.php";
+                require_once "../../PHP/connect_db.php";
                 // Attempt select query execution
                 $sql = "SELECT * FROM dipendenti";
                 if ($result = mysqli_query($link, $sql)) {

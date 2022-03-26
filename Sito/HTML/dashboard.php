@@ -39,13 +39,13 @@
           </a>
         </li>
         <li>
-          <a href="#" @click="apriIngaggio()">
+          <a href="#" @click="apriDipendenti()">
             <span class="icon"><i class="fas fa-users" aria-hidden="true"></i></span>
             <span class="title">Gestione dipendenti</span>
           </a>
         </li>
         <li>
-          <a href="#" @click="apriIngaggio()">
+          <a href="#" @click="apriPresenze()">
             <span class="icon"><i class="fas fa-calendar-check" aria-hidden="true"></i></span>
             <span class="title">Gestione presenze</span>
           </a>
@@ -57,13 +57,13 @@
           </a>
         </li>
         <li>
-          <a href="#" @click="apriIngaggio()">
+          <a href="#" @click="apriContabilita()">
             <span class="icon"><i class="fas fa-dollar" aria-hidden="true"></i></span>
             <span class="title">Gestione contabilita'</span>
           </a>
         </li>
         <li>
-          <a href="#" @click="apriIngaggio()">
+          <a href="#" @click="apriMagazzino()">
             <span class="icon"><i class="fas fa-warehouse" aria-hidden="true"></i></span>
             <span class="title">Gestione magazzino</span>
           </a>

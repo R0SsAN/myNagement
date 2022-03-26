@@ -50,7 +50,7 @@ var app = new Vue({
             //faccio i controlli e ritorno il risultato
 
             var check=true;
-            var mail=document.getElementById("tLogin").value;
+            var mail=document.getElementById("tEmail").value;
             if(mail.indexOf('@') > -1)
             {
                 check=false;
@@ -67,59 +67,19 @@ var app = new Vue({
             //controllo campi vuoti
             if(!(this.controlloValiditaEmail() || document.getElementById("tPassword").value==""))
             {
-                //effettuo controllo presenza database
-                //  se non è già presente regstro accountù
-                //  se è già presente genero errore
-                var httpr=new XMLHttpRequest();
-                httpr.open("POST","../PHP/register_api.php",true);
-                httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                httpr.onreadystatechange=function(){
-                    if(httpr.readyState==4 && httpr.status==200){
-                        if(httpr.responseText=="false")
-                        {
-                            //credenziali errate
-                            error="Email già registrata!";
-                            document.getElementById("pError2").innerHTML=error;
-                        }
-                        else
-                            app.switch2Register(0);
-                    }
-                }
-                httpr.send("email="+document.getElementById("tLogin").value +"&password="+document.getElementById("tPassword").value);
-
-
-            }
-            else
-                error="Campi inseriti non validi";
-            document.getElementById("pError2").innerHTML=error;
-        },
-        registraAzienda()
-        {
-            var error="⠀";
-            //controllo campi vuoti
-            if(!(this.controlloValiditaEmail()))
-            {
-                //effettuo controllo presenza database
-                //  se non è già presente regstro accountù
-                //  se è già presente genero errore
-                var httpr=new XMLHttpRequest();
-                httpr.open("POST","../PHP/register_api.php",true);
-                httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                httpr.onreadystatechange=function(){
-                    if(httpr.readyState==4 && httpr.status==200){
-                        if(httpr.responseText=="false")
-                        {
-                            //credenziali errate
-                            error="Email già registrata!";
-                            document.getElementById("pError2").innerHTML=error;
-                        }
-                        else
-                            app.switch2Register(0);
-                    }
-                }
-                httpr.send("email="+document.getElementById("tLogin").value +"&password="+document.getElementById("tPassword").value);
-
-
+                $.post( "../PHP/register_api.php",{
+                    tipo: "titolare",
+                    nome: document.getElementById("tNome").value,
+                    cognome: document.getElementById("tCognome").value,
+                    telefono: document.getElementById("tTelefono").value,
+                    email: document.getElementById("tEmail").value,
+                    password: document.getElementById("tPassword").value,
+                    azienda: document.getElementById("tAzienda").value,
+                }, function( data ) 
+                {
+                    console.log(data);
+                    app.switch2Register(0);
+                });
             }
             else
                 error="Campi inseriti non validi";
@@ -135,6 +95,7 @@ var app = new Vue({
                 this.checkRegistraUtente=true;
                 document.getElementById("login").style.width="700px";
                 document.getElementsByClassName("form")[0].style.width="700px";
+                this.caricaAziende();
             }
             else if(check == 0)
             {
@@ -156,6 +117,8 @@ var app = new Vue({
         },
         controlloCampi()
         {
+            if(this.g("aNome") && this.g("aEmail") && this.g("aRagione") && this.g("aIndirizzo"))
+                return true;
             return false;
         },
         registraAzienda()
@@ -164,32 +127,38 @@ var app = new Vue({
             if(this.controlloCampi())
             {
                 //se tutti i valori sono validi registro l'azienda
-                axios
-                .get("http://localhost:8080/Books/getByParam/{param}", {
-                    params: {
-                        nome: document.getElementById("aNome"),
-                        telefono: document.getElementById("aTelefono"),
-                        email: document.getElementById("aEmail"),
-                        ragione: document.getElementById("aRagione"),
-                        indirizzo: document.getElementById("aIndirizzo"),
-                    }   
-                })
-                .then(response => {
-                    //funzione da eseguire dopo (response contiene il valore restituito)
-                })
+                $.post( "../PHP/register_api.php",{
+                    tipo: "azienda",
+                    nome: document.getElementById("aNome").value,
+                    ragione: document.getElementById("aRagione").value,
+                    email: document.getElementById("aEmail").value,
+                    telefono: document.getElementById("aTelefono").value,
+                    indirizzo: document.getElementById("aIndirizzo").value,
+                }, function( data ) 
+                {
+                    console.log(data);
+                    app.switch2Register(0);
+                });
             }
             else
-                error="Informazioni non valide";
+                error="Informazioni mancanti";
 
             document.getElementById("pError3").innerHTML=error;
+        },
+        caricaAziende()
+        {
+            $.post( "../PHP/register_api.php",{
+                tipo: "check",
+            }, function( data ) 
+            {
+                document.getElementById("tAzienda").innerHTML=data;
+            });
+        },
+        g(nome)
+        {
+            if(document.getElementById(nome).value!="")
+                return true;
+            return false;
         }
-
     }
 });
-
-function initialize() {
-    var input = document.getElementById('searchTextField');
-    new google.maps.places.Autocomplete(input);
-  }
-  
-  google.maps.event.addDomListener(window, 'load', initialize);

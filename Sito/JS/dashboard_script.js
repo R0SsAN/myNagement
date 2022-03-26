@@ -22,6 +22,18 @@ var app = new Vue({
         apriIngaggio(){
             document.getElementById("iframe").src="interfaccie/ingaggio.php";
         },
+        apriDipendenti(){
+            document.getElementById("iframe").src="interfaccie/gestione_dipendenti.php";
+        },
+        apriPresenze(){
+            document.getElementById("iframe").src="interfaccie/gestione_presenze.php";
+        },
+        apriContabilita(){
+            document.getElementById("iframe").src="interfaccie/gestione_contabilita.php";
+        },
+        apriMagazzino(){
+            document.getElementById("iframe").src="interfaccie/gestione_magazzino.php";
+        },
         logout()
         {
             window.location.href="../PHP/logout.php";
