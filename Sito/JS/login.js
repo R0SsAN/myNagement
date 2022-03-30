@@ -16,28 +16,17 @@ var app = new Vue({
             if(!(this.controlloValiditaEmail() || document.getElementById("tPassword").value==""))
             {
                 //controllo login da database e eventuali errori
-                var httpr=new XMLHttpRequest();
-                httpr.open("POST","../PHP/login_api.php",true);
-                httpr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                httpr.onreadystatechange=function(){
-                    if(httpr.readyState==4 && httpr.status==200){
-                        if(httpr.responseText=="true")
-                        {
-                            //loggato
-                            console.log("entrato");
-                            window.location.href="dashboard.html";
-                        }
-                        else if(httpr.responseText=="false")
-                        {
-                            //credenziali errate
-                            console.log("credenziali sbagliate")
-                            error="Credenziali non valide!";
-                            document.getElementById("pError").innerHTML=error;
-                        }
-                    }
-                }
-                httpr.send("email="+document.getElementById("tLogin").value +"&password="+document.getElementById("tPassword").value);
-
+                $.post( "../PHP/register_api.php",{
+                    tipo: "login",
+                    nome: document.getElementById("tLogin").value,
+                    cognome: document.getElementById("tPassword").value,
+                }, function( data ) 
+                {
+                    if(data=="true")
+                        window.location.href = "dashboard.php";
+                    else
+                        error="Credenziali non valide";
+                });
             }
             else
                 error="Campi inseriti non validi";
@@ -50,7 +39,7 @@ var app = new Vue({
             //faccio i controlli e ritorno il risultato
 
             var check=true;
-            var mail=document.getElementById("tEmail").value;
+            var mail=document.getElementById("t").value;
             if(mail.indexOf('@') > -1)
             {
                 check=false;
@@ -101,6 +90,7 @@ var app = new Vue({
             {
                 //visualizzo form login
                 this.checkRegistraUtente=false;
+                this.checkRegistraAzienda=false;
                 setTimeout(function() {app.vis2=true }, 500);
                 this.checkLogin=true;
             }
