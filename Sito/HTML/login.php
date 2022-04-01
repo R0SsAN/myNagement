@@ -30,7 +30,7 @@
                         <div class="campo">
                             <img src="../IMG/icona_mail.png" class="icon">
                             <div class="testoCampo">
-                                <input type="text" id="tLogin" class="testoCampo" placeholder="Email">
+                                <input type="text" id="tEmail" class="testoCampo" placeholder="Email">
                             </div>
                         </div>
                         <div class="campo">

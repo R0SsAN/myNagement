@@ -18,8 +18,8 @@ var app = new Vue({
                 //controllo login da database e eventuali errori
                 $.post( "../PHP/register_api.php",{
                     tipo: "login",
-                    nome: document.getElementById("tLogin").value,
-                    cognome: document.getElementById("tPassword").value,
+                    email: document.getElementById("tEmail").value,
+                    password: document.getElementById("tPassword").value,
                 }, function( data ) 
                 {
                     if(data=="true")
@@ -39,7 +39,7 @@ var app = new Vue({
             //faccio i controlli e ritorno il risultato
 
             var check=true;
-            var mail=document.getElementById("t").value;
+            var mail=document.getElementById("tEmail").value;
             if(mail.indexOf('@') > -1)
             {
                 check=false;

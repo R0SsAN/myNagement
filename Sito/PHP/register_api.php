@@ -56,16 +56,19 @@
         }
         else if($_POST["tipo"]=="login")
         {
+            
             //login di un titolare
             if(isset($_POST["email"]) && isset($_POST["password"]))
             {
-                $query="SELECT Cod FROM titolari WHERE titolari.Email= '".$_POST["email"]."' AND titolari.Password='".$_POST["password"]."'";
+                
+                $query="SELECT Cod FROM titolari WHERE titolari.Email= '".$_POST["email"]."' AND titolari.Password='".md5($_POST["password"])."'";
                 if($result=$link->query($query))
                 {
+                    
                     if(mysqli_num_rows($result)>0)
                     {
                         $row=mysqli_fetch_array($result);
-                        $_SESSION["userId"]=$row["cod"];
+                        $_SESSION["userId"]=$row["Cod"];
                         $_SESSION["userEmail"]=$_POST["email"];
                         die("true");
                     }
@@ -76,4 +79,9 @@
     }
     else
         die("Errore");
+
+    function ciao($mess)
+    {
+        echo '<script>console.log("'.$mess.'")</script>';
+    }
 ?>
