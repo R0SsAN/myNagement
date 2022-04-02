@@ -1,4 +1,10 @@
 <?php
+    session_start();
+    if(!isset($_SESSION["userId"]))
+        header("Location: login.php");
+
+
+/*
 if (isset($_POST['firstname'])&& isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['cf']) && isset($_POST['indirizzo']) && isset($_POST['tel']) && isset($_POST['contratto']) && isset($_POST['mansione']) && isset($_POST['orario'])) {
     Errore("");
     unset($_COOKIE['temp']);
@@ -12,7 +18,7 @@ if (isset($_POST['firstname'])&& isset($_POST['lastname']) && isset($_POST['emai
 }
 function Errore($msg)
 {
-    /*echo ' <div class="dipendenti">
+    echo ' <div class="dipendenti">
     <form action="" method="POST">
         <div class="insert">
             <div class="form">
@@ -94,8 +100,8 @@ function Errore($msg)
         </div>
     </form>
 </div>
-    ';*/
-}
+    ';
+}*/
 ?>
 
 
@@ -206,6 +212,7 @@ function Errore($msg)
             </div>
         </div>
     </div>
+    
 
     <script type="application/javascript" src="../../JS/ingaggio_script.js"></script>
 </body>

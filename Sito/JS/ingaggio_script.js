@@ -48,9 +48,12 @@ var app = new Vue({
                 {
                     console.log(data);
                     if(data=="true")
-                        window.location.href = "dashboard.php";
+                    {
+                        document.getElementById("errore").innerHTML="Dipendente aggiunto correttamente";
+                        app.svuotaTutto();
+                    }
                     else
-                        error="Credenziali non valide";
+                        error="Errore aggiunta dipendente";
                 });
             }
             else
@@ -68,7 +71,18 @@ var app = new Vue({
                     return true;
             }
             return false;
-        }
+        },
+        svuotaTutto()
+        {
+            var elements = document.getElementsByTagName("input");
+            for (var ii=0; ii < elements.length; ii++) {
+              if (elements[ii].type == "text") {
+                elements[ii].value = "";
+              }
+            }
+            document.getElementById('inizio').value = new Date().toDateInputValue();
+            document.getElementById('nascita').value = new Date().toDateInputValue();
+        },
     }
 });
 

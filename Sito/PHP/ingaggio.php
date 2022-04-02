@@ -27,9 +27,12 @@
                         $cod=mysqli_fetch_array($result)["Cod"];
 
                         //ora creo il contratto per il dipendente
-                        $query="INSERT INTO contratti(Salario, Durata, DataInizio, DataFine, CodDipendente) 
+                        if($_POST["dataFine"]=="")
+                            $query="INSERT INTO contratti(Salario, Durata, DataInizio, DataFine, CodDipendente) 
+                                VALUES ('".$_POST["salario"]."', '".$_POST["orario"]."', '".$_POST["dataInizio"]."', NULL, '".$cod."')";
+                        else
+                            $query="INSERT INTO contratti(Salario, Durata, DataInizio, DataFine, CodDipendente) 
                                 VALUES ('".$_POST["salario"]."', '".$_POST["orario"]."', '".$_POST["dataInizio"]."', '".$_POST["dataFine"]."', '".$cod."')";
-                        die($query);
                         if($result=$link->query($query))
                         {
                             die("true");
@@ -38,7 +41,7 @@
                     }
                     die("Errore query select cod dipendente");
                 }
-                die("Errore query creazione dipendente");
+                die(mysqli_error($link));
             }
             die("Parametri non passati");
         }
