@@ -153,6 +153,11 @@ function Errore($msg)
                         <div class="cut"></div>
                         <label for="tel" class="placeholder">Numero di telefono</label>
                     </div>
+                    <div class="input-container ic2">
+                        <div class="cut"></div>
+                        <label for="tel" class="placeholder">Data di nascita</label>
+                    </div>
+                    <input id="nascita" style="margin-left:20px"type="date" name="nascita" />
                 </div>
                 <div class="form">
                     <div class="input-container ic2">
@@ -181,8 +186,8 @@ function Errore($msg)
                         <div class="cut cut-short"></div>
                         <label for="ora" class="placeholder">Orario</label>
                         <br><br><br>
-                        <input type="radio" name="orario" value="5" checked="checked"> 5H
-                        <input type="radio" name="orario" value="8"> 8H
+                        <input type="radio" id="5h"name="orario" value="5" checked="checked"> 5H
+                        <input type="radio" id="8h" name="orario" value="8"> 8H
                     </div>
                     <br><br>
                     <div class="input-container ic2">

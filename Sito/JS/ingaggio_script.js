@@ -2,6 +2,7 @@ var app = new Vue({
     el: '#vue-container',
     data: {
         type: 0,
+        orario: 5,
     },
     mounted(){
         console.log("Vue funziona");
@@ -19,11 +20,17 @@ var app = new Vue({
         },
         creaDipendente()
         {
+            //controllo orario
+            if(document.getElementById("5h").checked)
+                this.orario=5;
+            else
+                this.orario=8;
+            console.log(this.orario);
             if(this.controllaCampi())
             {
-                $.post( "../PHP/register_api.php",{
+                $.post( "../../PHP/ingaggio.php",{
                     tipo: "ingaggio",
-                    nome: document.getElementById("firstname"),
+                    nome: document.getElementById("firstname").value,
                     cognome: document.getElementById("lastname").value,
                     email: document.getElementById("email").value,
                     cf: document.getElementById("cf").value,
@@ -33,11 +40,13 @@ var app = new Vue({
                     tipoContratto: this.type,
                     dataInizio: document.getElementById("inizio").value,
                     dataFine: document.getElementById("fine").value,
-                    orario:document.getElementsByName("orario").value,
+                    orario:this.orario,
                     salario:document.getElementById("salario").value,
+                    nascita:document.getElementById("nascita").value,
 
                 }, function( data ) 
                 {
+                    console.log(data);
                     if(data=="true")
                         window.location.href = "dashboard.php";
                     else
@@ -62,4 +71,12 @@ var app = new Vue({
         }
     }
 });
+
+
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
 document.getElementById('inizio').value = new Date().toDateInputValue();
+document.getElementById('nascita').value = new Date().toDateInputValue();

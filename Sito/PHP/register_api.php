@@ -68,8 +68,16 @@
                     if(mysqli_num_rows($result)>0)
                     {
                         $row=mysqli_fetch_array($result);
-                        $_SESSION["userId"]=$row["Cod"];
                         $_SESSION["userEmail"]=$_POST["email"];
+                        $_SESSION["userId"]=$row["Cod"];
+                        //ricavo id azienda
+                        $query="SELECT aziende.Cod FROM aziende INNER JOIN titolari ON titolari.CodAzienda=aziende.Cod WHERE titolari.Cod='".$row["Cod"]."'";
+                        if($result=$link->query($query))
+                        {
+                            $row=mysqli_fetch_array($result);
+                            $_SESSION["aziendaId"]=$row["Cod"];
+                        }
+                        
                         die("true");
                     }
                 }
