@@ -26,6 +26,8 @@ var app = new Vue({
             else
                 this.orario=8;
             console.log(this.orario);
+            $temp=document.getElementById("indirizzo").value.replace("'", " ");
+                console.log($temp);
             if(this.controllaCampi())
             {
                 $.post( "../../PHP/ingaggio.php",{
@@ -34,7 +36,7 @@ var app = new Vue({
                     cognome: document.getElementById("lastname").value,
                     email: document.getElementById("email").value,
                     cf: document.getElementById("cf").value,
-                    indirizzo: document.getElementById("indirizzo").value,
+                    indirizzo: $temp,
                     telefono: document.getElementById("tel").value,
                     mansione: document.getElementById("mansione").value,
                     tipoContratto: this.type,
@@ -63,6 +65,7 @@ var app = new Vue({
         {
             if($("#firstname").val()!="" &&  $("#lastname").val()!="" && $("#email").val()!="" && $("#cf").val()!="" && $("#indirizzo").val()!="" && $("#tel").val()!="" && $("#mansione").val()!="" && document.getElementsByName("orario").value!="")
             {
+                document.getElementById("indirizzo").value.replace("'", " ");
                 //se è indeterminato
                 if(this.type==0)
                     return true;

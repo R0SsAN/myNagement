@@ -17,6 +17,7 @@
                 $query="INSERT INTO dipendenti(CodiceFiscale, Nome, Cognome, Telefono, Email, DataNascita, Indirizzo, Mansione, CodAzienda) 
                         VALUES ('".$_POST["cf"]."','".$_POST["nome"]."','".$_POST["cognome"]."','".$_POST["telefono"]."','".$_POST["email"].
                         "','".$_POST["nascita"]."','".$_POST["indirizzo"]."','".$_POST["mansione"]."','".$_SESSION["aziendaId"]."')";
+                //die($query);
                 if($result = $link->query($query))
                 {
                     
