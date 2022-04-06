@@ -12,15 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/b1ee2cf5f1.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="content">
-
-        <a href="#">
-            <span class="icon"><i class="fas fa-arrow"></i></span>
-            <span class="title">Home</span>
-        </a>
+    <div id="vue-container">
+        <div class="date">
+            <i class="fa-solid fa-angles-left fa-xl" @click="aggiornadata(-1,0)" style="cursor: pointer;"></i>
+            <i class="fa-solid fa-angle-left fa-xl" @click="aggiornadata(0,-1)" style="cursor: pointer;"></i>
+            <label id="current_date"></label>
+            <i class="fa-solid fa-angle-right fa-xl" @click="aggiornadata(0,1)" style="cursor: pointer;"></i>
+            <i class="fa-solid fa-angles-right fa-xl" @click="aggiornadata(1,0)" style="cursor: pointer;"></i>
+        </div>
         <table>
             <tr>
                 <th>nome</th>
@@ -41,7 +44,7 @@
                 <td>1368</td>
                 <td>18 Nov 1962</td>
                 <td>5000$</td>
-                <td>1</td>
+                <td>Terrone</td>
                 <td>Jean</td>
                 <td>leBon</td>
                 <td><button class="buttonanagrafica">grafico</button></td>
@@ -50,8 +53,7 @@
 
         </table>
     </div>
-
-    <script src="https://kit.fontawesome.com/f69c57d50d.js" crossorigin="anonymous"></script>
+    <script src="../../JS/gestione-dipendenti_script.js"></script>
 </body>
 
 </html>

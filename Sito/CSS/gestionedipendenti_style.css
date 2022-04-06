@@ -51,7 +51,7 @@ table td {
     opacity: .7;*/
 }
 
-.content {
+#vue-container {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -121,4 +121,9 @@ tr:nth-child(even) {
     display: block;
     text-align: center;
     margin: 2px;
+}
+.date{
+    display: block;
+    text-align: center;
+    margin: 12px;    
 }

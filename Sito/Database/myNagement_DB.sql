@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 02, 2022 alle 11:54
--- Versione del server: 10.4.6-MariaDB
--- Versione PHP: 7.3.8
+-- Creato il: Apr 05, 2022 alle 16:55
+-- Versione del server: 10.4.22-MariaDB
+-- Versione PHP: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `assenze` (
   `Cod` int(11) NOT NULL,
-  `CodAzienda` int(10) UNSIGNED NOT NULL,
   `CodDipendente` int(10) UNSIGNED NOT NULL,
   `DataInizio` date NOT NULL,
   `DataFine` date NOT NULL,
@@ -45,11 +43,11 @@ CREATE TABLE `assenze` (
 
 CREATE TABLE `aziende` (
   `Cod` int(10) UNSIGNED NOT NULL,
-  `Nome` varchar(50) NOT NULL,
-  `RagioneSociale` varchar(50) NOT NULL,
-  `Email` varchar(40) NOT NULL,
+  `Nome` varchar(200) NOT NULL,
+  `RagioneSociale` varchar(200) NOT NULL,
+  `Email` varchar(200) NOT NULL,
   `Telefono` varchar(10) NOT NULL,
-  `Indirizzo` varchar(100) NOT NULL
+  `Indirizzo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
@@ -76,7 +74,7 @@ INSERT INTO `aziende` (`Cod`, `Nome`, `RagioneSociale`, `Email`, `Telefono`, `In
 CREATE TABLE `contratti` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Salario` int(11) NOT NULL,
-  `Durata` tinyint(1) NOT NULL,
+  `OreLavorative` tinyint(1) NOT NULL,
   `DataInizio` date NOT NULL,
   `DataFine` date DEFAULT NULL,
   `CodDipendente` int(10) UNSIGNED NOT NULL
@@ -86,7 +84,7 @@ CREATE TABLE `contratti` (
 -- Dump dei dati per la tabella `contratti`
 --
 
-INSERT INTO `contratti` (`Cod`, `Salario`, `Durata`, `DataInizio`, `DataFine`, `CodDipendente`) VALUES
+INSERT INTO `contratti` (`Cod`, `Salario`, `OreLavorative`, `DataInizio`, `DataFine`, `CodDipendente`) VALUES
 (1, 1850, 8, '2019-04-10', '0000-00-00', 1),
 (2, 5000, 1, '2022-03-23', '2022-08-19', 5),
 (3, 2000, 1, '2022-03-04', '2022-11-10', 2),
@@ -102,13 +100,13 @@ INSERT INTO `contratti` (`Cod`, `Salario`, `Durata`, `DataInizio`, `DataFine`, `
 CREATE TABLE `dipendenti` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `CodiceFiscale` char(16) NOT NULL,
-  `Nome` varchar(20) NOT NULL,
-  `Cognome` varchar(20) NOT NULL,
+  `Nome` varchar(200) NOT NULL,
+  `Cognome` varchar(200) NOT NULL,
   `Telefono` varchar(10) NOT NULL,
   `Email` varchar(200) NOT NULL,
   `DataNascita` date NOT NULL,
-  `Indirizzo` varchar(50) NOT NULL,
-  `Mansione` varchar(20) NOT NULL,
+  `Indirizzo` varchar(500) NOT NULL,
+  `Mansione` varchar(200) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
@@ -126,12 +124,26 @@ INSERT INTO `dipendenti` (`Cod`, `CodiceFiscale`, `Nome`, `Cognome`, `Telefono`,
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `movimento`
+--
+
+CREATE TABLE `movimento` (
+  `Cod` int(10) UNSIGNED NOT NULL,
+  `Tipo` tinyint(1) NOT NULL,
+  `Valore` float NOT NULL,
+  `Data` date NOT NULL,
+  `Descrizione` varchar(200) NOT NULL,
+  `CodAzienda` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `presenza`
 --
 
 CREATE TABLE `presenza` (
   `Cod` int(11) NOT NULL,
-  `CodAzienda` int(10) UNSIGNED NOT NULL,
   `CodDipendente` int(10) UNSIGNED NOT NULL,
   `presente` tinyint(1) NOT NULL DEFAULT 0,
   `giorno` date NOT NULL
@@ -146,10 +158,10 @@ CREATE TABLE `presenza` (
 CREATE TABLE `prodotti_acquistati` (
   `Cod` int(10) UNSIGNED NOT NULL,
   `Seriale` varchar(50) NOT NULL,
-  `Nome` varchar(50) NOT NULL,
+  `Nome` varchar(200) NOT NULL,
   `Prezzo` float NOT NULL,
   `Quantita` int(11) NOT NULL,
-  `Produttore` varchar(50) NOT NULL,
+  `Produttore` varchar(200) NOT NULL,
   `DataAcquisto` date NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
@@ -173,8 +185,8 @@ INSERT INTO `prodotti_acquistati` (`Cod`, `Seriale`, `Nome`, `Prezzo`, `Quantita
 
 CREATE TABLE `prodotti_da_vendere` (
   `Cod` int(10) UNSIGNED NOT NULL,
-  `Seriale` varchar(50) NOT NULL,
-  `Nome` varchar(50) NOT NULL,
+  `Seriale` varchar(200) NOT NULL,
+  `Nome` varchar(200) NOT NULL,
   `Prezzo` float NOT NULL,
   `Quantita` int(11) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
@@ -204,6 +216,7 @@ CREATE TABLE `prodotti_venduti` (
   `Prezzo` float NOT NULL,
   `Quantita` int(11) NOT NULL,
   `DataVendita` date NOT NULL,
+  `Acquirente` varchar(200) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
@@ -211,12 +224,12 @@ CREATE TABLE `prodotti_venduti` (
 -- Dump dei dati per la tabella `prodotti_venduti`
 --
 
-INSERT INTO `prodotti_venduti` (`Cod`, `Seriale`, `Nome`, `Prezzo`, `Quantita`, `DataVendita`, `CodAzienda`) VALUES
-(1, 'HDJ47482387', 'Firewall', 200, 5, '2022-01-01', 2),
-(2, 'DDJH348723', 'Router', 100, 2, '2022-01-15', 2),
-(3, 'HDJ34', 'Pizza surgelata', 3, 1, '2022-01-22', 7),
-(4, 'HFJ34743', 'Casa', 150000, 1, '2022-02-14', 4),
-(5, 'HDJ34', 'Kebab', 3.5, 1, '0000-00-00', 7);
+INSERT INTO `prodotti_venduti` (`Cod`, `Seriale`, `Nome`, `Prezzo`, `Quantita`, `DataVendita`, `Acquirente`, `CodAzienda`) VALUES
+(1, 'HDJ47482387', 'Firewall', 200, 5, '2022-01-01', '', 2),
+(2, 'DDJH348723', 'Router', 100, 2, '2022-01-15', '', 2),
+(3, 'HDJ34', 'Pizza surgelata', 3, 1, '2022-01-22', '', 7),
+(4, 'HFJ34743', 'Casa', 150000, 1, '2022-02-14', '', 4),
+(5, 'HDJ34', 'Kebab', 3.5, 1, '0000-00-00', '', 7);
 
 -- --------------------------------------------------------
 
@@ -226,10 +239,10 @@ INSERT INTO `prodotti_venduti` (`Cod`, `Seriale`, `Nome`, `Prezzo`, `Quantita`, 
 
 CREATE TABLE `titolari` (
   `Cod` int(10) UNSIGNED NOT NULL,
-  `Nome` varchar(20) NOT NULL,
-  `Cognome` varchar(20) NOT NULL,
+  `Nome` varchar(200) NOT NULL,
+  `Cognome` varchar(200) NOT NULL,
   `Telefono` varchar(10) NOT NULL,
-  `Email` varchar(20) NOT NULL,
+  `Email` varchar(200) NOT NULL,
   `Password` char(32) NOT NULL,
   `CodAzienda` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
@@ -258,8 +271,9 @@ INSERT INTO `titolari` (`Cod`, `Nome`, `Cognome`, `Telefono`, `Email`, `Password
 --
 ALTER TABLE `assenze`
   ADD PRIMARY KEY (`Cod`),
-  ADD UNIQUE KEY `CodAzienda` (`CodAzienda`),
-  ADD UNIQUE KEY `CodDipendente` (`CodDipendente`);
+  ADD UNIQUE KEY `CodDipendente` (`CodDipendente`),
+  ADD UNIQUE KEY `CodDipendente_2` (`CodDipendente`,`DataInizio`),
+  ADD UNIQUE KEY `CodDipendente_3` (`CodDipendente`,`DataInizio`,`DataFine`);
 
 --
 -- Indici per le tabelle `aziende`
@@ -268,13 +282,16 @@ ALTER TABLE `aziende`
   ADD PRIMARY KEY (`Cod`),
   ADD UNIQUE KEY `Email` (`Email`),
   ADD UNIQUE KEY `Telefono` (`Telefono`),
-  ADD UNIQUE KEY `Indirizzo` (`Indirizzo`);
+  ADD UNIQUE KEY `Indirizzo` (`Indirizzo`),
+  ADD UNIQUE KEY `Nome` (`Nome`,`Email`),
+  ADD UNIQUE KEY `Nome_2` (`Nome`,`Email`,`Telefono`,`Indirizzo`);
 
 --
 -- Indici per le tabelle `contratti`
 --
 ALTER TABLE `contratti`
   ADD PRIMARY KEY (`Cod`),
+  ADD UNIQUE KEY `Salario` (`Salario`,`CodDipendente`),
   ADD KEY `Riguarda` (`CodDipendente`);
 
 --
@@ -283,18 +300,24 @@ ALTER TABLE `contratti`
 ALTER TABLE `dipendenti`
   ADD PRIMARY KEY (`Cod`),
   ADD UNIQUE KEY `CodiceFiscale` (`CodiceFiscale`),
-  ADD UNIQUE KEY `Telefono` (`Telefono`),
   ADD UNIQUE KEY `Email` (`Email`),
-  ADD UNIQUE KEY `Indirizzo` (`Indirizzo`),
-  ADD UNIQUE KEY `CodiceFiscale_2` (`CodiceFiscale`,`Nome`,`Cognome`),
-  ADD KEY `Lavora` (`CodAzienda`);
+  ADD UNIQUE KEY `Telefono` (`Telefono`),
+  ADD UNIQUE KEY `CodiceFiscale_2` (`CodiceFiscale`,`Indirizzo`);
+
+--
+-- Indici per le tabelle `movimento`
+--
+ALTER TABLE `movimento`
+  ADD PRIMARY KEY (`Cod`),
+  ADD UNIQUE KEY `CodAzienda` (`CodAzienda`),
+  ADD UNIQUE KEY `Valore` (`Valore`,`Data`,`CodAzienda`);
 
 --
 -- Indici per le tabelle `presenza`
 --
 ALTER TABLE `presenza`
   ADD PRIMARY KEY (`Cod`),
-  ADD UNIQUE KEY `CodAzienda` (`CodAzienda`,`CodDipendente`),
+  ADD UNIQUE KEY `CodDipendente` (`CodDipendente`,`giorno`),
   ADD KEY `Dipendente` (`CodDipendente`);
 
 --
@@ -356,6 +379,12 @@ ALTER TABLE `dipendenti`
   MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT per la tabella `movimento`
+--
+ALTER TABLE `movimento`
+  MODIFY `Cod` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `presenza`
 --
 ALTER TABLE `presenza`
@@ -393,7 +422,6 @@ ALTER TABLE `titolari`
 -- Limiti per la tabella `assenze`
 --
 ALTER TABLE `assenze`
-  ADD CONSTRAINT `assenze_ibfk_1` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`),
   ADD CONSTRAINT `assenze_ibfk_2` FOREIGN KEY (`CodDipendente`) REFERENCES `dipendenti` (`Cod`);
 
 --
@@ -409,10 +437,15 @@ ALTER TABLE `dipendenti`
   ADD CONSTRAINT `Lavora` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
 
 --
+-- Limiti per la tabella `movimento`
+--
+ALTER TABLE `movimento`
+  ADD CONSTRAINT `Vincolo_Azienda` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`);
+
+--
 -- Limiti per la tabella `presenza`
 --
 ALTER TABLE `presenza`
-  ADD CONSTRAINT `Azienda` FOREIGN KEY (`CodAzienda`) REFERENCES `aziende` (`Cod`),
   ADD CONSTRAINT `Dipendente` FOREIGN KEY (`CodDipendente`) REFERENCES `dipendenti` (`Cod`);
 
 --
