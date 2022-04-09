@@ -30,13 +30,13 @@
                         <div class="campo">
                             <img src="../IMG/icona_mail.png" class="icon">
                             <div class="testoCampo">
-                                <input type="text" id="tEmail" class="testoCampo" placeholder="Email">
+                                <input type="text" id="tEmail" class="testoCampo" placeholder="Email" v-on:keyup.enter="onEnter">
                             </div>
                         </div>
                         <div class="campo">
                             <img src="../IMG/icona_mail.png" class="icon">
                             <div class="testoCampo">
-                                <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
+                                <input type="password" id="tPassword" class="testoCampo" placeholder="Password" v-on:keyup.enter="onEnter">
                             </div>
                         </div>
                         <button type="button" class="bConferma" @click="controlloLogin()">

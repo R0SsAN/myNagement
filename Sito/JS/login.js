@@ -135,6 +135,10 @@ var app = new Vue({
 
             document.getElementById("pError3").innerHTML=error;
         },
+        onEnter: function() {
+            if(this.checkLogin)
+                this.controlloLogin();
+        },
         caricaAziende()
         {
             $.post( "../PHP/register_api.php",{

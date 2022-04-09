@@ -76,9 +76,10 @@
                         {
                             $row=mysqli_fetch_array($result);
                             $_SESSION["aziendaId"]=$row["Cod"];
+                            die("true");
                         }
+                        die("false");
                         
-                        die("true");
                     }
                 }
             }

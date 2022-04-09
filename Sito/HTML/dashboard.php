@@ -25,7 +25,7 @@
       <ul>
         <li>
           <a href="#">
-            <span class="icon"></span>
+            <span id="logo" style="margin-top:10px;margin-left:6px;margin-right:7px;"><img width="40"></span>
             <span class="title">
               <h2>MyNagement</h2>
             </span>
@@ -73,6 +73,10 @@
             <span class="title">Help</span>
           </a>
         </li>
+      </ul>
+    </div>
+    <div class="navigation2">
+      <ul>
         <li>
           <a href="#" @click="logout()">
             <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
