@@ -14,11 +14,9 @@
     }
     else if(isset($_GET["type"]) && isset($_GET["anno"]) && isset($_GET["mese"]))
     {
-        //visualizzazione somma entrate
-        if($_GET["type"]=="somma-entrate-totale")
+        //visualizzazione somma delle entrate generate con i movimenti generici
+        if($_GET["type"]=="entrate-movimenti")
         {
-
-            $somma=0;
             $query="
                 SELECT SUM(movimento.Valore) as somma
                 FROM movimento
@@ -29,26 +27,37 @@
             ";
             if($result=$link->query($query))
             {
-                $row=mysqli_fetch_array($result);
-                $query="
-                    SELECT SUM(movimento.Valore) as somma
-                    FROM movimento
-                    INNER JOIN aziende ON aziende.Cod=movimento.CodAzienda
-                    WHERE aziende.Cod=".$_SESSION["aziendaId"]."
-                    AND movimento.Tipo=0
-                    AND month(movimento.Data)=".$_GET["mese"]." AND year(movimento.Data)=".$_GET["anno"]."
-                ";
-                if($result=$link->query($query))
-                {
-                    $row=mysqli_fetch_array($result);
-                    
-
-                    die($row["somma"]);
-                }
+                die(mysqli_fetch_array($result)["somma"]);
             }
-            die("false");
+            die("Errore");
         }
-        else if($_GET["type"]=="somma-uscite-totale")
+        //visualizzazione somma delle entrate generate con la vendita dei prodotti
+        else if($_GET["type"]=="entrate-prodotti")
+        {
+            $somma=0;
+            $query="
+                SELECT p.Quantita as quantita, p.Prezzo AS prezzo
+                FROM prodotti_venduti p
+                INNER JOIN aziende ON aziende.Cod=p.CodAzienda
+                WHERE aziende.Cod='".$_SESSION["aziendaId"]."'
+                AND month(p.DataVendita)=".$_GET["mese"]." AND year(p.DataVendita)=".$_GET["anno"]."
+            ";
+            if($result=$link->query($query))
+            {
+                if(mysqli_num_rows($result)>0)
+                {
+                    die("ciao");
+                    //per ogni prodotto venduto moltiplico il prezzo per singolo prodotto alla quantita venduta
+                    while($row=mysqli_fetch_array($result))
+                        $somma.= $row["prezzo"]*$row["quantita"];
+                    die($somma);
+                }
+                die("0");
+            }
+            die("Errore");
+        }
+        //visualizzazione delle uscite generate con i movimenti generici
+        else if($_GET["type"]=="uscite-movimenti")
         {
             $query="
                 SELECT SUM(movimento.Valore) as somma
@@ -60,28 +69,33 @@
             ";
             if($result=$link->query($query))
             {
-                $row=mysqli_fetch_array($result);
-                die($row["somma"]);
+                die(mysqli_fetch_array($result)["somma"]);
             }
-            die("false");
+            die("Errore");
         }
-        else if($_GET["type"]=="somma-entrate-movimenti")
+        else if($_GET["type"]=="uscite-prodotti")
         {
-
+            $somma=0;
+            $query="
+                SELECT p.Quantita as quantita, p.Prezzo AS prezzo
+                FROM prodotti_acquistati p
+                INNER JOIN aziende ON aziende.Cod=p.CodAzienda
+                WHERE aziende.Cod='".$_SESSION["aziendaId"]."'
+                AND month(p.DataAcquisto)=".$_GET["mese"]." AND year(p.DataAcquisto)=".$_GET["anno"]."
+            ";
+            if($result=$link->query($query))
+            {
+                if(mysqli_num_rows($result)>0)
+                {
+                    //per ogni prodotto venduto moltiplico il prezzo per singolo prodotto alla quantita venduta
+                    while($row=mysqli_fetch_array($result))
+                        $somma.= $row["prezzo"]*$row["quantita"];
+                    die($somma);
+                }
+            }
+            die("Errore");
         }
-        else if($_GET["type"]=="somma-uscite-movimenti")
-        {
-
-        }
-        else if($_GET["type"]=="somma-entrate-prodotti")
-        {
-
-        }
-        else if($_GET["type"]=="somma-uscite-prodotti")
-        {
-
-        }
-        else if($_GET["type"]=="somma-stipendi")
+        else if($_GET["type"]=="uscite-stipendi")
         {
             //prendo stipendi di tutti i dipendenti in tabella presenze ogni giorno in quel mese con presente=true
             //prendo stipendi di tutti i dipendenti in tabella assenze in quel mese con percentuale di stipendio giusta

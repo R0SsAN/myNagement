@@ -1,4 +1,61 @@
-.submit {
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: black;
+}
+#vue-container{
+    width: 100%;
+    height: 100%;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+}
+.container-content{
+    margin-top:20px;
+    border:1px solid black;
+    padding:2px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    min-width: 520px;
+}
+.riepilogo{
+    margin:2px;
+    border:1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 520px;
+    width: 49%;
+    height: 100%;
+}
+.tabella-movimenti{
+    margin:2px;
+    border:1px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 520px;
+    width: 49%;
+}
+.content-movimenti{
+    margin:2px;
+    border:1px solid black;
+}
+
+@media (max-width: 1092px) {
+    .riepilogo{
+        width: 100%;
+    }
+    .tabella-movimenti{
+        width: 100%;
+    }
+}
+.submit2 {
     background-color: red;
     border-radius: 12px;
     border: 0;
@@ -7,8 +64,6 @@
     cursor: pointer;
     font-size: 18px;
     height: 50px;
-    margin-top: 38px;
-    margin-right: 20px;
     outline: 0;
     text-align: center;
     width: 300px;

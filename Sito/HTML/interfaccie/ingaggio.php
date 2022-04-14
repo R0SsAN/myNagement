@@ -23,7 +23,6 @@
 
 <body>
     <div id="vue-container"class="dipendenti">
-        <div >
             <div class="insert">
                 <div class="form">
                     <div class="input-container ic1">
@@ -103,11 +102,9 @@
                     <div class="input-container ic2">
                         <b><label id="errore" class="placeholder" style="color:red"></label></b>
                     </div>
-                    <br>
                     <button type="text" class="submit" @click="creaDipendente">Ingaggia</button>                
                 </div>
             </div>
-        </div>
     </div>
     
 

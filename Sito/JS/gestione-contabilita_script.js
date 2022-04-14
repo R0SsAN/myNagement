@@ -1,11 +1,12 @@
 var app = new Vue({
     el: '#vue-container',
     data: {
-        type: 0,
-        orario: 5,
+        mese: "4",
+        anno: "2022",
     },
     mounted(){
         console.log("Vue funziona");
+        this.generaStatistiche();
     },
     methods: {
         aggiungiMovimento()
@@ -45,12 +46,26 @@ var app = new Vue({
                 return true;
             return false;
         },
-        getStipendiMensili($anno, $mese)
+        generaStatistiche()
+        {
+            document.getElementById("somma-entrate").innerHTML=this.getSommaEntrate();
+            document.getElementById("entrate-prodotti").innerHTML=this.getEntrateProdotti();
+            document.getElementById("entrate-movimenti").innerHTML=this.getEntrateMovimenti();
+            
+            document.getElementById("somma-uscite").innerHTML=this.getSommaUscite();
+            document.getElementById("uscite-prodotti").innerHTML=this.getUsciteProdotti();
+            document.getElementById("uscite-movimenti").innerHTML=this.getEntrateMovimenti();
+            document.getElementById("uscite-stipendi").innerHTML=this.getStipendiMensili();
+            
+            document.getElementById("ricavi").innerHTML=this.getSommaEntrate()-this.getSommaUscite();
+            //ora calcolo percentuale
+        },
+        getStipendiMensili()
         {
             let temp=$.get( "../../PHP/contabilita_api.php",{
                 type: "somma-stipendi",
-                anno: $anno,
-                mese: $mese
+                anno: this.anno,
+                mese: this.mese,
             }, function( data ) 
             {
                 return data;
@@ -59,34 +74,18 @@ var app = new Vue({
         },
         getSommaEntrate()
         {
-            let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-entrate-totale",
-                anno: $anno,
-                mese: $mese
-            }, function( data ) 
-            {
-                return data;
-            });
-            return temp;
+            return this.getEntrateMovimenti()+this.getEntrateProdotti();
         },
         getSommaUscite()
         {
-            let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-uscite-totale",
-                anno: $anno,
-                mese: $mese
-            }, function( data ) 
-            {
-                return data;
-            });
-            return temp;
+            return this.getUsciteMovimenti()+this.getUsciteProdotti() + this.getStipendiMensili();
         },
         getUsciteMovimenti()
         {
             let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-uscite-movimenti",
-                anno: $anno,
-                mese: $mese
+                type: "uscite-movimenti",
+                anno: this.anno,
+                mese: this.mese,
             }, function( data ) 
             {
                 return data;
@@ -96,9 +95,9 @@ var app = new Vue({
         getEntrateMovimenti()
         {
             let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-entrate-movimenti",
-                anno: $anno,
-                mese: $mese
+                type: "entrate-movimenti",
+                anno: this.anno,
+                mese: this.mese,
             }, function( data ) 
             {
                 return data;
@@ -108,9 +107,9 @@ var app = new Vue({
         getUsciteProdotti()
         {
             let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-uscite-prodotti",
-                anno: $anno,
-                mese: $mese
+                type: "uscite-prodotti",
+                anno: this.anno,
+                mese: this.mese,
             }, function( data ) 
             {
                 return data;
@@ -120,72 +119,25 @@ var app = new Vue({
         getEntrateProdotti()
         {
             let temp=$.get( "../../PHP/contabilita_api.php",{
-                type: "somma-entrate-prodotti",
-                anno: $anno,
-                mese: $mese
+                type: "entrate-prodotti",
+                anno: this.anno,
+                mese: this.mese,
             }, function( data ) 
             {
                 return data;
             });
             return temp;
         },
-        creaDipendente()
+        getListaMovimenti()
         {
-            //controllo orario
-            if(document.getElementById("5h").checked)
-                this.orario=5;
-            else
-                this.orario=8;
-            console.log(this.orario);
-            $temp=document.getElementById("indirizzo").value.replace("'", " ");
-                console.log($temp);
-            if(this.controllaCampi())
+            $.get( "../../PHP/contabilita_api.php",{
+                type: "uscite-movimenti",
+                anno: this.anno,
+                mese: this.mese,
+            }, function( data ) 
             {
-                $.post( "../../PHP/ingaggio.php",{
-                    tipo: "ingaggio",
-                    nome: document.getElementById("firstname").value,
-                    cognome: document.getElementById("lastname").value,
-                    email: document.getElementById("email").value,
-                    cf: document.getElementById("cf").value,
-                    indirizzo: $temp,
-                    telefono: document.getElementById("tel").value,
-                    mansione: document.getElementById("mansione").value,
-                    tipoContratto: this.type,
-                    dataInizio: document.getElementById("inizio").value,
-                    dataFine: document.getElementById("fine").value,
-                    orario:this.orario,
-                    salario:document.getElementById("salario").value,
-                    nascita:document.getElementById("nascita").value,
-
-                }, function( data ) 
-                {
-                    console.log(data);
-                    if(data=="true")
-                    {
-                        document.getElementById("errore").innerHTML="Dipendente aggiunto correttamente";
-                        app.svuotaTutto();
-                    }
-                    else
-                        error="Errore aggiunta dipendente";
-                });
-            }
-            else
-                document.getElementById("errore").innerHTML="Dati mancanti";
-        },
-        svuotaTutto()
-        {
-            var elements = document.getElementsByTagName("input");
-            for (var ii=0; ii < elements.length; ii++) {
-                elements[ii].value = "";
-            }
-            document.getElementById('input-data').value = new Date().toDateInputValue();
-        },
+                
+            });
+        }
     }
 });
-
-Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
-});
-document.getElementById('input-data').value = new Date().toDateInputValue();
