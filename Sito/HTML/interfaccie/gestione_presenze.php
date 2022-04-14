@@ -1,3 +1,8 @@
+<?php
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: login.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,65 +11,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
+    <link rel="stylesheet" type="text/css" href="../../CSS/tabella_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <title>Document</title>
+    <style>
+        .column1 {
+            width: 150px;
+        }
+
+        .column2 {
+            width: 160px;
+        }
+
+        .column3 {
+            width: 100px;
+        }
+
+        .column4 {
+            width: 210px;
+        }
+
+        .column5 {
+            width: 300px;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="content">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <div class="content" id="vue-container">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100">
+                    <table style="border-radius: 10px;" id="tabella">
+                        <div class="searchbar">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                        </div>
+                        <thead>
+                            <tr class="table100-head">
+                                <th class="column1">Nome</th>
+                                <th class="column2">Cognome</th>
+                                <th class="column3">Presente</th>
+                                <th class="column4">Assenze</th>
+                                <th class="column5">Aggiungi Assenza</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contenutotabella">
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- <table> 
+            <thead>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Presente</th>
+                <th>Assenza</th>
 
-            <tr>
-                <!-- <td>Luca</td>
-                    <td>Cattaneo</td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="date" name="prova" id=""></td>
-                    <td><input type="date" name="" id=""></td>
-                    <td>1</td> -->
+            </thead>
+            <tbody id="contenutotabella">
 
-                <?php
-                // Include config file
-                require_once "../../PHP/connect_db.php";
-                // Attempt select query execution
-                $sql = "SELECT * FROM dipendenti";
-                if ($result = mysqli_query($link, $sql)) {
-                    if (mysqli_num_rows($result) > 0) {
-                        echo "<table>";
-                        echo "<tr>";
-                        echo " <th>nome</th>";
-                        echo " <th>cognome</th>";
-                        echo " <th>presente</th>";
-                        echo "  <th>ferie</th>";
-                        echo "  <th>malattia</th>";
-                        echo "   <th>cassa integrazione</th>";
-                        echo " </tr>";
-                        echo "<tbody>";
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<tr>";
-                            echo "<td>" . $row['nome'] . "</td>";
-                            echo "<td>" . $row['cognome'] . "</td>";
-                            echo "<td>" . $row['presente'] . "</td>";
-                            echo "<td>" . $row['ferie'] . "</td>";
-                            echo "<td>" . $row['malattia'] . "</td>";
-                            echo "</tr>";
-                        }
-                        echo "</tbody>";
-                        echo "</table>";
-                        // Free result set
-                        mysqli_free_result($result);
-                    } else {
-                        echo "<p class='lead'><em>No records were found.</em></p>";
-                    }
-                } else {
-                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                }
-
-                // Close connection
-                mysqli_close($link);
-                ?>
-
-                <input type="submit" value="wsregd">
-        </form>
+            </tbody>
+        </table>-->
     </div>
+
+    <script src="../../JS/gestione-presenze.js"></script>
 </body>
 
 </html>
