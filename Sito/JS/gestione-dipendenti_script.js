@@ -9,31 +9,27 @@ var app = new Vue({
         console.log("Vue funziona");
         date = new Date();
         this.year = date.getFullYear();
-        this.month = date.getMonth(); 
+        this.month = date.getMonth();
         mo = this.monthArr[this.month];
         document.getElementById("current_date").innerHTML = mo + " " + this.year;
+        this.aggiornadata(0, 0);
     },
     methods: {
         aggiornadata(a, y) {
-            date = new Date();
             this.year += a;
             this.month += y;
-            console.log(this.month);
             mo = this.monthArr[this.month];
             document.getElementById("current_date").innerHTML = mo + " " + this.year;
-            $.post( "../../PHP/ingaggio.php",{
-                mese: mo,
-
-            }, function( data ) 
-            {
+            $.post("../../PHP/gestione_dip.php", {
+                mese: this.month + 1,
+                year: this.year,
+            }, function (data) {
                 console.log(data);
-                if(data=="true")
-                {
-                    document.getElementById("errore").innerHTML="Dipendente aggiunto correttamente";
-                    app.svuotaTutto();
+                if (data != "Errore") {
+                    document.getElementById("table").innerHTML = data;
                 }
                 else
-                    error="Errore aggiunta dipendente";
+                    error = "Errore aggiunta dipendente";
             });
         },
     }
