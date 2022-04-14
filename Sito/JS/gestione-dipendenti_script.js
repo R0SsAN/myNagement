@@ -21,6 +21,20 @@ var app = new Vue({
             console.log(this.month);
             mo = this.monthArr[this.month];
             document.getElementById("current_date").innerHTML = mo + " " + this.year;
+            $.post( "../../PHP/ingaggio.php",{
+                mese: mo,
+
+            }, function( data ) 
+            {
+                console.log(data);
+                if(data=="true")
+                {
+                    document.getElementById("errore").innerHTML="Dipendente aggiunto correttamente";
+                    app.svuotaTutto();
+                }
+                else
+                    error="Errore aggiunta dipendente";
+            });
         },
     }
 });
