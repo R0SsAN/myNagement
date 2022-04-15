@@ -1,10 +1,11 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["userId"]))
-        header("Location: ../login.php");
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: ../login.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,12 +20,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://kit.fontawesome.com/b1ee2cf5f1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </head>
+
 <body>
     <div id="vue-container">
         <div class="container-button">
-
-            <button type="button" class="submit2" data-bs-toggle="modal" data-bs-target="#myModal" >Inserisci nuovo movimento</button>
+            <button type="button" class="submit2" data-bs-toggle="modal" data-bs-target="#myModal">Inserisci nuovo movimento</button>
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -37,8 +41,8 @@
                                 <div class="cut"></div>
                                 <label for="lastname" class="placeholder">Tipo movimento</label>
                                 <br><br>
-                                <input type="radio" id="tipo-1" name="input-tipo" value="0" style="margin-left:25px" checked="checked"> Entrata <br>
-                                <input type="radio" id="tipo-2" name="input-tipo" value="1" style="margin-left:25px"> Uscita
+                                <input type="radio" id="tipo-1" name="input-tipo" value="0" style="margin-left:25px" checked="checked"> &nbsp; Entrata <br>
+                                <input type="radio" id="tipo-2" name="input-tipo" value="1" style="margin-left:25px"> &nbsp; Uscita
                             </div>
                             <br><br>
 
@@ -48,7 +52,7 @@
                                 <label for="firstname" class="placeholder">Descrizione</label>
                             </div>
                             <div class="input-container ic1">
-                                <input id="input-valore" class="input" type="number" placeholder=" " name="valore" style="margin-left:10px;width:200px;"/>
+                                <input id="input-valore" class="input" type="number" placeholder=" " name="valore" style="margin-left:10px;width:200px;" />
                                 <div class="cut"></div>
                                 <label for="firstname" class="placeholder">Valore</label>
                             </div>
@@ -69,28 +73,37 @@
                     </div>
                 </div>
             </div>
+            <div class="date">
+                <i class="fa-solid fa-angles-left fa-xl" @click="aggiornadata(-1,0)" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-angle-left fa-xl" @click="aggiornadata(0,-1)" style="cursor: pointer;"></i>
+                <label id="current_date"></label>
+                <i class="fa-solid fa-angle-right fa-xl" @click="aggiornadata(0,1)" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-angles-right fa-xl" @click="aggiornadata(1,0)" style="cursor: pointer;"></i>
+            </div>
         </div>
         <div class="container-content">
 
             <div class="riepilogo">
                 <div class="content-movimenti">
                     <h3 style="margin:0;">Entrate a <a class="mese-anno">Marzo 2022</a>: <a style="color:green;" id="somma-entrate">19576 €</a></h3>
-                     &nbsp;
+                    &nbsp;
                     <div style="margin-left:7px">
                         <h4 style="margin:0;margin-bottom:4px;">Di cui:</h4>
                         <ul>
                             <li>
-                                <h4>Entrate per vendita prodotti: &nbsp; 
-                                    <a style="color:green;" id="entrate-prodotti">19576 €</a></h4>
+                                <h4>Entrate per vendita prodotti: &nbsp;
+                                    <a style="color:green;" id="entrate-prodotti">19576 €</a>
+                                </h4>
                             </li>
                             <li>
-                                <h4>Entrate per movimenti generici: &nbsp; 
-                                    <a style="color:green;" id="entrate-movimenti">19576 €</a></h4>
+                                <h4>Entrate per movimenti generici: &nbsp;
+                                    <a style="color:green;" id="entrate-movimenti">19576 €</a>
+                                </h4>
                             </li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="content-movimenti">
                     <h3 style="margin:0;">Uscite a <a class="mese-anno">Marzo 2022</a>: <a style="color:red;" id="somma-uscite">19576 €</a></h3>
                     &nbsp;
@@ -98,16 +111,19 @@
                         <h4 style="margin:0; margin-bottom:4px;">Di cui:</h4>
                         <ul>
                             <li>
-                                <h4>Uscite per acquisto prodotti: &nbsp; 
-                                    <a style="color:red;" id="uscite-prodotti">19576 €</a></h4>
+                                <h4>Uscite per acquisto prodotti: &nbsp;
+                                    <a style="color:red;" id="uscite-prodotti">19576 €</a>
+                                </h4>
                             </li>
                             <li>
-                                <h4>Uscite per movimenti generici: &nbsp; 
-                                    <a style="color:red;" id="uscite-movimenti">19576 €</a></h4>
+                                <h4>Uscite per movimenti generici: &nbsp;
+                                    <a style="color:red;" id="uscite-movimenti">19576 €</a>
+                                </h4>
                             </li>
                             <li>
-                                <h4>Uscite per Stipendi pagati: &nbsp; 
-                                    <a style="color:red;" id="uscite-stipendi">19576 €</a></h4>
+                                <h4>Uscite per Stipendi pagati: &nbsp;
+                                    <a style="color:red;" id="uscite-stipendi">19576 €</a>
+                                </h4>
                             </li>
                         </ul>
                     </div>
@@ -127,9 +143,9 @@
                         <div class="table100">
                             <table style="border-radius: 10px;" id="tabella">
                                 <div class="searchbar">
-                                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                                    <input type="text" id="myInput" onkeyup="cercaInTabella()" placeholder="Search for names..">
                                 </div>
-                                <thead >
+                                <thead>
                                     <tr class="table100-head">
                                         <th class="column1">Date</th>
                                         <th class="column2">Order ID</th>
@@ -155,39 +171,7 @@
                                         <td class="column4">$999.00</td>
                                         <td class="column5">1</td>
                                         <td class="column6">$999.00</td>
-                                    </tr>	
-                                    <tr>
-                                        <td class="column1">2017-09-29 01:22</td>
-                                        <td class="column2">200398</td>
-                                        <td class="column3">iPhone X 64Gb Grey</td>
-                                        <td class="column4">$999.00</td>
-                                        <td class="column5">1</td>
-                                        <td class="column6">$999.00</td>
                                     </tr>
-                                    <tr>
-                                        <td class="column1">2017-09-29 01:22</td>
-                                        <td class="column2">200398</td>
-                                        <td class="column3">iPhone X 64Gb Grey</td>
-                                        <td class="column4">$999.00</td>
-                                        <td class="column5">1</td>
-                                        <td class="column6">$999.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="column1">2017-09-29 01:22</td>
-                                        <td class="column2">200398</td>
-                                        <td class="column3">iPhone X 64Gb Grey</td>
-                                        <td class="column4">$999.00</td>
-                                        <td class="column5">1</td>
-                                        <td class="column6">$999.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="column1">2017-09-29 01:22</td>
-                                        <td class="column2">200398</td>
-                                        <td class="column3">iPhone X 64Gb Grey</td>
-                                        <td class="column4">$999.00</td>
-                                        <td class="column5">1</td>
-                                        <td class="column6">$999.00</td>
-                                    </tr>			
                                     <tr>
                                         <td class="column1">2017-09-29 01:22</td>
                                         <td class="column2">200398</td>
@@ -228,7 +212,39 @@
                                         <td class="column5">1</td>
                                         <td class="column6">$999.00</td>
                                     </tr>
-                                    	
+                                    <tr>
+                                        <td class="column1">2017-09-29 01:22</td>
+                                        <td class="column2">200398</td>
+                                        <td class="column3">iPhone X 64Gb Grey</td>
+                                        <td class="column4">$999.00</td>
+                                        <td class="column5">1</td>
+                                        <td class="column6">$999.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="column1">2017-09-29 01:22</td>
+                                        <td class="column2">200398</td>
+                                        <td class="column3">iPhone X 64Gb Grey</td>
+                                        <td class="column4">$999.00</td>
+                                        <td class="column5">1</td>
+                                        <td class="column6">$999.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="column1">2017-09-29 01:22</td>
+                                        <td class="column2">200398</td>
+                                        <td class="column3">iPhone X 64Gb Grey</td>
+                                        <td class="column4">$999.00</td>
+                                        <td class="column5">1</td>
+                                        <td class="column6">$999.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="column1">2017-09-29 01:22</td>
+                                        <td class="column2">200398</td>
+                                        <td class="column3">iPhone X 64Gb Grey</td>
+                                        <td class="column4">$999.00</td>
+                                        <td class="column5">1</td>
+                                        <td class="column6">$999.00</td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -237,10 +253,11 @@
             </div>
         </div>
 
-        
+
     </div>
 
     <script src="../../JS/gestione-contabilita_script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
+
 </html>

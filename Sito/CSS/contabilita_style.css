@@ -1,4 +1,6 @@
-
+*{
+    font-size: 0.9em;
+}
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: black;
@@ -9,6 +11,10 @@ a, a:hover, a:focus, a:active {
     padding:20px;
     display: flex;
     flex-direction: column;
+}
+.container-button{
+    display: flex;
+    flex-direction: row;
 }
 .container-content{
     margin-top:20px;
