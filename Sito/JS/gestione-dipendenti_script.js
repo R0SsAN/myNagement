@@ -16,8 +16,30 @@ var app = new Vue({
     },
     methods: {
         aggiornadata(a, y) {
-            this.year += a;
-            this.month += y;
+            if (this.month == 11) {
+                if (y > 0) {
+                    this.year += 1;
+                    this.month = 0;
+                }
+                else {
+                    this.year += a;
+                    this.month += y;
+                }
+            }
+            else if (this.month == 0) {
+                if (y < 0) {
+                    this.year -= 1;
+                    this.month = 11;
+                }
+                else {
+                    this.year += a;
+                    this.month += y;
+                }
+            }
+            else {
+                this.year += a;
+                this.month += y;
+            }
             mo = this.monthArr[this.month];
             document.getElementById("current_date").innerHTML = mo + " " + this.year;
             $.post("../../PHP/gestione_dip.php", {
