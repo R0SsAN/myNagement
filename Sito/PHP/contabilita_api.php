@@ -3,7 +3,7 @@
     session_start();
     if(!isset($_SESSION["aziendaId"]))
         die("Errore");
-        
+    setlocale(LC_MONETARY, 'it_IT');
     //inserimento nuovo movimento
     if(isset($_POST["tipo"]) && isset($_POST["descrizione"]) && isset($_POST["valore"]) && isset($_POST["data"]))
     {
@@ -27,6 +27,7 @@
             ";
             if($result=$link->query($query))
             {
+                $link->close();
                 die(mysqli_fetch_array($result)["somma"]);
             }
             die("Errore");
@@ -44,6 +45,7 @@
             ";
             if($result=$link->query($query))
             {
+                $link->close();
                 if(mysqli_num_rows($result)>0)
                 {
                     //per ogni prodotto venduto moltiplico il prezzo per singolo prodotto alla quantita venduta
@@ -68,6 +70,7 @@
             ";
             if($result=$link->query($query))
             {
+                $link->close();
                 die(mysqli_fetch_array($result)["somma"]);
             }
             die("Errore");
@@ -84,6 +87,7 @@
             ";
             if($result=$link->query($query))
             {
+                $link->close();
                 if(mysqli_num_rows($result)>0)
                 {
                     //per ogni prodotto venduto moltiplico il prezzo per singolo prodotto alla quantita venduta
@@ -166,6 +170,31 @@
                 $sommaTotaleStipendi=$sommaTotaleStipendi+$sommaStipendioDipendente;
             }
             die(strval($sommaTotaleStipendi));
+        }
+        if($_GET["type"]=="lista-movimenti")
+        {
+            $query="SELECT * FROM movimento WHERE movimento.CodAzienda=".$_SESSION["aziendaId"]." 
+            AND month(movimento.Data)=".$_GET["mese"]." AND year(movimento.Data)=".$_GET["anno"]."";
+            if($result=$link->query($query))
+            {
+                $return="";
+                while($row=mysqli_fetch_array($result))
+                {
+                    if($row["Tipo"]==0)
+                        $tipo="Entrata";
+                    else
+                        $tipo="Uscita";
+                    $return.='<tr>
+                                <td class="column1">'.$tipo.'</td>
+                                <td class="column2">'.floatval($row["Valore"]).' €</td>
+                                <td class="column3">'.$row["Data"].'</td>
+                                <td class="column4">'.$row["Descrizione"].'</td>
+                            </tr>
+                    ';
+                }
+                die($return);
+            }
+            die("Errore");
         }
         die("Errore");
         

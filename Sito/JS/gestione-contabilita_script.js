@@ -9,9 +9,16 @@ var app = new Vue({
     },
     mounted(){
         console.log("Vue funziona");
-        this.generaStatistiche();
+        $.fn.dataTableExt.sErrMode = 'throw';
+        date = new Date();
+        this.year = date.getFullYear();
+        this.month = date.getMonth();
+        mo = this.monthArr[this.month];
+        document.getElementById("current_date").innerHTML = mo + " " + this.year;
+        this.aggiornadata(0, 0);
 
-        //
+
+        this.generaStatistiche();
     },
     methods: {
         aggiungiMovimento()
@@ -60,6 +67,9 @@ var app = new Vue({
             this.getUsciteProdotti();
             this.getUsciteMovimenti();
             this.getStipendiMensili();
+            this.getRicavo();
+            setTimeout(function() { app.caricaTabellaMovimenti(); }, 800);
+            
             /*document.getElementById("somma-entrate").innerHTML=this.getSommaEntrate();
             document.getElementById("entrate-prodotti").innerHTML=this.getEntrateProdotti();
             document.getElementById("entrate-movimenti").innerHTML=this.getEntrateMovimenti();
@@ -75,9 +85,9 @@ var app = new Vue({
         getStipendiMensili()
         {
             $.get( "../../PHP/contabilita_api.php",{
-                type: "somma-stipendi",
+                type: "uscite-stipendi",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 document.getElementById("uscite-stipendi").innerHTML=formatter.format(data);
@@ -88,14 +98,14 @@ var app = new Vue({
             $.get( "../../PHP/contabilita_api.php",{
                 type: "entrate-movimenti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 app.temp=parseInt(data);
                 $.get( "../../PHP/contabilita_api.php",{
                     type: "entrate-prodotti",
                     anno: app.year,
-                    mese: app.month,
+                    mese: app.month+1,
                 }, function( data ) 
                 {
                     app.temp+=parseInt(data);
@@ -114,21 +124,21 @@ var app = new Vue({
             $.get( "../../PHP/contabilita_api.php",{
                 type: "uscite-movimenti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 app.temp2=parseInt(data);
                 $.get( "../../PHP/contabilita_api.php",{
                     type: "uscite-prodotti",
                     anno: app.year,
-                    mese: app.month,
+                    mese: app.month+1,
                 }, function( data ) 
                 {
                     app.temp2+=parseInt(data);
                     $.get( "../../PHP/contabilita_api.php",{
                         type: "uscite-stipendi",
                         anno: app.year,
-                        mese: app.month,
+                        mese: app.month+1,
                     }, function( data ) 
                     {
                         app.temp2+=parseInt(data);
@@ -139,12 +149,16 @@ var app = new Vue({
                 });
             });
         },
+        getRicavo()
+        {
+            setTimeout(function() { document.getElementById("ricavi").innerHTML=formatter.format(app.temp-app.temp2); }, 600);
+        },
         getUsciteMovimenti()
         {
             $.get( "../../PHP/contabilita_api.php",{
                 type: "uscite-movimenti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 document.getElementById("uscite-movimenti").innerHTML=formatter.format(data);
@@ -155,7 +169,7 @@ var app = new Vue({
             $.get( "../../PHP/contabilita_api.php",{
                 type: "entrate-movimenti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 document.getElementById("entrate-movimenti").innerHTML=formatter.format(data);
@@ -166,7 +180,7 @@ var app = new Vue({
             $.get( "../../PHP/contabilita_api.php",{
                 type: "uscite-prodotti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 document.getElementById("uscite-prodotti").innerHTML=formatter.format(data);
@@ -177,40 +191,54 @@ var app = new Vue({
             $.get( "../../PHP/contabilita_api.php",{
                 type: "entrate-prodotti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
                 document.getElementById("entrate-prodotti").innerHTML=formatter.format(data);
             });
         },
-        getListaMovimenti()
+        caricaTabellaMovimenti()
         {
             $.get( "../../PHP/contabilita_api.php",{
-                type: "uscite-movimenti",
+                type: "lista-movimenti",
                 anno: this.year,
-                mese: this.month,
+                mese: this.month+1,
             }, function( data ) 
             {
-                
+                document.getElementById("body").innerHTML=data;
+                generaDatatable();
             });
         },
         aggiornadata(a, y) {
-            this.year += a;
-            this.month += y;
+            if (this.month == 11) {
+                if (y > 0) {
+                    this.year += 1;
+                    this.month = 0;
+                }
+                else {
+                    this.year += a;
+                    this.month += y;
+                }
+            }
+            else if (this.month == 0) {
+                if (y < 0) {
+                    this.year -= 1;
+                    this.month = 11;
+                }
+                else {
+                    this.year += a;
+                    this.month += y;
+                }
+            }
+            else {
+                this.year += a;
+                this.month += y;
+            }
             mo = this.monthArr[this.month];
             document.getElementById("current_date").innerHTML = mo + " " + this.year;
-            $.post("../../PHP/gestione_dip.php", {
-                mese: this.month + 1,
-                year: this.year,
-            }, function (data) {
-                console.log(data);
-                if (data != "Errore") {
-                    document.getElementById("table").innerHTML = data;
-                }
-                else
-                    error = "Errore aggiunta dipendente";
-            });
-        }
+
+            this.generaStatistiche();
+        },
     }
 });
 var formatter = new Intl.NumberFormat('it', {
@@ -223,14 +251,17 @@ var formatter = new Intl.NumberFormat('it', {
 });
 
 //per datatable
-$(document).ready(function() {
+function generaDatatable() {
     $('#tabella').DataTable({
         paging: false,
         searching: false,
         ordering: true,
-        info: false
+        info: false,
+        "bDestroy": true,
+        autoWidth: false
+        
     });
-});
+}
 
 
 function cercaInTabella() {

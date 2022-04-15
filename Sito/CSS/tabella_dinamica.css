@@ -181,21 +181,23 @@
   }
   
   .column1 {
-    width: 260px;
+    width: 150px;
     padding-left: 40px;
   }
   
   .column2 {
-    width: 160px;
+    width: 150px;
+    padding-left: 40px;
   }
   
   .column3 {
-    width: 245px;
+    width: 150px;
+    padding-left: 40px;
   }
   
   .column4 {
-    width: 110px;
-    text-align: right;
+    width: 150px;
+    padding-left: 40px;
   }
   
   .column5 {
