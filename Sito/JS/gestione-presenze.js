@@ -16,6 +16,12 @@ var app = new Vue({
             });
         },AggiornaPresenza(cod){
 
+            $.post("../../PHP/presenze_api.php", {
+                aggiorna:true,
+                CodDipendente:cod,
+
+            },function(data){
+            });
             this.generatabella();
         }
 
@@ -24,4 +30,8 @@ var app = new Vue({
 
 function SalvaCod(cod) {
     app.AggiornaPresenza(cod);
+}
+
+function AggiungiAssenza(){
+    
 }
