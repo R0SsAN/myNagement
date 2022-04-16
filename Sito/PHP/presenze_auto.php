@@ -11,7 +11,7 @@
             $data=date("Y-m-d");
             //prendo la lista dei dipendenti di quell'azienda
             //per ogni dipendente creo la tupla relativa al giorno odierno
-            $query="SELECT dipendenti.Cod FROM dipendenti INNER JOIN aziende on dipendenti.CodAzienda=aziende.Cod WHERE aziende.Cod='".$_SESSION["aziendaId"]."'";
+            $query="SELECT dipendenti.Cod FROM dipendenti WHERE 1";
             if($result=$link->query($query))
             {
                 if(mysqli_num_rows($result)>0)

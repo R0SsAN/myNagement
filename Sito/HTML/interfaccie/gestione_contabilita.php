@@ -24,6 +24,7 @@ if (!isset($_SESSION["userId"]))
     <script src="https://kit.fontawesome.com/b1ee2cf5f1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         table.dataTable.no-footer {
         border-bottom: 0;
@@ -57,7 +58,6 @@ if (!isset($_SESSION["userId"]))
                                 <input type="radio" id="tipo-2" name="input-tipo" value="1" style="margin-left:25px"> &nbsp; Uscita
                             </div>
                             <br><br>
-
                             <div class="input-container ic1">
                                 <input id="input-descrizione" class="input" type="text" placeholder=" " name="descrizione" />
                                 <div class="cut"></div>
@@ -145,9 +145,9 @@ if (!isset($_SESSION["userId"]))
                 <br>
                 <div class="content-movimenti" style="margin-top:30px">
                     <h4 style="margin:0;">Ricavi a <a class="mese-anno">Marzo 2022</a>: <a style="color:green;" id="ricavi">8455 €</a></h4>
-                    <!-- <div style="margin-left:7px">
+                        <div style="margin-left:7px">
                         <h5 style="margin:0; margin-top:5px;"><a id="percentuale" style="color:green;">+19%</a> rispetto al mese precedente</h5>
-                    </div> -->
+                    </div> 
                 </div>
 
             </div>

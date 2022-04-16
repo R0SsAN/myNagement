@@ -136,8 +136,8 @@
                 
 
                 //dopo aver sommato tutte le presenze si va nella tabella assenze e si sommano tutti gli stipendi calcolati con la percentuale
-                //per prima cosa prendo tutte le assenze che hanno datainizio o datafine nel mese corretto == hanno qualche assenza in questo mese
-                $query="SELECT * FROM assenze WHERE assenze.CodDipendente=".$row["cod"]." AND ((month(assenze.DataInizio)=".$_GET["mese"]." AND year(assenze.DataInizio)=".$_GET["anno"].") OR (month(assenze.DataFIne)=".$_GET["mese"]." AND year(assenze.DataFine)=".$_GET["anno"]."))";
+                //per prima cosa prendo tutte le assenze che hanno datainizio o datafine nell'anno corretto == hanno qualche assenza in questo anno con probabilita di esserci nel mese giusto
+                $query="SELECT * FROM assenze WHERE assenze.CodDipendente=".$row["cod"]." AND (year(assenze.DataInizio)=".$_GET["anno"]." OR year(assenze.DataFine)=".$_GET["anno"].")";
                 if(!$result2=$link->query($query))
                     die("Errore esecuzione query 4");
                 while($row2=mysqli_fetch_array($result2))
@@ -147,7 +147,7 @@
                     //ora per ogni assenza relativa a questo mese calcolo i giorni di assenza per poi poter calcolare lo stipendio
 
                     //se sia datainizio che datfine sono all'interno del mese giusto allora mi basta calcolare la differenza di giorni
-                    if(date("m",strtotime($row2["DataInizio"])) == date("m",strtotime($row2["DataFine"])))
+                    if(date("m",strtotime($row2["DataInizio"])) == $_GET["mese"] && date("m",strtotime($row2["DataFine"])) == $_GET["mese"])
                     {
                         $date1 = new DateTime($row2["DataInizio"]);
                         $date2 = new DateTime($row2["DataFine"]);
@@ -157,12 +157,22 @@
                     else if(date("m",strtotime($row2["DataInizio"]))==$_GET["mese"] && date("m",strtotime($row2["DataFine"]))!=$_GET["mese"])
                     {
                         $numeroGiorniAssenza= cal_days_in_month(CAL_GREGORIAN, $_GET["mese"], $_GET["anno"]) - date("d",strtotime($row2["DataInizio"]));
-                        
                     }
                     //se invece datafine è nel mese giusto ma datainizio no allora prendo il numero di giorni dall'inizio del mese a datafine
                     else if(date("m",strtotime($row2["DataInizio"]))!=$_GET["mese"] && date("m",strtotime($row2["DataFine"]))==$_GET["mese"])
                     {
                         $numeroGiorniAssenza=date("d",strtotime($row2["DataFine"]));
+                    }
+                    //se invece sia datainizio che datafine non sono nel mese giusto ma lo comprendono nell'intervallo allora prendo il numero di giorni del mese attuale
+                    else if(date("m",strtotime($row2["DataInizio"]))!=$_GET["mese"] && date("m",strtotime($row2["DataFine"]))!=$_GET["mese"])
+                    {
+                        $dataInizio = date ('Y-m-01', strtotime($row2["DataInizio"]));
+                        $dataFine = date ('Y-m-01', strtotime($row2["DataFine"]));
+                        $mese = date ('Y-m-01', strtotime($_GET["anno"]."-".$_GET["mese"]));
+                        if ( ($month_day >= min($date1_day, $date2_day)) && ($month_day <= max($date1_day, $date2_day)) )
+                        {
+                            $numeroGiorniAssenza=cal_days_in_month(CAL_GREGORIAN, $_GET["mese"], $_GET["anno"]);
+                        }
                     }
                     $sommaStipendioDipendente= $sommaStipendioDipendente+(($salarioDipendente / 100) * $row2["PercentualeStipendio"]) * $numeroGiorniAssenza;
                 }
