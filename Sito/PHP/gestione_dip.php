@@ -195,7 +195,7 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             }
-            $res .= "<td><button class='buttonanagrafica'>grafico</button></td>";
+            $res .= "<td><button class='buttonanagrafica' data-bs-toggle='modal' data-bs-target='#myModal'>Grafico</button></td>";
             $res .= "</tr>";
         }
         die($res);
