@@ -132,3 +132,20 @@ tr:nth-child(even) {
     text-align: center;
     margin: 12px;    
 }
+.modal-body{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+.contratto{
+    height: 100%;
+    width: 50%;
+    justify-content: row;
+}
+.dipendente{
+    height: 100%;
+    width: 50%;
+    justify-content: row;
+}
