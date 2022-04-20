@@ -27,19 +27,19 @@ if (isset($_POST["genera"])) {
                                                 if ($row3['DataInizio'] <= date("Y-m-d") && date("Y-m-d") <= $row3['DataFine']) {
                                                     $return .= '<td class="column3">' . '<input type="checkbox" disabled="disabled" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                                     $return .= '<td class="column4">' . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
-                                                    $return .= '<td class="column5">' . '<button onclick="ModificaAssenza()">Modifica Assenza</button>' . '</td>';
+                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="ModificaAssenza()">Modifica Assenza</button>' . '</td>';
                                                 }
                                             }
                                         } else {
                                             $return .= '<td class="column3">' . '<input type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                             $return .= '<td class="column4">' . '/' . '</td>';
-                                            $return .= '<td class="column5">' . '<button onclick="AggiungiAssenza()">Aggiungi Assenza</button>' . '</td>';
+                                            $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiungiAssenza()">Aggiungi Assenza</button>' . '</td>';
                                         }
                                     }
                                 } else if ($row2["presente"] == 1) {
                                     $return .= '<td class="column3">' . '<input type="checkbox" checked name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                     $return .= '<td class="column4">' . '/' . '</td>';
-                                    $return .= '<td class="column5">' . '<button onclick="AggiungiAssenza()">Aggiungi Assenza</button>' . '</td>';
+                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiungiAssenza()">Aggiungi Assenza</button>' . '</td>';
                                 }
                             }
                         }
