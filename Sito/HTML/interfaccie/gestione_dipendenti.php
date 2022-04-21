@@ -44,26 +44,13 @@
             </table>
         </div>
         <div class="modal" id="myModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="titoloAnagrafica">Anagrafica di:</h5>
                     </div>
-                    <div class="modal-body">
-                        <div class="dipendente">
-                            Nome: <label type="text" name="nome" id="nDip"></label><br><br>
-                            Codice Fiscale: <label type="text" name="cf" id="cFisc"></label><br><br>
-                            Telefono: <label type="tel" name="tel" id="tel"></label><br><br>
-                            Email: <label type="mail" name="mail" id="mail"></label><br><br>
-                            Indirizzo: <label type="ind" name="ind" id="ind"></label><br><br>
-                        </div>
-                        <div class="contratto">
-                            Mansione: <label type="mans" name="mans" id="mans"></label><br><br>
-                            Salario: <label type="sal" name="sal" id="sal"></label><br><br>
-                            Ore: <label type="ore" name="ore" id="ore"></label><br><br>
-                            Data inizio: <label type="inizio" name="inizio" id="inizio"></label><br><br>
-                            Data fine: <label type="fine" name="fine" id="fine"></label><br><br>
-                        </div>
+                    <div class="modal-body" id="modal-body">
+
                     </div>
                 </div>
             </div>
