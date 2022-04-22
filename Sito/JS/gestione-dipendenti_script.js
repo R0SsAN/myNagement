@@ -51,8 +51,23 @@ var app = new Vue({
                     document.getElementById("table").innerHTML = data;
                 }
                 else
-                    error = "Errore aggiunta dipendente";
+                    error = "Errore";
+            });
+        },
+        anagraficaDip(id) {
+            $.post("../../PHP/gestione_dip.php", {
+                idDip: id,
+            }, function (data) {
+                console.log(data);
+                if (data != "Errore") {
+                    document.getElementById("modal-body").innerHTML = data;
+                }
+                else
+                    error = "Errore";
             });
         },
     }
 });
+function anagraficaDip(id) {
+    app.anagraficaDip(id);
+}

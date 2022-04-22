@@ -1,7 +1,6 @@
 var app = new Vue({
     el: '#vue-container',
-    data: {
-    },
+    data: {},
     mounted() {
         console.log("Vue funziona");
         this.generatabella();
@@ -10,12 +9,18 @@ var app = new Vue({
         generatabella() {
             $.post("../../PHP/presenze_api.php", {
                 genera: true,
-            }, function (data) {
+            }, function(data) {
                 console.log(data);
                 document.getElementById("contenutotabella").innerHTML = data;
             });
-        },AggiornaPresenza(cod){
+        },
+        AggiornaPresenza(cod) {
 
+            $.post("../../PHP/presenze_api.php", {
+                aggiorna: true,
+                CodDipendente: cod,
+
+            }, function(data) {});
             this.generatabella();
         }
 
@@ -24,4 +29,8 @@ var app = new Vue({
 
 function SalvaCod(cod) {
     app.AggiornaPresenza(cod);
+}
+
+function AggiungiAssenza() {
+
 }

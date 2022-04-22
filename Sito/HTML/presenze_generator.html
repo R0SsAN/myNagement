@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="vue-container">
         Generando presenze...
@@ -16,25 +18,22 @@
         var app = new Vue({
             el: '#vue-container',
             data: {
-                data:"",
+                data: "",
             },
-            mounted(){
+            mounted() {
                 console.log("Vue funziona");
             },
             mounted: function() {
                 this.interval = setInterval(() => this.generaPresenze(), 60000);
             },
             methods: {
-                generaPresenze()
-                {
-                    var data = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-                    if(data!=this.data)
-                    {
-                        this.data=data;
-                        $.get( "../PHP/presenze_auto.php",{
+                generaPresenze() {
+                    var data = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+                    if (data != this.data) {
+                        this.data = data;
+                        $.get("../PHP/presenze_auto.php", {
                             type: "generate-day",
-                        }, function( data ) 
-                        {
+                        }, function(data) {
                             console.log(data);
                         });
                     }
@@ -43,4 +42,5 @@
         });
     </script>
 </body>
+
 </html>

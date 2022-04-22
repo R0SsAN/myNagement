@@ -8,9 +8,10 @@ session_start();
 if (isset($_POST["mese"])) {
     $query = "SELECT dipendenti.Cod,dipendenti.Nome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)=" . $_POST['year'] . " AND presenza.presente=1 GROUP BY dipendenti.Cod";
     if ($result = $link->query($query)) {
-        //$cod = mysqli_fetch_array($result)["Cod"];
+        //$cod = mysqli_fetch_array($result)["Cod"];        
         $res = "";
         while ($row = mysqli_fetch_array($result)) {
+            $param = $row["Cod"];
             $res .= "<tr>";
             $res .= "<td>" . $row["Nome"] . "</td>";
             if ($row["DataFine"] != NULL)
@@ -195,12 +196,31 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             }
-            $res .= "<td><button class='buttonanagrafica'>grafico</button></td>";
+            $res .= "<td><button class='buttonanagrafica' data-bs-toggle='modal' data-bs-target='#myModal' onclick='anagraficaDip(" . $param . ")'>Grafico</button></td>";
             $res .= "</tr>";
         }
         die($res);
     } else
         die(mysqli_error($link));
+} else if (isset($_POST["idDip"])) {
+    $anagrafica = "SELECT * FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente WHERE dipendenti.Cod=" . $_POST["idDip"];
+    if ($result = $link->query($anagrafica)) {
+        $row = mysqli_fetch_array($result);
+        die('<div class="dipendente">
+                            <b>Nome:</b> <label type="text" name="nome" id="nome">' . $row["Nome"] . " " . $row["Cognome"] . '</label><br><br>
+                            <b>Codice Fiscale:</b><label type="text" name="cf" id="cf">' . $row["CodiceFiscale"] . '</label><br><br>
+                            <b>Telefono:</b><label type="tel" name="tel" id="tel">' . $row["Telefono"] . '</label><br><br>
+                            <b>Email:</b><label type="mail" name="mail" id="mail">' . $row["Email"] . '</label><br><br>
+                            <b>Indirizzo:</b><label type="ind" name="ind" id="ind">' . $row["Indirizzo"] . '</label><br><br>
+                </div>
+                <div class="contratto">
+                            <b>Mansione:</b><label type="mans" name="mans" id="mans">' . $row["Mansione"] . '</label><br><br>
+                            <b>Salario:</b><label type="sal" name="sal" id="sal">' . $row["Salario"] . '</label><br><br>
+                            <b>Ore:</b><label type="ore" name="ore" id="ore">' . $row["OreLavorative"] . '</label><br><br>
+                            <b>Data inizio:</b><label type="inizio" name="inizio" id="inizio">' . $row["DataInizio"] . '</label><br><br>
+                            <b>Data fine:</b><label type="fine" name="fine" id="fine">' . $row["DataFine"] . '</label><br><br>
+                </div>');
+    }
 } else
     die("Errore");
 ?>
