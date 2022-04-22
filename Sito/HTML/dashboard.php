@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -82,7 +83,7 @@
       </ul>
     </div>
     <div class="main">
-      <div class="topbar">
+      <!-- <div class="topbar">
         <div class="toggle" @click="toggleMenu()"></div>
         <div class="search">
           <label>
@@ -90,12 +91,10 @@
             <i class="fas fa-search"></i>
           </label>
         </div>
-        <div class="user">
-          <!-- da sistemare -->
-          <!--<img src="R:/Documents/Immagini/a18.jpg" />-->
-        </div>
-      </div>
+      </div> -->
       <div class="content">
+        <div class="toggle" @click="toggleMenu()"></div>
+        <!-- <div id="test" style="width:100%; height:100%"></div> -->
         <iframe id="iframe" width="100%" height="100%" src="" frameBorder="0">
         </iframe>
       </div>
@@ -103,6 +102,9 @@
   </div>
   <script src="https://kit.fontawesome.com/f69c57d50d.js" crossorigin="anonymous"></script>
   <script src="../JS/dashboard_script.js"></script>
+  <script>
+
+  </script>
 </body>
 
 </html>

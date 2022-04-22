@@ -8,17 +8,15 @@
 body {
   overflow-x: hidden;
 }
-
 .container {
   position: relative;
   width: 100%;
 }
-
 .navigation {
   position: fixed;
   width: 300px;
   height: 100%;
-  background: red;
+  background: #35393f;
   transition: 0.5s;
   overflow: hidden;
 }
@@ -54,7 +52,7 @@ body {
 }
 
 .navigation ul li:hover {
-  background: rgb(255, 91, 91);
+  background: #4b525c;
 }
 
 .navigation ul li:nth-child(1) {
@@ -110,7 +108,7 @@ body {
 }
 
 .navigation2 ul li:hover {
-  background: rgb(255, 91, 91);
+  background: #4b525c;
 }
 
 .navigation2 ul li:nth-child(1) {
@@ -152,13 +150,12 @@ body {
   line-height: 60px;
   white-space: nowrap;
 }
-
 .main {
   position: absolute;
   width: calc(100% - 300px);
   left: 300px;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #e8e8e8;
   transition: 0.5s;
 }
 
@@ -178,11 +175,19 @@ body {
 }
 
 .toggle {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  background: #f5f5f5;
+  padding:0;
+  margin-top:10px;
+  margin-left:10px;
+  position: absolute;
+  width: 50px;
+  height: 58px;
+  background: #cdcdcd;
+  border-radius:10px;
   cursor: pointer;
+}
+.toggle:hover{
+  background-color: rgb(196, 196, 196);
+
 }
 
 .toggle::before {
@@ -427,18 +432,29 @@ body {
   font-weight: 500;
   line-height: 1.2em;
 }
-
-@media (max-width: 992px) {
-  #logo{
-      content:url("../IMG/logo.png");
-      position: relative;
+#logo{
+  content:url("../IMG/logo.png");
+  position: relative;
       display: block;
       min-width: 40px;
       height: 50px;
       line-height: 60px;
       text-align: center;
+      left:0px;
+      animation: scompari 0.3s forwards;
+      
+}
+#logo.active{
+  left:-60px;
+  animation: compari 0.3s forwards;
+}
+@media (max-width: 992px) {
+  #logo{
+    left:-60px;
+      animation: compari 0.3s forwards;
   }
-
+  
+  
   .navigation {
     left: -300px;
   }
@@ -466,10 +482,26 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@keyframes compari {
+  to {
+      left:0;
+  }
+}
+@keyframes scompari {
+  to {
+      left:-60px;
 
+  }
+}
 @media (max-width: 768px) {
   .details {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .toggle{
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .toggle:hover{
+    background-color: rgba(0, 0, 0, 0);
   }
 
   .cardHeader h2 {
@@ -523,8 +555,9 @@ body {
 .content {
   position: absolute;
   width: 100%;
-  height: calc(100% - 60px);
+  height: 99.5%;
   border:0;
+
 }
 .iframe{
   margin:0;

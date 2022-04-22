@@ -71,9 +71,9 @@ else
                         </div>
                     </div>
                 </div>
-                <br><br><br><br><br><br><br>
+                <br><br><br><br>
                 <div class="contatti-testo">
-                    <textarea name="testo_richiesta" id="testo_richiesta" placeholder="Inserisci testo..."></textarea>
+                    <textarea name="testo_richiesta" id="testo_richiesta" " placeholder="Inserisci testo..."></textarea>
                 </div>
                 <div class="divSubmit">
                     <input type="submit" class="submit" value="Invia Messaggio"/>

@@ -12,9 +12,12 @@ var app = new Vue({
             let toggle = document.querySelector('.toggle');
             let navigation = document.querySelector('.navigation');
             let main = document.querySelector('.main');
+            let logo = document.querySelector('#logo');
             toggle.classList.toggle('active');
             navigation.classList.toggle('active');
             main.classList.toggle('active');
+            logo.classList.toggle('active');
+
         },
         apriHelp() {
             document.getElementById("iframe").src="interfaccie/help.php";

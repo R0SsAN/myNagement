@@ -2,7 +2,7 @@
     font-family: 'Dongle', sans-serif;
 }
 body{
-    background-color: lightgray;
+    
     height:100%;
 }
 .titolo{
@@ -30,6 +30,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    height: auto;
 }
 @keyframes compari {
     to {
@@ -52,32 +53,18 @@ body{
     padding-left: 20px;
     overflow: hidden;
 }
-@media (max-width: 800px) {
-    .contatti-full{
-        border: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        border-radius: 10px;
-        overflow: hidden;
-        padding-left: 60px;
-        height:auto;
-    }
-    .contatti{
-        width: 500px;
-        height:600px;
-        margin-left:auto;
-        margin-right:auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-  }
 #testo_richiesta{
-    height:40px;
+    border:none;
+    outline: none;    
+    border-radius: 10px;
     margin-left:5px;
     margin-right:5px;
+    height:300px;
+    resize:vertical;
+    min-height:100px;
+    max-height:450px;
 }
+
 textarea {
     font-family: inherit;
     font-size: inherit;
@@ -115,17 +102,12 @@ textarea {
         overflow: hidden;
         height:auto;
 }
-#testo_richiesta{
-    border:none;
-    outline: none;    
-    border-radius: 10px;
-    
 
-}
 .campi_info{
     border:none;
     outline: none;    
     border-radius: 10px;
+    height: 300px;
 }
 
 .insert {
@@ -266,4 +248,27 @@ textarea {
 }
 #testo_richiesta{
     font-size: 25px;
+}
+@media (max-width: 800px) {
+    .contatti-full{
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        overflow: hidden;
+        padding-left: 60px;
+        height:auto;
+    }
+    .contatti{
+        width: 90%;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    #testo_richiesta{
+        max-height: 130px;
+    }
 }

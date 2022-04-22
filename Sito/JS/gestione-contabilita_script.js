@@ -101,7 +101,13 @@ var app = new Vue({
                 {
                     app.temp+=parseInt(data);
                     if(check)
-                        document.getElementById("somma-entrate").innerHTML=formatter.format(app.temp);
+                    {
+                        if(!isNaN(app.temp))
+                            document.getElementById("somma-entrate").innerHTML=formatter.format(app.temp);
+                        else
+                            app.compariInsufficente();
+                    }
+                        
                 });
             });
 
@@ -135,7 +141,12 @@ var app = new Vue({
                     {
                         app.temp2+=parseInt(data);
                         if(check)
-                            document.getElementById("somma-uscite").innerHTML=formatter.format(app.temp2);
+                        {
+                            if(!isNaN(app.temp))
+                                document.getElementById("somma-uscite").innerHTML=formatter.format(app.temp2);
+                            else
+                                app.compariInsufficente();
+                        }
                     });
 
                     
@@ -152,7 +163,11 @@ var app = new Vue({
                 app.getSommaUscite(app.year2,app.month2, false);
                 var ricavoScorso= app.temp-app.temp2;
                 var percentuale= ((ricavoAttuale-ricavoScorso)/130)*100;
-                
+                if(percentuale < 0)
+                    document.getElementById("percentuale").setAttribute("style", "color: red;");
+                else
+                    document.getElementById("percentuale").setAttribute("style", "color: green;");
+
                 document.getElementById("percentuale").innerHTML= percentuale + "%";
             }, 700);
             
@@ -209,8 +224,19 @@ var app = new Vue({
                 mese: this.month+1,
             }, function( data ) 
             {
-                document.getElementById("body").innerHTML=data;
-                generaDatatable();
+                if(data=="")
+                {
+                    var temp="<tr><td>Movimenti non presenti in questo mese</td></tr>";
+                    for (let i = 0; i < 9; i++) 
+                        temp+="<tr></tr>"
+                        document.getElementById("body").innerHTML=temp;
+                }
+                else
+                {
+                    document.getElementById("body").innerHTML=data;
+                    generaDatatable();
+                }
+                
             });
         },
         aggiornadata(a, y) {
@@ -279,6 +305,16 @@ var app = new Vue({
                 elements[ii].value = "";
             }
             document.getElementById('input-data').value = new Date().toDateInputValue();
+        },
+        compariInsufficente()
+        {
+            document.getElementById("uscite-stipendi").innerHTML="Valori insufficenti";
+            document.getElementById("somma-entrate").innerHTML="Valori insufficenti";
+            document.getElementById("somma-uscite").innerHTML="Valori insufficenti";
+            document.getElementById("uscite-movimenti").innerHTML="Valori insufficenti";
+            document.getElementById("entrate-movimenti").innerHTML="Valori insufficenti";
+            document.getElementById("uscite-prodotti").innerHTML="Valori insufficenti";
+            document.getElementById("entrate-prodotti").innerHTML="Valori insufficenti";
         },
         compariAlertErrore($stringa)
         {
