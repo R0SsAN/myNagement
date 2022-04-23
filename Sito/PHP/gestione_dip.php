@@ -208,17 +208,19 @@ if (isset($_POST["mese"])) {
         $row = mysqli_fetch_array($result);
         die('<div class="dipendente">
                             <b>Nome:</b> <label type="text" name="nome" id="nome">' . $row["Nome"] . " " . $row["Cognome"] . '</label><br><br>
-                            <b>Codice Fiscale:</b><label type="text" name="cf" id="cf">' . $row["CodiceFiscale"] . '</label><br><br>
-                            <b>Telefono:</b><label type="tel" name="tel" id="tel">' . $row["Telefono"] . '</label><br><br>
+                            <b>Codice Fiscale:</b><label type="text" name="cf" id="cf">'  . $row["CodiceFiscale"] . '</label><br><br>
+                            <b>Telefono:</b><label type="tel" name="tel" id="tel">'  . $row["Telefono"] . '</label><br><br>
                             <b>Email:</b><label type="mail" name="mail" id="mail">' . $row["Email"] . '</label><br><br>
-                            <b>Indirizzo:</b><label type="ind" name="ind" id="ind">' . $row["Indirizzo"] . '</label><br><br>
+                            <b>Indirizzo:</b><label type="ind" name="ind" id="ind">'  . $row["Indirizzo"] . '</label><br><br>
                 </div>
                 <div class="contratto">
-                            <b>Mansione:</b><label type="mans" name="mans" id="mans">' . $row["Mansione"] . '</label><br><br>
-                            <b>Salario:</b><label type="sal" name="sal" id="sal">' . $row["Salario"] . '</label><br><br>
-                            <b>Ore:</b><label type="ore" name="ore" id="ore">' . $row["OreLavorative"] . '</label><br><br>
-                            <b>Data inizio:</b><label type="inizio" name="inizio" id="inizio">' . $row["DataInizio"] . '</label><br><br>
-                            <b>Data fine:</b><label type="fine" name="fine" id="fine">' . $row["DataFine"] . '</label><br><br>
+                            <b>Mansione:</b><input type="text" name="mans" class="txt" value="'  . $row["Mansione"] . '" disabled></input><br><br>
+                            <b>Salario:</b><input type="text" name="sal" class="txt" value="' . $row["Salario"] . '"disabled></input><br><br>
+                            <b>Ore:</b><input type="text" name="ore" class="txt" value="' . $row["OreLavorative"] . '"disabled></input><br><br>
+                            <b>Data inizio:</b><input type="text" name="inizio" class="txt" value="' . $row["DataInizio"] . '"disabled></input><br><br>
+                            <b>Data fine:</b><input type="text" name="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>
+                            <button class="buttonanagrafica" id="edit" onclick="disable()">Modifica Contratto</button>
+                            <button class="buttonanagrafica" id="save" onclick="disable()" visibility="hidden">Salva</button>
                 </div>');
     }
 } else

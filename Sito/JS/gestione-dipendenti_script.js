@@ -66,8 +66,16 @@ var app = new Vue({
                     error = "Errore";
             });
         },
+        disabilita() {
+            var disabled = $(".txt").prop('disabled');
+            $(".txt").prop('disabled', !disabled);
+            document.getElementById("save").style.display=systemON?"":"none";
+        },
     }
 });
 function anagraficaDip(id) {
     app.anagraficaDip(id);
+}
+function disable() {
+    app.disabilita();
 }
