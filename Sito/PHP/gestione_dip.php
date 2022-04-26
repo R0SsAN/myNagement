@@ -81,10 +81,42 @@ if (isset($_POST["mese"])) {
 
 
             $res .= "<td>" . strval($sommaTotaleStipendi) . "</td>";
-            $dataM =  mysqli_fetch_array($link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente"));
-            $dataC =  mysqli_fetch_array($link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente"));
-            $dataF =  mysqli_fetch_array($link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente"));
-            $dataMa =  mysqli_fetch_array($link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente"));
+            //$dataM =  mysqli_fetch_array();
+
+            $ress = $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            if (mysqli_num_rows($ress) > 0) {
+                $dataM =  mysqli_fetch_array($ress);
+            } else {
+                $dataM["fine"] = "0";
+                $dataM["inizio"] = "0";
+            }
+
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            if (mysqli_num_rows($ress) > 0) {
+                $dataC =  mysqli_fetch_array($ress);
+            } else {
+                $dataC["fine"] = "0";
+                $dataC["inizio"] = "0";
+            }
+
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+
+            if (mysqli_num_rows($ress) > 0) {
+                $dataF =  mysqli_fetch_array($ress);
+            } else {
+                $dataF["fine"] = "0";
+                $dataF["inizio"] = "0";
+            }
+
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+
+            if (mysqli_num_rows($ress) > 0) {
+                $dataMa =  mysqli_fetch_array($ress);
+            } else {
+                $dataMa["fine"] = "0";
+                $dataMa["inizio"] = "0";
+            }
+
             if (intval($dataM["fine"]) > intval($dataM["inizio"])) {
                 $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
                 $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
@@ -179,19 +211,19 @@ if (isset($_POST["mese"])) {
                 $resultFerie = mysqli_fetch_array($link->query($queryFerie));
                 $resultMat = mysqli_fetch_array($link->query($queryMat));
                 //print("<pre>" . print_r($queryFerie, true) . "</pre>");
-                if ($resultCassa["malattia"] == NULL)
+                if ($resultCassa == NULL)
                     $res .= "<td>" . 0  . "</td>";
                 else
                     $res .= "<td>" . $resultCassa["malattia"]  . "</td>";
-                if ($resultMalattia["malattia"] == NULL)
+                if ($resultMalattia == NULL)
                     $res .= "<td>" . 0  . "</td>";
                 else
                     $res .= "<td>" . $resultMalattia["malattia"] . "</td>";
-                if ($resultFerie["malattia"] == NULL)
+                if ($resultFerie == NULL)
                     $res .= "<td>" . 0  . "</td>";
                 else
                     $res .= "<td>" . $resultFerie["malattia"] . "</td>";
-                if ($resultMat["malattia"] == NULL)
+                if ($resultMat == NULL)
                     $res .= "<td>" . 0  . "</td>";
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
@@ -218,14 +250,13 @@ if (isset($_POST["mese"])) {
                             <b>Salario:</b><input type="text" name="sal" class="txt" value="' . $row["Salario"] . '"disabled></input><br><br>
                             <b>Ore:</b><input type="text" name="ore" class="txt" value="' . $row["OreLavorative"] . '"disabled></input><br><br>
                             <b>Data inizio:</b><input type="text" name="inizio" class="txt" value="' . $row["DataInizio"] . '"disabled></input><br><br>
-                            <b>Data fine:</b><input type="text" name="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>
-                            <button class="buttonanagrafica" id="edit" onclick="disable()">Modifica Contratto</button>
-                            <button class="buttonanagrafica" id="save" onclick="disable()" visibility="hidden">Salva</button>
+                            <b>Data fine:</b><input type="text" name="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>                        
+                </div>
+                <div class="modal-footer" style="justify-content:space-between;">
+                    <button class="buttonanagrafica" id="edit" onclick="disable()">Modifica Contratto</button>
+                    <button class="buttonanagrafica" id="salva" onclick="disable()" visibility="hidden">Salva</button>
                 </div>');
     }
 } else
     die("Errore");
 ?>
-
-
-

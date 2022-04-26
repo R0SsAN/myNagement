@@ -3,7 +3,8 @@ var app = new Vue({
     data: {
         year: 0,
         month: 0,
-        monthArr: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+        monthArr: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+        hidden: false
     },
     mounted() {
         console.log("Vue funziona");
@@ -69,13 +70,22 @@ var app = new Vue({
         disabilita() {
             var disabled = $(".txt").prop('disabled');
             $(".txt").prop('disabled', !disabled);
-            document.getElementById("save").style.display=systemON?"":"none";
+            this.save();
         },
+        save() {
+            if (this.hidden) {
+                $('#salva').hide();
+            } else {
+                $('#salva').show();
+            }
+            this.hidden = !this.hidden;
+        }
     }
 });
 function anagraficaDip(id) {
     app.anagraficaDip(id);
 }
 function disable() {
+    $('#salva').hide();
     app.disabilita();
 }

@@ -30,6 +30,7 @@ table td {
 }*/
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto');
+
 * {
     margin: 0;
     padding: 0;
@@ -51,7 +52,7 @@ table td {
     opacity: .7;*/
 }
 
-#vue-container{
+#vue-container {
     width: 100%;
     height: 100%;
 }
@@ -127,11 +128,13 @@ tr:nth-child(even) {
     text-align: center;
     margin: 2px;
 }
+
 .date {
     display: block;
     text-align: center;
-    margin: 12px;    
+    margin: 12px;
 }
+
 .modal-body {
     display: flex;
     flex-direction: row;
@@ -139,22 +142,35 @@ tr:nth-child(even) {
     justify-content: center;
     flex-wrap: nowrap;
 }
+
 .contratto {
     height: 100%;
     width: 50%;
     justify-content: row;
 }
+
 .dipendente {
     height: 100%;
     width: 50%;
     justify-content: row;
 }
+
 .nascosto {
     visibility: hidden;
 }
+
 input:disabled {
     background-color: white;
     color: black;
-    cursor:default;
+    cursor: default;
     border: 0;
- }
+}
+
+input:enabled {
+    margin: 0;
+    padding: 0;
+}
+
+#salva {
+    display: none;
+}
