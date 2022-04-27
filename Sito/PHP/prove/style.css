@@ -1,0 +1,36 @@
+body{
+    width: auto;
+    height: auto;
+}
+.cont{
+   
+    
+    background: gold;
+}
+.container2{
+    
+    background: rgb(0, 0, 0);
+}
+.titoloPresenze{
+    padding-left: 15%;
+}
+.wrapper {
+    display: flex;  
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    
+  }
+  
+  .wrapper > * {
+    padding: 10px;
+    flex: 1 100%;
+  }
+  @media all and (min-width: 800px) {
+    .main    { flex: 3 0px; }
+    .cont { order: 1; } 
+    .main    { order: 2; }
+    .container { order: 3; }
+    .footer  { order: 4; }
+  }
