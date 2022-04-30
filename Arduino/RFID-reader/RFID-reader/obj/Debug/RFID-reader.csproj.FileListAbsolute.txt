@@ -1,0 +1,7 @@
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\bin\Debug\RFID-reader.exe.config
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\bin\Debug\RFID-reader.exe
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\bin\Debug\RFID-reader.pdb
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\obj\Debug\RFID-reader.csproj.AssemblyReference.cache
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\obj\Debug\RFID-reader.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\obj\Debug\RFID-reader.exe
+C:\xampp\htdocs\Esercizi\Github\myNagement\Arduino\RFID-reader\RFID-reader\obj\Debug\RFID-reader.pdb
