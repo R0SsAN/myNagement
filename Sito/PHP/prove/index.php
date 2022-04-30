@@ -13,7 +13,7 @@ require_once "connect_db.php";
             $row2= mysqli_fetch_array($result2);
             $ris=$row["cod"];
             $ris2=$row2["cod2"];
-            
+                $data=date ("d/m/Y");
                 echo '<!DOCTYPE html>
                 <html lang="en">
                 
@@ -29,10 +29,12 @@ require_once "connect_db.php";
                 </head>
                 
                 <body>
+                <p id=data>Data: &nbsp'.$data.'</p>
                 <div class="wrapper">
+                
                     <div class="cont">
                         <h1 id="titoloPresenze" class="titoloPresenze">Presenze giornaliere</h1>
-                        <canvas id="canvas"></canvas>
+                        <canvas id="canvas" class = "cont"></canvas>
                     </div>
 
                     <div class="container2">
@@ -40,6 +42,7 @@ require_once "connect_db.php";
                         <canvas id="canvas2"></canvas>
                     </div>
                 </div>
+                <div class="vl"></div>
                     <script>
                         let myCanvas = document.getElementById("canvas").getContext("2d");
                 
