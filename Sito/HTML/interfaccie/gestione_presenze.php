@@ -10,14 +10,17 @@ if (!isset($_SESSION["userId"]))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
-    <link rel="stylesheet" type="text/css" href="../../CSS/tabella_style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" /> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
+    <link rel="stylesheet" href="../../CSS/gestione_presenze.css">
+    <link rel="stylesheet" type="text/css" href="../../CSS/tabella_style.css">
+    <link rel="stylesheet" type="text/css" href="../../CSS/dipendenti_style.css">
 
+   
     <title>Document</title>
     <style>
         .column1 {
@@ -81,7 +84,7 @@ if (!isset($_SESSION["userId"]))
             </tbody>
         </table>-->
 
-        <div class="modal" id="myModal">
+        <div class="modal fade" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -89,19 +92,20 @@ if (!isset($_SESSION["userId"]))
                     </div>
                     <div class="modal-body">
                         <div class="dipendente">
-                            Nome: <label type="text" name="nome" id="nDip"></label><br><br>
-                            Codice Fiscale: <label type="text" name="cf" id="cFisc"></label><br><br>
-                            Telefono: <label type="tel" name="tel" id="tel"></label><br><br>
-                            Email: <label type="mail" name="mail" id="mail"></label><br><br>
-                            Indirizzo: <label type="ind" name="ind" id="ind"></label><br><br>
+                            Tipo Assenza: <select name="tipoassenza" id="assenza">
+                                <option selected>Choose...</option>
+                                <option value="malattia">Malattia</option>
+                                <option value="ferie">Ferie</option>
+                                <option value="cassa integrazione">Cassa Integrazione</option>
+                            </select><br><br><br>
+                            Data-Inizio: <input type="date" name="" id="datainizio"><br><br>
+                            Data-Fine: <input type="date" name="" id="datafine"></label><br><br>
+                            Percentuale Dello Stipendio:
+                            <input type="range" class="form-range" id="customRange1" step="5"> <label for="" id="percstipendio"></label><br><br>
                         </div>
-                        <div class="contratto">
-                            Mansione: <label type="mans" name="mans" id="mans"></label><br><br>
-                            Salario: <label type="sal" name="sal" id="sal"></label><br><br>
-                            Ore: <label type="ore" name="ore" id="ore"></label><br><br>
-                            Data inizio: <label type="inizio" name="inizio" id="inizio"></label><br><br>
-                            Data fine: <label type="fine" name="fine" id="fine"></label><br><br>
-                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: space-between;">
+                        <p id="errore" style="color: red; font-size: 15px;"></p> <button type="submit" id="btnam" class="submit" style="width: 40%; margin-top: 0px;" onclick="AggiornaAssenze()"></button>
                     </div>
                 </div>
             </div>
