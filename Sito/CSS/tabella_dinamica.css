@@ -132,7 +132,7 @@
   }
   table thead tr {
     height: 60px;
-    background: #db2424;
+    background: #1260ab;
   }
   table tbody tr {
     height: 50px;
@@ -307,7 +307,7 @@
   }
   thead, tbody { display: block; }
 		thead{
-			background-color: #db2424;
+			background-color: #1260ab;
 		}
 		tbody {
 			max-height: 60vh;       /* Just for the demo          */

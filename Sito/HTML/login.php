@@ -15,6 +15,7 @@ if (isset($_SESSION["userId"]))
     <link rel="stylesheet" href="../CSS/login_style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -92,10 +93,14 @@ if (isset($_SESSION["userId"]))
                                 </div>
                             </div>
                         </div>
-
-                        <button type="button" class="bConferma" @click="registraAccount()">
-                            <p id="bTesto">REGISTRATI</p>
-                        </button>
+                        <div class="container-button">
+                            <button type="button" class="bCrea" @click="registraAccount()" style="margin-right:-21px">
+                                <p id="bTesto">REGISTRATI</p>
+                            </button>
+                            <button type="button" class="bConferma" @click="switch2Register(0);" style="background-color:lightcoral;">
+                                <p id="bTesto">TORNA INDIETRO</p>
+                            </button>
+                        </div>
                         <p id="pError2" class="pError">&nbsp</p>
                     </div>
                     <div id="registra" v-if="checkRegistraAzienda">
@@ -113,12 +118,6 @@ if (isset($_SESSION["userId"]))
                                         <input type="number" id="aTelefono" class="testoCampo" placeholder="Telefono">
                                     </div>
                                 </div>
-                                <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
-                                    <div class="testoCampo">
-                                        <input type="text" id="aEmail" class="testoCampo" placeholder="Email">
-                                    </div>
-                                </div>
                             </div>
                             <div class="registra-semi">
                                 <div class="campo">
@@ -133,18 +132,22 @@ if (isset($_SESSION["userId"]))
                                         <input type="text" id="aIndirizzo" class="testoCampo" placeholder="Indirizzo">
                                     </div>
                                 </div>
-                                <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
-                                    <div class="testoCampo">
-                                        <input type="text" id="" class="testoCampo" placeholder="">
-                                    </div>
-                                </div>
                             </div>
                         </div>
-
-                        <button type="button" class="bConferma" @click="registraAzienda()">
-                            <p id="bTesto">REGISTRA AZIENDA</p>
-                        </button>
+                        <div class="campo" style="margin-top: 1px">
+                                <img src="../IMG/icona_mail.png" class="icon">
+                                <div class="testoCampo">
+                                    <input type="text" id="aEmail" class="testoCampo" placeholder="Email">
+                                </div>
+                            </div>
+                        <div class="container-button">
+                            <button type="button" class="bCrea" @click="registraAccount()" style="margin-right:-21px">
+                                <p id="bTesto">REGISTRA AZIENDA</p>
+                            </button>
+                            <button type="button" class="bConferma" @click="switch2Register(0);" style="background-color:lightcoral;">
+                                <p id="bTesto">TORNA INDIETRO</p>
+                            </button>
+                        </div>
                         <p id="pError3" class="pError">&nbsp</p>
                     </div>
                 </form>

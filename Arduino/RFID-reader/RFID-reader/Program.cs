@@ -15,11 +15,21 @@ namespace RFID_reader
         {
 
             arduino = new SerialPort("COM20", 9600);
-            arduino.Open();
+            try
+            {
+                arduino.Open();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Errore connessione seriale!");
+                Console.ReadLine();
+            }
+            
             arduino.DataReceived += Arduino_DataReceived;
 
             Console.WriteLine("Servizio lettore tessere avviato!");
             Console.WriteLine("In attesa di tessere..");
+            while (true) { }
         }
 
         private static void Arduino_DataReceived(object sender, SerialDataReceivedEventArgs e)

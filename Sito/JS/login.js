@@ -4,7 +4,6 @@ var app = new Vue({
         checkLogin:true,
         checkRegistraUtente:false,
         checkRegistraAzienda:false,
-
     },
     mounted(){
         console.log("Vue funziona");
@@ -25,11 +24,11 @@ var app = new Vue({
                     if(data=="true")
                         window.location.href = "dashboard.php";
                     else
-                        error="Credenziali non valide";
+                        this.compariAlertErrore("Credenziali non valide");
                 });
             }
             else
-                error="Campi inseriti non validi";
+                this.compariAlertErrore("Campi inseriti non validi");
             document.getElementById("pError").innerHTML=error;
         },
         controlloValiditaEmail()
@@ -71,7 +70,7 @@ var app = new Vue({
                 });
             }
             else
-                error="Campi inseriti non validi";
+                compariAlertError("Campi inseriti non validi");
             document.getElementById("pError2").innerHTML=error;
         },
         switch2Register(check)
@@ -93,6 +92,8 @@ var app = new Vue({
                 this.checkRegistraAzienda=false;
                 setTimeout(function() {app.vis2=true }, 500);
                 this.checkLogin=true;
+                document.getElementById("login").style.width="450px";
+                document.getElementsByClassName("form")[0].style.width="450px";
             }
             else if(check==-1)
             {
@@ -131,7 +132,7 @@ var app = new Vue({
                 });
             }
             else
-                error="Informazioni mancanti";
+            compariAlertError("Informazioni mancanti");
 
             document.getElementById("pError3").innerHTML=error;
         },
@@ -146,6 +147,32 @@ var app = new Vue({
             }, function( data ) 
             {
                 document.getElementById("tAzienda").innerHTML=data;
+            });
+        },
+        compariAlertErrore($stringa)
+        {
+            $.bootstrapGrowl($stringa,{
+                ele: "body",
+                type: "danger",
+                offset: {from:"top", amount:10},
+                align: "right",
+                delay: 2000,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
+            });
+        },
+        compariAlertSuccess($stringa)
+        {
+            $.bootstrapGrowl($stringa,{
+                ele: "body",
+                type: "success",
+                offset: {from:"top", amount:10},
+                align: "right",
+                delay: 1500,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
             });
         },
         g(nome)

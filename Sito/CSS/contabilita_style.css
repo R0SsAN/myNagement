@@ -86,7 +86,7 @@ a, a:hover, a:focus, a:active {
     transform: translate(-50%, 100%);
 }
 .submit2 {
-    background-color: red;
+    background-color: #2284e2;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
