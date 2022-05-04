@@ -6,10 +6,10 @@ session_start();
 // -Nome dipendente -Contratto dipendente -Ore totali -stipendio -Giorni cassa integrazione -Giorni malattia -Giorni ferie -Giorni maternita 
 
 if (isset($_POST["mese"])) {
-    $query = "SELECT dipendenti.Cod,dipendenti.Nome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)=" . $_POST['year'] . " AND presenza.presente=1 GROUP BY dipendenti.Cod";
+    $query = "SELECT dipendenti.Cod,dipendenti.Nome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)=" . $_POST['year'] . " GROUP BY dipendenti.Cod";
     if ($result = $link->query($query)) {
         //$cod = mysqli_fetch_array($result)["Cod"];        
-        $res = "";
+        $res = "";        
         while ($row = mysqli_fetch_array($result)) {
             $param = $row["Cod"];
             $res .= "<tr>";
@@ -82,6 +82,7 @@ if (isset($_POST["mese"])) {
 
             $res .= "<td>" . strval($sommaTotaleStipendi) . "</td>";
             //$dataM =  mysqli_fetch_array();
+
 
             $ress = $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
             if (mysqli_num_rows($ress) > 0) {
@@ -201,6 +202,43 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultFerie["malattia"] . "</td>";
                 $res .= "<td>" . (cal_days_in_month(CAL_GREGORIAN, $_POST["mese"], $_POST["year"]) - intval($dataMa["iniziod"]))  . "</td>";
+            } else if ((intval($dataM["inizio"]) < intval($dataM["fine"])) || (intval($dataC["inizio"]) < intval($dataC["fine"])) || (intval($dataF["inizio"]) < intval($dataF["fine"])) || (intval($dataMa["inizio"]) < intval($dataMa["fine"]))) {
+                if (intval($dataM["inizio"]) < intval($dataM["fine"])) {
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                } else {
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                }
+                if (intval($dataC["inizio"]) < intval($dataC["fine"])) {
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                } else {
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                }
+                if (intval($dataF["inizio"]) < intval($dataF["fine"])) {
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                } else {
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                }
+                if (intval($dataMa["inizio"]) < intval($dataMa["fine"])) {
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                } else {
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $r = mysqli_fetch_array($link->query($queryCassa));
+                    $res .= "<td>" . $r["d"]  . "</td>";
+                }
             } else {
                 $queryMalattia = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
                 $queryCassa = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
@@ -234,7 +272,7 @@ if (isset($_POST["mese"])) {
         die($res);
     } else
         die(mysqli_error($link));
-} else if (isset($_POST["idDip"])) {
+} else if (isset($_POST["idDip"]) && !isset($_POST["salario"])) {
     $anagrafica = "SELECT * FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente WHERE dipendenti.Cod=" . $_POST["idDip"];
     if ($result = $link->query($anagrafica)) {
         $row = mysqli_fetch_array($result);
@@ -245,17 +283,20 @@ if (isset($_POST["mese"])) {
                             <b>Email:</b><label type="mail" name="mail" id="mail">' . $row["Email"] . '</label><br><br>
                             <b>Indirizzo:</b><label type="ind" name="ind" id="ind">'  . $row["Indirizzo"] . '</label><br><br>
                 </div>
-                <div class="contratto">
-                            <b>Mansione:</b><input type="text" name="mans" class="txt" value="'  . $row["Mansione"] . '" disabled></input><br><br>
-                            <b>Salario:</b><input type="text" name="sal" class="txt" value="' . $row["Salario"] . '"disabled></input><br><br>
-                            <b>Ore:</b><input type="text" name="ore" class="txt" value="' . $row["OreLavorative"] . '"disabled></input><br><br>
-                            <b>Data inizio:</b><input type="text" name="inizio" class="txt" value="' . $row["DataInizio"] . '"disabled></input><br><br>
-                            <b>Data fine:</b><input type="text" name="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>                        
-                </div>
-                <div class="modal-footer" style="justify-content:space-between;">
-                    <button class="buttonanagrafica" id="edit" onclick="disable()">Modifica Contratto</button>
-                    <button class="buttonanagrafica" id="salva" onclick="disable()" visibility="hidden">Salva</button>
+                <div class="contratto" id="' . $_POST["idDip"] . '">
+                            <b>Mansione:</b><input type="text" id="mans" class="txt" value="'  . $row["Mansione"] . '" disabled></input><br><br>
+                            <b>Salario:</b><input type="text" id="sal" class="txt" value="' . $row["Salario"] . '"disabled></input><br><br>
+                            <b>Ore:</b><input type="text" id="ore" class="txt" value="' . $row["OreLavorative"] . '"disabled></input><br><br>
+                            <b>Data inizio:</b><input type="text" id="inizio" class="txt" value="' . $row["DataInizio"] . '"disabled></input><br><br>
+                            <b>Data fine:</b><input type="text" id="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>                        
                 </div>');
+    }
+} else if (isset($_POST["mansione"]) && isset($_POST["salario"]) && isset($_POST["ore"]) && isset($_POST["datai"]) && isset($_POST["dataf"])) {
+    $modifica = "UPDATE contratti SET Salario = '" . $_POST["salario"] . "', OreLavorative = '" . $_POST["ore"] . "', DataInizio = '" . $_POST["datai"] . "', DataFine = '" . $_POST["dataf"] . "' WHERE contratti.CodDipendente = " . $_POST["idDip"];
+    if ($result = $link->query($modifica)) {
+        die("fatto");
+    } else {
+        die($modifica);
     }
 } else
     die("Errore");
