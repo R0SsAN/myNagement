@@ -52,6 +52,10 @@
                     <div class="modal-body" id="modal-body">
 
                     </div>
+                    <div class="modal-footer" style="justify-content:space-between;">
+                        <button class="buttonanagrafica" id="edit" onclick="disable()">Modifica Contratto</button>
+                        <button class="buttonanagrafica" id="salva" onclick="save()" visibility="hidden">Salva</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,8 +67,3 @@
 </body>
 
 </html>
-
-
-
-
-

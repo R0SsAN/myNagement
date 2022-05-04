@@ -47,7 +47,7 @@ var app = new Vue({
                 mese: this.month + 1,
                 year: this.year,
             }, function (data) {
-                console.log(data);
+                //console.log(data);
                 if (data != "Errore") {
                     document.getElementById("table").innerHTML = data;
                 }
@@ -59,7 +59,7 @@ var app = new Vue({
             $.post("../../PHP/gestione_dip.php", {
                 idDip: id,
             }, function (data) {
-                console.log(data);
+                //console.log(data);
                 if (data != "Errore") {
                     document.getElementById("modal-body").innerHTML = data;
                 }
@@ -79,6 +79,23 @@ var app = new Vue({
                 $('#salva').show();
             }
             this.hidden = !this.hidden;
+        },
+        edit() {
+            $.post("../../PHP/gestione_dip.php", {
+                mansione: document.getElementById("mans").value,
+                salario: document.getElementById("sal").value,
+                ore: document.getElementById("ore").value,
+                datai: document.getElementById("inizio").value,
+                dataf: document.getElementById("fine").value,
+                idDip: $('.contratto')[0].id,
+            }, function (data) {
+                console.log(data);
+                // if (data != "Errore") {
+                //     document.getElementById("modal-body").innerHTML = data;
+                // }
+                // else
+                //     error = "Errore";
+            });
         }
     }
 });
@@ -89,3 +106,13 @@ function disable() {
     $('#salva').hide();
     app.disabilita();
 }
+function save() {
+    app.edit();
+}
+$('#myModal').on('hide.bs.modal', function () {
+    // $('#salva').hide();
+    // app.hidden = true;
+    // app.disabilita();
+    document.location.reload(true)
+});
+// document.location.reload(true)
