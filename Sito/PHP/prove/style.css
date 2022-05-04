@@ -1,0 +1,42 @@
+body{
+    width: auto;
+    height: auto;
+}
+.cont{
+    width: 20%;
+    height: 20%;
+    
+}
+.container2{
+  width: 20%;
+  height: 20%;
+ margin-left:15%;
+}
+.titoloPresenze{
+    padding-left: 15%;
+}
+.wrapper {
+    display: flex;  
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    width: 80%;
+    height: 50%;
+  }
+  
+  #data{
+    margin-left: 2%; 
+    font-size: large;
+    font-weight: bold;
+    font-display: 10;
+  }
+  .vl {
+    border-left: 6px solid rgb(0, 0, 0);
+    margin-top: 5%;
+    margin-bottom: 5%;
+    height:80%;
+    position: absolute;
+    left: 60%;
+    margin-left: -3px;
+    top: 0;
+  }

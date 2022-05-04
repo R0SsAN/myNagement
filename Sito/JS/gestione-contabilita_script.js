@@ -267,10 +267,14 @@ var app = new Vue({
             mo = this.monthArr[this.month];
             document.getElementById("current_date").innerHTML = mo + " " + this.year;
 
-            this.year2=this.year;
+            this.year2=this.year;   
             this.month2=this.month;
 
+            $(".mese-anno").each(function()  {
+                $(this).html(mo + " " + app.year);
+            });
             this.generaStatistiche();
+
         },
         aggiornadata2(a, y) {
             if (this.month2 == 11) {
@@ -315,6 +319,9 @@ var app = new Vue({
             document.getElementById("entrate-movimenti").innerHTML="Valori insufficenti";
             document.getElementById("uscite-prodotti").innerHTML="Valori insufficenti";
             document.getElementById("entrate-prodotti").innerHTML="Valori insufficenti";
+            document.getElementById("ricavi").innerHTML="Valori insufficenti";
+            document.getElementById("percentuale").innerHTML="-100%";
+            document.getElementById("percentuale").setAttribute("style", "color: red;");
         },
         compariAlertErrore($stringa)
         {
