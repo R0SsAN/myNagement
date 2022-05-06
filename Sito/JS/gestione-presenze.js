@@ -14,6 +14,7 @@ var app = new Vue({
             }, function(data) {
                 console.log(data);
                 document.getElementById("contenutotabella").innerHTML = data;
+                generaDatatable();
             });
         },
         AggiornaPresenza(cod) {
@@ -63,3 +64,41 @@ output.innerHTML = slider.value + "%";
 slider.oninput = function() {
     output.innerHTML = this.value + "%";
 }
+//per datatable
+function generaDatatable() {
+    $('#tabella').DataTable({
+        paging: false,
+        searching: false,
+        ordering: true,
+        info: false,
+        "bDestroy": true,
+        autoWidth: false
+        
+    });
+}
+function cercaInTabella() {
+    // Declare variables
+    var input, filter, table, tr, td, i,t, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tabella");
+    tr = table.getElementsByTagName("tr");
+    
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        tds= tr[i].getElementsByTagName("td");
+        for(t=0;t<tds.length;t++)
+        {
+            td = tds[t];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    }

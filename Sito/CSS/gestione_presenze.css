@@ -3,3 +3,18 @@
     width: 50%;
     justify-content: left;
 }
+#vue-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-table100{
+    transform: scale(0.7, 0.7);
+    animation: compari 0.3s forwards;
+}
+@keyframes compari {
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}

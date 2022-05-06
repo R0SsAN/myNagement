@@ -70,7 +70,7 @@ var app = new Vue({
                 });
             }
             else
-                compariAlertError("Campi inseriti non validi");
+                this.compariAlertErrore("Campi inseriti non validi");
             document.getElementById("pError2").innerHTML=error;
         },
         switch2Register(check)

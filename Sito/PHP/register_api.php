@@ -16,7 +16,7 @@
                 {
                     die("true");
                 }
-                die("false");
+                die("terrone");
             }
 
         }

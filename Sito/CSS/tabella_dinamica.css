@@ -109,9 +109,15 @@
     padding: 10px 30px;
     max-height: 600px;
   }
-  
+  .table100{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .wrap-table100 {
     width: 1170px;
+    
   }
   
   table {
@@ -130,9 +136,9 @@
   table td, table th {
     padding-left: 8px;
   }
-  table thead tr {
+  table thead tr th{
     height: 60px;
-    background: #1260ab;
+    background-color: #1260ab;
   }
   table tbody tr {
     height: 50px;
@@ -156,10 +162,12 @@
   
   .table100-head th{
     font-family: OpenSans-Regular;
+    background-color: #1260ab;
     font-size: 18px;
     color: #fff;
     line-height: 1.2;
     font-weight: unset;
+    
   }
   
   tbody tr:nth-child(even) {
@@ -182,33 +190,26 @@
   
   .column1 {
     width: 150px;
-    padding-left: 40px;
+
   }
   
   .column2 {
     width: 150px;
-    padding-left: 40px;
+
   }
   
   .column3 {
     width: 150px;
-    padding-left: 40px;
+
   }
   
   .column4 {
-    width: 150px;
-    padding-left: 40px;
   }
   
   .column5 {
-    width: 170px;
-    text-align: right;
   }
   
   .column6 {
-    width: 222px;
-    text-align: right;
-    padding-right: 62px;
   }
   .searchbar{
     width: 100%;
@@ -314,3 +315,15 @@
 			overflow-y: auto;    /* Trigger vertical scroll    */
 			overflow-x: hidden;  /* Hide the horizontal scroll */
 		}
+#tabella_wrapper{
+  width: 100%;
+}
+@media(max-width:534px){
+  .searchbar, #tabella_wrapper{
+    width:74%;
+  }
+  table tbody tr td {
+    padding-left: 36% !important;
+    margin-bottom: 24px;
+  }
+}

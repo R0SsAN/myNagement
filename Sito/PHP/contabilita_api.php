@@ -111,7 +111,6 @@
             if(!$result=$link->query($query))
                 die("Errore esecuzione query 1");
             $numeroDipendenti=mysqli_num_rows($result);
-
             while($row=mysqli_fetch_array($result))
             {
                 $sommaStipendioDipendente=0;
@@ -122,7 +121,7 @@
                     die("Errore esecuzione query 2");
                 $temp=mysqli_fetch_array($result2);
                 $salarioDipendente=$temp["salario"];
-                $oreLavorative=$temp["ore"];    
+                $oreLavorative=$temp["ore"];
                 //ora si prendono tutte le presenze di quel mese e si calcola lo stipendio in base a quello
                 $query="SELECT presenza.presente AS presente FROM presenza WHERE CodDipendente=".$row["cod"]." AND year(presenza.giorno)=".$_GET["anno"]." AND month(presenza.giorno)=".$_GET["mese"]."";
                 if(!$result2=$link->query($query))
@@ -169,7 +168,7 @@
                         $dataInizio = date ('Y-m-01', strtotime($row2["DataInizio"]));
                         $dataFine = date ('Y-m-01', strtotime($row2["DataFine"]));
                         $mese = date ('Y-m-01', strtotime($_GET["anno"]."-".$_GET["mese"]));
-                        if ( ($month_day >= min($date1_day, $date2_day)) && ($month_day <= max($date1_day, $date2_day)) )
+                        if ( ($mese > $dataInizio) && (($mese < $dataFine)) )
                         {
                             $numeroGiorniAssenza=cal_days_in_month(CAL_GREGORIAN, $_GET["mese"], $_GET["anno"]);
                         }

@@ -14,33 +14,28 @@ if (!isset($_SESSION["userId"]))
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    
 
     <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
     <link rel="stylesheet" href="../../CSS/gestione_presenze.css">
-    <link rel="stylesheet" type="text/css" href="../../CSS/tabella_style.css">
     <link rel="stylesheet" type="text/css" href="../../CSS/dipendenti_style.css">
+    <link rel="stylesheet" type="text/css" href="../../CSS/tabella_dinamica.css">
 
    
     <title>Document</title>
     <style>
-        .column1 {
-            width: 150px;
+        #check {
+            margin-left:32px;
         }
-
-        .column2 {
-            width: 160px;
+        .column4{
+            width:500px;
         }
-
-        .column3 {
-            width: 100px;
-        }
-
-        .column4 {
-            width: 210px;
-        }
-
-        .column5 {
-            width: 300px;
+        .column5{
+            width:220px;
         }
     </style>
 
@@ -53,7 +48,7 @@ if (!isset($_SESSION["userId"]))
                 <div class="table100">
                     <table style="border-radius: 10px;" id="tabella">
                         <div class="searchbar">
-                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                            <input type="text" id="myInput" onkeyup="cercaInTabella()" placeholder="Search for names..">
                         </div>
                         <thead>
                             <tr class="table100-head">

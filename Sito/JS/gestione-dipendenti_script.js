@@ -50,6 +50,7 @@ var app = new Vue({
                 //console.log(data);
                 if (data != "Errore") {
                     document.getElementById("table").innerHTML = data;
+                    generaDatatable();
                 }
                 else
                     error = "Errore";
@@ -115,4 +116,43 @@ $('#myModal').on('hide.bs.modal', function () {
     // app.disabilita();
     document.location.reload(true)
 });
-// document.location.reload(true)
+//per datatable
+function generaDatatable() {
+    $('#tabellla').DataTable({
+        paging: false,
+        searching: false,
+        ordering: true,
+        info: false,
+        "bDestroy": true,
+        autoWidth: false
+        
+    });
+}
+
+
+function cercaInTabella() {
+// Declare variables
+var input, filter, table, tr, td, i,t, txtValue;
+input = document.getElementById("myInput");
+filter = input.value.toUpperCase();
+table = document.getElementById("table");
+tr = table.getElementsByTagName("tr");
+
+// Loop through all table rows, and hide those who don't match the search query
+for (i = 0; i < tr.length; i++) {
+    tds= tr[i].getElementsByTagName("td");
+    for(t=0;t<tds.length;t++)
+    {
+        td = tds[t];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+                break;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+}

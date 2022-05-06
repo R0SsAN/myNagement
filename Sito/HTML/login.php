@@ -141,7 +141,7 @@ if (isset($_SESSION["userId"]))
                                 </div>
                             </div>
                         <div class="container-button">
-                            <button type="button" class="bCrea" @click="registraAccount()" style="margin-right:-21px">
+                            <button type="button" class="bCrea" @click="registraAzienda()" style="margin-right:-21px">
                                 <p id="bTesto">REGISTRA AZIENDA</p>
                             </button>
                             <button type="button" class="bConferma" @click="switch2Register(0);" style="background-color:lightcoral;">

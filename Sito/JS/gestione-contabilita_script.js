@@ -70,7 +70,7 @@ var app = new Vue({
             this.getUsciteMovimenti();
             this.getStipendiMensili();
             this.getRicavo();
-            setTimeout(function() { app.caricaTabellaMovimenti(); }, 800);
+            setTimeout(function() { app.caricaTabellaMovimenti(); }, 2000);
 
         },
         getStipendiMensili()
@@ -169,7 +169,7 @@ var app = new Vue({
                     document.getElementById("percentuale").setAttribute("style", "color: green;");
 
                 document.getElementById("percentuale").innerHTML= percentuale + "%";
-            }, 700);
+            }, 1000);
             
         },
         getUsciteMovimenti()

@@ -26,21 +26,21 @@ if (isset($_POST["genera"])) {
                                         if (mysqli_num_rows($result3) > 0) {
                                             while ($row3 = mysqli_fetch_array($result3)) {
                                                 if ($row3['DataInizio'] <= date("Y-m-d") && date("Y-m-d") <= $row3['DataFine']) {
-                                                    $return .= '<td class="column3">' . '<input type="checkbox" disabled="disabled" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column3">' . '<input id="check" type="checkbox" disabled="disabled" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                                     $return .= '<td class="column4">' . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
                                                     $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(true,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
                                                 }else if (date("Y-m-d") > $row3['DataFine']) {
-                                                    $return .= '<td class="column3">' . '<input type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column3">' . '<input  id="check" type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                                     $return .= '<td class="column4">' . '/' . '</td>';
                                                     $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
                                                 }else if (date("Y-m-d") < $row3['DataInizio']) {
-                                                    $return .= '<td class="column3">' . '<input type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column3">' . '<input id="check" type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                                     $return .= '<td class="column4">' . 'Assente dal:' . $row3['DataInizio'] . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
                                                     $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
                                                 }
                                             }
                                         } else {
-                                            $return .= '<td class="column3">' . '<input type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                            $return .= '<td class="column3">' . '<input id="check" type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                             $return .= '<td class="column4">' . '/' . '</td>';
                                             $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
 
@@ -48,7 +48,7 @@ if (isset($_POST["genera"])) {
                                         }
                                     }
                                 } else if ($row2["presente"] == 1) {
-                                    $return .= '<td class="column3">' . '<input type="checkbox" checked name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                    $return .= '<td class="column3">' . '<input id="check" type="checkbox" checked name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                     $return .= '<td class="column4">' . '/' . '</td>';
                                     $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
                                 }
