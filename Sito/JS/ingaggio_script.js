@@ -51,15 +51,15 @@ var app = new Vue({
                     console.log(data);
                     if(data=="true")
                     {
-                        document.getElementById("errore").innerHTML="Dipendente aggiunto correttamente";
+                        app.compariAlertSuccess("Dipendente aggiunto correttamente");
                         app.svuotaTutto();
                     }
                     else
-                        error="Errore aggiunta dipendente";
+                    app.compariAlertErrore("Errore aggiunta dipendente");
                 });
             }
             else
-                document.getElementById("errore").innerHTML="Dati mancanti";
+                this.compariAlertErrore("Dati mancanti");
         },
         controllaCampi()
         {
@@ -85,6 +85,32 @@ var app = new Vue({
             }
             document.getElementById('inizio').value = new Date().toDateInputValue();
             document.getElementById('nascita').value = new Date().toDateInputValue();
+        },
+        compariAlertErrore($stringa)
+        {
+            $.bootstrapGrowl($stringa,{
+                ele: "body",
+                type: "danger",
+                offset: {from:"top", amount:10},
+                align: "right",
+                delay: 2000,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
+            });
+        },
+        compariAlertSuccess($stringa)
+        {
+            $.bootstrapGrowl($stringa,{
+                ele: "body",
+                type: "success",
+                offset: {from:"top", amount:10},
+                align: "right",
+                delay: 1500,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
+            });
         },
     }
 });
