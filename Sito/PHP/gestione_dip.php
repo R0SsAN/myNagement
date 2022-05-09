@@ -9,7 +9,7 @@ if (isset($_POST["mese"])) {
     $query = "SELECT dipendenti.Cod,dipendenti.Nome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)=" . $_POST['year'] . " GROUP BY dipendenti.Cod";
     if ($result = $link->query($query)) {
         //$cod = mysqli_fetch_array($result)["Cod"];        
-        $res = "";        
+        $res = "";
         while ($row = mysqli_fetch_array($result)) {
             $param = $row["Cod"];
             $res .= "<tr>";
@@ -266,7 +266,7 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             }
-            $res .= "<td><button class='buttonanagrafica' data-bs-toggle='modal' data-bs-target='#myModal' onclick='anagraficaDip(" . $param . ")'>Grafico</button></td>";
+            $res .= "<td><button class='buttonanagrafica' data-bs-toggle='modal' data-bs-target='#myModal' onclick='anagraficaDip(" . $param . ")'>Informazioni</button></td>";
             $res .= "</tr>";
         }
         die($res);
@@ -294,7 +294,10 @@ if (isset($_POST["mese"])) {
 } else if (isset($_POST["mansione"]) && isset($_POST["salario"]) && isset($_POST["ore"]) && isset($_POST["datai"]) && isset($_POST["dataf"])) {
     $modifica = "UPDATE contratti SET Salario = '" . $_POST["salario"] . "', OreLavorative = '" . $_POST["ore"] . "', DataInizio = '" . $_POST["datai"] . "', DataFine = '" . $_POST["dataf"] . "' WHERE contratti.CodDipendente = " . $_POST["idDip"];
     if ($result = $link->query($modifica)) {
-        die("fatto");
+        $modifica = "UPDATE dipendenti SET Mansione='" . $_POST["mansione"] . "' WHERE dipendenti.Cod = " . $_POST["idDip"];
+        if ($result = $link->query($modifica)) {
+            die($modifica);
+        }
     } else {
         die($modifica);
     }
