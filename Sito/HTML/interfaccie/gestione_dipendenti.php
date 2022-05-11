@@ -1,3 +1,8 @@
+<?php
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: login.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,11 +19,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
     <link rel="stylesheet" type="text/css" href="../../CSS/tabella_dinamica.css">
-
-
-    
     <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
 
 </head>
@@ -42,15 +45,15 @@
                             </div>
                             <thead>
                                 <tr>
-                                    <th >nome</th>
-                                    <th >contratto</th>
-                                    <th >ore totali</th>
-                                    <th >stipendio</th>
-                                    <th >cassa integrazione</th>
-                                    <th >malattia</th>
-                                    <th >ferie</th>
-                                    <th >maternità</th>
-                                    <th >anagrafiche</th>
+                                    <th>nome</th>
+                                    <th>contratto</th>
+                                    <th>ore totali</th>
+                                    <th>stipendio</th>
+                                    <th>cassa integrazione</th>
+                                    <th>malattia</th>
+                                    <th>ferie</th>
+                                    <th>maternità</th>
+                                    <th>anagrafiche</th>
                                 </tr>
                             </thead>
                             <tbody id="table">

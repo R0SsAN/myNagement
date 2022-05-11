@@ -91,13 +91,38 @@ var app = new Vue({
                 idDip: $('.contratto')[0].id,
             }, function (data) {
                 console.log(data);
-                // if (data != "Errore") {
-                //     document.getElementById("modal-body").innerHTML = data;
-                // }
-                // else
-                //     error = "Errore";
+                if (data != "Errore") {
+                    $('#myModal').modal('hide');
+                    app.compariAlertSuccess("Dipendente modificato");
+                }
+                else
+                    app.compariAlertErrore("Errore modifica dipendente");
             });
-        }
+        },
+        compariAlertErrore($stringa) {
+            $.bootstrapGrowl($stringa, {
+                ele: "body",
+                type: "danger",
+                offset: { from: "top", amount: 10 },
+                align: "right",
+                delay: 2000,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
+            });
+        },
+        compariAlertSuccess($stringa) {
+            $.bootstrapGrowl($stringa, {
+                ele: "body",
+                type: "success",
+                offset: { from: "top", amount: 10 },
+                align: "right",
+                delay: 1500,
+                allow_dismiss: false,
+                stackup_spacing: 10,
+                width: "auto",
+            });
+        },
     }
 });
 function anagraficaDip(id) {
@@ -111,10 +136,10 @@ function save() {
     app.edit();
 }
 $('#myModal').on('hide.bs.modal', function () {
-    // $('#salva').hide();
-    // app.hidden = true;
-    // app.disabilita();
-    document.location.reload(true)
+    $('#salva').hide();
+    app.hidden = true;
+    app.disabilita();
+    //document.location.reload(true)
 });
 //per datatable
 function generaDatatable() {
@@ -125,34 +150,33 @@ function generaDatatable() {
         info: false,
         "bDestroy": true,
         autoWidth: false
-        
+
     });
 }
 
 
 function cercaInTabella() {
-// Declare variables
-var input, filter, table, tr, td, i,t, txtValue;
-input = document.getElementById("myInput");
-filter = input.value.toUpperCase();
-table = document.getElementById("table");
-tr = table.getElementsByTagName("tr");
+    // Declare variables
+    var input, filter, table, tr, td, i, t, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table");
+    tr = table.getElementsByTagName("tr");
 
-// Loop through all table rows, and hide those who don't match the search query
-for (i = 0; i < tr.length; i++) {
-    tds= tr[i].getElementsByTagName("td");
-    for(t=0;t<tds.length;t++)
-    {
-        td = tds[t];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-                break;
-            } else {
-                tr[i].style.display = "none";
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        tds = tr[i].getElementsByTagName("td");
+        for (t = 0; t < tds.length; t++) {
+            td = tds[t];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
-}
 }
