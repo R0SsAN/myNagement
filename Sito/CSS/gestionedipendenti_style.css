@@ -182,6 +182,16 @@ input:enabled {
 }
 
 
+tbody {
+    max-height: 45vh !important;
+    /* Just for the demo          */
+    overflow-y: auto;
+    /* Trigger vertical scroll    */
+    overflow-x: hidden;
+    /* Hide the horizontal scroll */
+    width: 90vw !important;
+}
+
 @media screen and (max-width: 1050px) {
     #myInput {
         width: 100%;
@@ -205,7 +215,7 @@ input:enabled {
     }
 
     table tbody tr td {
-        padding-left: 40% !important;
+        padding-left: 60% !important;
         margin-bottom: 24px;
     }
 
@@ -246,16 +256,19 @@ input:enabled {
     }
 
     table tbody tr td:nth-child(6):before {
-        content: "Total";
+        content: "Malattia";
     }
+
     table tbody tr td:nth-child(7):before {
-        content: "Total";
+        content: "Ferie";
     }
+
     table tbody tr td:nth-child(8):before {
-        content: "Total";
+        content: "Maternità";
     }
+
     table tbody tr td:nth-child(9):before {
-        content: "Total";
+        content: "Anagrafiche";
     }
 
     .column4,
@@ -275,23 +288,5 @@ input:enabled {
 
     tbody tr {
         font-size: 14px;
-    }
-}
-
-@media (max-width: 576px) {
-    .container-table100 {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-}
-
-@media(max-width:534px) {
-    .searchbar, #tabella_wrapper {
-        width: 74%;
-    }
-
-    table tbody tr td {
-        padding-left: 36% !important;
-        margin-bottom: 24px;
     }
 }
