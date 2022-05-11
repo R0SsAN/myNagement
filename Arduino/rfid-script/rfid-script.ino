@@ -1,27 +1,17 @@
-/*
-Collegamenti:
- 
-RC522 MODULE    Uno/Nano    
-SDA             D10
-SCK             D13
-MOSI            D11
-MISO            D12
-IRQ             N/A
-GND             GND
-RST             D9
-3.3V            3.3V
-*/
- 
 #include <SPI.h>
 #include <RFID.h>
-/* Vengono definiti PIN del RFID reader*/
-#define SDA_DIO 10  // 53 per Mega
-#define RESET_DIO 9
-#define delayRead 1000 // Time of delay 
- 
-RFID RC522(SDA_DIO, RESET_DIO); 
 
-const String codiceGiusto = "9439B1ACB";     //codice da assegnare come "VALIDO" le maiuscole/minuscole sono ignorate
+#define SS_PIN 10
+#define RST_PIN 9
+
+RFID rfid(SS_PIN, RST_PIN); 
+
+// Setup variables:
+    int serNum0;
+    int serNum1;
+    int serNum2;
+    int serNum3;
+    int serNum4;
 
 #define ledR 2
 #define ledG 3
@@ -30,9 +20,8 @@ const String codiceGiusto = "9439B1ACB";     //codice da assegnare come "VALIDO"
 void setup()
 { 
   Serial.begin(9600);
-  /* Abilita SPI*/
-  SPI.begin();                  //Inizializzazione dell'SPI
-  RC522.init();                 //Inizializzazione dell'RFID Reader
+  SPI.begin(); 
+  rfid.init();
 
   pinMode(ledR, OUTPUT);
   pinMode(ledG, OUTPUT);
@@ -43,20 +32,19 @@ void loop()
 {
   byte i;   
   // Se viene letta una tessera
-  if (RC522.isCard())
+  if (rfid.isCard())
   {
     // Viene letto il suo codice 
-    RC522.readCardSerial();
+    rfid.readCardSerial();
     String codiceLetto ="";
     //Lettura del codice della scheda e composizione della stringa
     for(i = 0; i <= 4; i++)
     {
-      codiceLetto+= String(RC522.serNum[i],HEX);
+      codiceLetto+= String(rfid.serNum[i],HEX);
       codiceLetto.toUpperCase();
     }
     //invio l'id letto a c#
-    Serial.print(codiceLetto);  
-    
+    Serial.print(codiceLetto);
     //ora aspetto la risposta da c#
     String risposta=leggiFino(';');
     if(risposta=="true")
@@ -75,7 +63,9 @@ void loop()
       delay(1500);
       spegniLed();
     }
+    delay(250);
   }
+  delay(100);
 }
 void spegniLed()
 {
