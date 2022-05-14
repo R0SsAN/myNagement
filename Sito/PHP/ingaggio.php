@@ -17,22 +17,23 @@
                 $query="INSERT INTO dipendenti(CodiceFiscale, Nome, Cognome, Telefono, Email, DataNascita, Indirizzo, Mansione, CodAzienda) 
                         VALUES ('".$_POST["cf"]."','".$_POST["nome"]."','".$_POST["cognome"]."','".$_POST["telefono"]."','".$_POST["email"].
                         "','".$_POST["nascita"]."','".$_POST["indirizzo"]."','".$_POST["mansione"]."','".$_SESSION["aziendaId"]."')";
-                //die($query);
+                
                 if($result = $link->query($query))
                 {
                     
                     //ricavo l'id del dipendente appena creato
                     $query="SELECT Cod FROM dipendenti WHERE dipendenti.CodiceFiscale='".$_POST["cf"]."'";
+                    
                     if($result=$link->query($query))
                     {
                         $cod=mysqli_fetch_array($result)["Cod"];
 
                         //ora creo il contratto per il dipendente
                         if($_POST["dataFine"]=="")
-                            $query="INSERT INTO contratti(Salario, Durata, DataInizio, DataFine, CodDipendente) 
+                            $query="INSERT INTO contratti(Salario, OreLavorative, DataInizio, DataFine, CodDipendente) 
                                 VALUES ('".$_POST["salario"]."', '".$_POST["orario"]."', '".$_POST["dataInizio"]."', NULL, '".$cod."')";
                         else
-                            $query="INSERT INTO contratti(Salario, Durata, DataInizio, DataFine, CodDipendente) 
+                            $query="INSERT INTO contratti(Salario, OreLavorative, DataInizio, DataFine, CodDipendente) 
                                 VALUES ('".$_POST["salario"]."', '".$_POST["orario"]."', '".$_POST["dataInizio"]."', '".$_POST["dataFine"]."', '".$cod."')";
                         if($result=$link->query($query))
                         {

@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RFID_reader
@@ -14,7 +15,7 @@ namespace RFID_reader
         static void Main(string[] args)
         {
 
-            arduino = new SerialPort("COM20", 9600);
+            arduino = new SerialPort("COM3", 9600);
             try
             {
                 arduino.Open();
@@ -34,15 +35,16 @@ namespace RFID_reader
 
         private static void Arduino_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            Thread.Sleep(200);
             string lettura = arduino.ReadExisting();
             Console.Write("Tag rilevato! ID = {" + lettura + "}");
             inviaRichiesta(lettura);
         }
         static void inviaRichiesta(string id)
         {
-            var values = string.Format("id="+id);
+            /*var values = string.Format("rfid="+id);
             var bytes = Encoding.ASCII.GetBytes(values);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://localhost/esercizi/Github/myNagement/Sito/PHP/api.php"));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://localhost/esercizi/Github/myNagement/Sito/PHP/arduino_api.php"));
             request.Method = "PUT";
             request.ContentType = "application/x-www-form-urlencoded";
             using (var requestStream = request.GetRequestStream())
@@ -69,6 +71,8 @@ namespace RFID_reader
             }
             Console.WriteLine("Errore generico");
             arduino.Write("false;");
+            */
+
         }
 
     }
