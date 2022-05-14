@@ -6,13 +6,14 @@ var app = new Vue({
     mounted() {
         console.log("Vue funziona");
         this.generatabella();
+        $.fn.dataTableExt.sErrMode = 'throw';
     },
     methods: {
         generatabella() {
             $.post("../../PHP/presenze_api.php", {
                 genera: true,
             }, function(data) {
-                console.log(data);
+                //console.log(data);
                 document.getElementById("contenutotabella").innerHTML = data;
                 generaDatatable();
             });
@@ -35,8 +36,7 @@ var app = new Vue({
                 percstipendio: document.getElementById("customRange1").value,
                 idutente: app.idutente,
             }, function(data) {
-                console.log("arrivato");
-
+                app.generatabella()
             });
         },
     }
@@ -56,6 +56,7 @@ function AggiornaButton(am, id) {
 }
 
 function AggiornaAssenze() {
+    $('#myModal').modal('toggle');
     app.AP();
 }
 var slider = document.getElementById("customRange1");
@@ -63,9 +64,9 @@ var output = document.getElementById("percstipendio");
 output.innerHTML = slider.value + "%";
 
 slider.oninput = function() {
-        output.innerHTML = this.value + "%";
-    }
-    //per datatable
+    output.innerHTML = this.value + "%";
+}
+
 function generaDatatable() {
     $('#tabella').DataTable({
         paging: false,

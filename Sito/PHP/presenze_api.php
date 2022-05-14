@@ -17,7 +17,7 @@ if (isset($_POST["genera"])) {
                     $return .= '<td class="column2">' . $row['Cognome'] . '</td>';
 
                     $sql2 = "SELECT presente FROM `presenza` WHERE CodDipendente=" . $row["Cod"] . " AND giorno='" . date("Y-m-d") . "'";
-                    
+
                     if ($result2 = mysqli_query($link, $sql2)) {
                         if (mysqli_num_rows($result2) > 0) {
                             while ($row2 = mysqli_fetch_array($result2)) {
@@ -37,21 +37,40 @@ if (isset($_POST["genera"])) {
                                                 } else if (date("Y-m-d") < $row3['DataInizio']) {
                                                     $return .= '<td class="column3">' . '<input id="check" type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                                     $return .= '<td class="column4">' . 'Assente dal:' . $row3['DataInizio'] . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
-                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
+                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(true,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
                                                 }
                                             }
                                         } else {
                                             $return .= '<td class="column3">' . '<input id="check" type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
                                             $return .= '<td class="column4">' . '/' . '</td>';
                                             $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
-
-                                            die($return);
                                         }
                                     }
                                 } else if ($row2["presente"] == 1) {
-                                    $return .= '<td class="column3">' . '<input id="check" type="checkbox" checked name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
-                                    $return .= '<td class="column4">' . '/' . '</td>';
-                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
+                                    $sql3 = "SELECT DataInizio,DataFine,Tipo FROM `assenze` WHERE CodDipendente=" . $row['Cod'] . "";
+                                    if ($result3 = mysqli_query($link, $sql3)) {
+                                        if (mysqli_num_rows($result3) > 0) {
+                                            while ($row3 = mysqli_fetch_array($result3)) {
+                                                if ($row3['DataInizio'] <= date("Y-m-d") && date("Y-m-d") <= $row3['DataFine']) {
+                                                    $return .= '<td class="column3">' . '<input id="check" checked type="checkbox" disabled="disabled" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column4">' . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
+                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(true,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
+                                                } else if (date("Y-m-d") > $row3['DataFine']) {
+                                                    $return .= '<td class="column3">' . '<input  id="check" checked type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column4">' . '/' . '</td>';
+                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
+                                                } else if (date("Y-m-d") < $row3['DataInizio']) {
+                                                    $return .= '<td class="column3">' . '<input id="check" checked type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                                    $return .= '<td class="column4">' . 'Assente dal:' . $row3['DataInizio'] . 'Fino A: ' . $row3['DataFine'] . ' per ' . $row3['Tipo'] . '</td>';
+                                                    $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(true,' . $row["Cod"] . ')">Modifica Assenza</button>' . '</td>';
+                                                }
+                                            }
+                                        } else {
+                                            $return .= '<td class="column3">' . '<input id="check" checked type="checkbox" name="checkpresenza" id="" onclick="SalvaCod(' . $row["Cod"] . ')">' . '</td>';
+                                            $return .= '<td class="column4">' . '/' . '</td>';
+                                            $return .= '<td class="column5">' . '<button data-bs-toggle="modal" data-bs-target="#myModal" onclick="AggiornaButton(false,' . $row["Cod"] . ')">Aggiungi Assenza</button>' . '</td>';
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -70,7 +89,6 @@ if (isset($_POST["genera"])) {
 }
 
 if (isset($_POST["aggiorna"]) && isset($_POST["CodDipendente"])) {
-
     if ($_POST["aggiorna"] == true) {
         $dipendente = $_POST["CodDipendente"];
         $sql = "SELECT * FROM `presenza` WHERE CodDipendente=$dipendente AND giorno='" . date("Y-m-d") . "'";
@@ -83,7 +101,7 @@ if (isset($_POST["aggiorna"]) && isset($_POST["CodDipendente"])) {
                         if (mysqli_query($link, $sql2)) {
                             mysqli_close($link);
                         }
-                    }else{
+                    } else {
                         $sql2 = "UPDATE `presenza` SET `presente`=0 WHERE CodDipendente=$dipendente AND giorno='" . date("Y-m-d") . "'";
                         if (mysqli_query($link, $sql2)) {
                             mysqli_close($link);
@@ -99,8 +117,10 @@ if (isset($_POST["aggiorna"]) && isset($_POST["CodDipendente"])) {
 if (isset($_POST["aggiornapresenza"]) && isset($_POST["tipomalattia"]) && isset($_POST["datainizio"]) && isset($_POST["datafine"]) && isset($_POST["percstipendio"]) && isset($_POST["idutente"])) {
     if ($_POST["aggiornapresenza"] == "Aggiungi") {
         $sql = "INSERT INTO `assenze` (`CodDipendente`, `DataInizio`, `DataFine`, `Tipo`,`PercentualeStipendio`) VALUES ('" . $_POST["idutente"] . "', '" . $_POST["datainizio"] . "', '" . $_POST["datafine"] . "', '" . $_POST["tipomalattia"] . "', "  . $_POST["percstipendio"] . ")";
-        if ($result = mysqli_query($link, $sql)) {
-            mysqli_close($link);
-        }
+    } else {
+        $sql = "UPDATE `assenze` SET DataInizio ='" . $_POST["datainizio"] . "',DataFine ='" . $_POST["datafine"] . "',Tipo='" . $_POST["tipomalattia"] . "', `PercentualeStipendio` = '" . $_POST["percstipendio"] . "' WHERE `assenze`.`CodDipendente` = '" . $_POST["idutente"] . "'";
+    }
+    if ($result = mysqli_query($link, $sql)) {
+        mysqli_close($link);
     }
 }
