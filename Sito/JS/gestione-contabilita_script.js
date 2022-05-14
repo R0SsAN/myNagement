@@ -69,8 +69,8 @@ var app = new Vue({
             this.getUsciteProdotti();
             this.getUsciteMovimenti();
             this.getStipendiMensili();
-            this.getRicavo();
-            setTimeout(function() { app.caricaTabellaMovimenti(); }, 2000);
+            setTimeout(function() { app.getRicavo(); }, 200);
+            setTimeout(function() { app.caricaTabellaMovimenti(); }, 400);
 
         },
         getStipendiMensili()
@@ -155,7 +155,6 @@ var app = new Vue({
         },
         getRicavo()
         {
-            setTimeout(function() {
                 var ricavoAttuale=app.temp-app.temp2;
                 document.getElementById("ricavi").innerHTML=formatter.format(ricavoAttuale);
                 //ora ricavo la percentuale
@@ -169,7 +168,6 @@ var app = new Vue({
                     document.getElementById("percentuale").setAttribute("style", "color: green;");
 
                 document.getElementById("percentuale").innerHTML= percentuale + "%";
-            }, 1000);
             
         },
         getUsciteMovimenti()

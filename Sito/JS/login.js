@@ -24,7 +24,7 @@ var app = new Vue({
                     if(data=="true")
                         window.location.href = "dashboard.php";
                     else
-                        this.compariAlertErrore("Credenziali non valide");
+                        app.compariAlertErrore("Credenziali non valide");
                 });
             }
             else
@@ -132,7 +132,7 @@ var app = new Vue({
                 });
             }
             else
-            compariAlertError("Informazioni mancanti");
+                this.compariAlertErrore("Informazioni mancanti");
 
             document.getElementById("pError3").innerHTML=error;
         },

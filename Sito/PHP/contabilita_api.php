@@ -120,6 +120,7 @@
                 if(!$result2=$link->query($query))
                     die("Errore esecuzione query 2");
                 $temp=mysqli_fetch_array($result2);
+
                 $salarioDipendente=$temp["salario"];
                 $oreLavorative=$temp["ore"];
                 //ora si prendono tutte le presenze di quel mese e si calcola lo stipendio in base a quello
@@ -226,9 +227,5 @@
     INNER JOIN aziende ON aziende.Cod=movimento.CodAzienda
     WHERE aziende.Cod=1
     AND movimento.Tipo=0
-
-
-
-
 */
 ?>
