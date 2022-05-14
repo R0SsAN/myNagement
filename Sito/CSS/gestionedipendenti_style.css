@@ -240,34 +240,38 @@ tbody {
     }
 
     table tbody tr td:nth-child(2):before {
-        content: "Contratto";
+        content: "Cognome";
     }
 
     table tbody tr td:nth-child(3):before {
-        content: "Ore totali";
+        content: "Contratto";
     }
 
     table tbody tr td:nth-child(4):before {
-        content: "Stipendio";
+        content: "Ore totali";
     }
 
     table tbody tr td:nth-child(5):before {
-        content: "Cassa integrazione";
+        content: "Stipendio";
     }
 
     table tbody tr td:nth-child(6):before {
-        content: "Malattia";
+        content: "Cassa integrazione";
     }
 
     table tbody tr td:nth-child(7):before {
-        content: "Ferie";
+        content: "Malattia";
     }
 
     table tbody tr td:nth-child(8):before {
-        content: "Maternità";
+        content: "Ferie";
     }
 
     table tbody tr td:nth-child(9):before {
+        content: "Maternità";
+    }
+
+    table tbody tr td:nth-child(10):before {
         content: "Anagrafiche";
     }
 

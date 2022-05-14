@@ -1,7 +1,7 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["userId"]))
-        header("Location: login.php");
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: login.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,97 +18,104 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
 </head>
 
 </head>
 
 <body>
-    <div id="vue-container"class="dipendenti">
-            <div class="insert">
-                <div class="form">
-                    <div class="input-container ic1">
-                        <input id="firstname" class="input" type="text" placeholder=" " name="firstname" />
-                        <div class="cut"></div>
-                        <label for="firstname" class="placeholder">Nome</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input id="lastname" class="input" type="text" placeholder=" " name="lastname" />
-                        <div class="cut"></div>
-                        <label for="lastname" class="placeholder">Cognome</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input id="email" class="input" type="text" placeholder=" " name="email" />
-                        <div class="cut cut-short"></div>
-                        <label for="email" class="placeholder">Email</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input id="cf" class="input" type="text" placeholder=" " name="cf" />
-                        <div class="cut cut-short"></div>
-                        <label for="cf" class="placeholder">Codice fiscale</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input id="indirizzo" class="input" type="text" placeholder=" " name="indirizzo" />
-                        <div class="cut cut-short"></div>
-                        <label for="indirizzo" class="placeholder">Indirizzo</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input id="tel" class="input" type="text" placeholder=" " name="tel" />
-                        <div class="cut"></div>
-                        <label for="tel" class="placeholder">Numero di telefono</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <div class="cut"></div>
-                        <label for="tel" class="placeholder">Data di nascita</label>
-                    </div>
-                    <input id="nascita" style="margin-left:20px"type="date" name="nascita" />
+    <div id="vue-container" class="dipendenti">
+        <div class="insert">
+            <div class="form">
+                <div class="input-container ic1">
+                    <input id="firstname" class="input" type="text" placeholder=" " name="firstname" />
+                    <div class="cut"></div>
+                    <label for="firstname" class="placeholder">Nome</label>
                 </div>
-                <div class="form">
-                    <div class="input-container ic2">
-                        <div class="cut"></div>
-                        <label for="lastname" class="placeholder">Tipo contratto</label>
-                        <br><br><br>
-                        <input type="radio" name="contratto" @click="disabilita()"> Indeterminato <br>
-                        <input type="radio" name="contratto" @click="abilita()"> Determinato
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                        <div style="visibility: hidden;" id="data">
-                            <div class="date" id="beg">
-                                Data inizio<input type="date" name="inizio" id="inizio">
-                            </div>
-                            <div class="date" id="end">
-                                Data fine<input type="date" name="fine" id="fine">
-                            </div>
-                        </div>
-                    </div>
-                    <br><br><br><br><br><br>
-                    <div class="input-container ic2">
-                        <input id="mansione" class="input" type="text" placeholder=" " name="mansione" />
-                        <div class="cut cut-short"></div>
-                        <label for="mansione" class="placeholder">Mansione</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <div class="cut cut-short"></div>
-                        <label for="ora" class="placeholder">Orario</label>
-                        <br><br><br>
-                        <input type="radio" id="5h"name="orario" value="5" checked="checked"> 5H
-                        <input type="radio" id="8h" name="orario" value="8"> 8H
-                    </div>
-                    <br><br>
-                    <div class="input-container ic2">
-                        <div class="cut cut-short"></div>
-                        <label for="salario" class="placeholder">Salario</label>
-                        <br><br><br>
-                        <input id="salario" type="range" name="stiendio" value="1000" min="800" max="2000" oninput="this.nextElementSibling.value = this.value">
-                        <output>1000</output>&nbsp;€
-                    </div>
-                    <div class="input-container ic2">
-                        <b><label id="errore" class="placeholder" style="color:red"></label></b>
-                    </div>
-                    <button type="text" class="submit" @click="creaDipendente">Ingaggia</button>                
+                <div class="input-container ic2">
+                    <input id="lastname" class="input" type="text" placeholder=" " name="lastname" />
+                    <div class="cut"></div>
+                    <label for="lastname" class="placeholder">Cognome</label>
+                </div>
+                <div class="input-container ic2">
+                    <input id="email" class="input" type="text" placeholder=" " name="email" />
+                    <div class="cut cut-short"></div>
+                    <label for="email" class="placeholder">Email</label>
+                </div>
+                <div class="input-container ic2">
+                    <input id="cf" class="input" type="text" placeholder=" " name="cf" maxlength="16"/>
+                    <div class="cut cut-short"></div>
+                    <label for="cf" class="placeholder">Codice fiscale</label>
+                </div>
+                <div class="input-container ic2">
+                    <input id="indirizzo" class="input" type="text" placeholder=" " name="indirizzo" />
+                    <div class="cut cut-short"></div>
+                    <label for="indirizzo" class="placeholder">Indirizzo</label>
+                </div>
+                <div class="input-container ic2">
+                    <input id="tel" class="input" type="text" placeholder=" " name="tel" maxlength="10" />
+                    <div class="cut"></div>
+                    <label for="tel" class="placeholder">Numero di telefono</label>
+                </div>
+                <div class="input-container ic2">
+                    <div class="cut"></div>
+                    <label for="tel" class="placeholder">Data di nascita</label>
+                </div>
+                <input id="nascita" style="margin-left:20px" type="date" name="nascita" />
+                <div class="input-container ic2">
+                    <input id="rfid" class="input" type="text" placeholder=" " name="rfid" maxlength="10"/>
+                    <div class="cut cut-short"></div>
+                    <label for="rfid" class="placeholder">RFID</label>
                 </div>
             </div>
+            <div class="form">
+                <div class="input-container ic2">
+                    <div class="cut"></div>
+                    <label for="lastname" class="placeholder">Tipo contratto</label>
+                    <br><br><br>
+                    <input type="radio" name="contratto" @click="disabilita()"> Indeterminato <br>
+                    <input type="radio" name="contratto" @click="abilita()"> Determinato
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                    <div style="visibility: hidden;" id="data">
+                        <div class="date" id="beg">
+                            Data inizio<input type="date" name="inizio" id="inizio">
+                        </div>
+                        <div class="date" id="end">
+                            Data fine<input type="date" name="fine" id="fine">
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br>
+                <div class="input-container ic2">
+                    <input id="mansione" class="input" type="text" placeholder=" " name="mansione" />
+                    <div class="cut cut-short"></div>
+                    <label for="mansione" class="placeholder">Mansione</label>
+                </div>
+                <div class="input-container ic2">
+                    <div class="cut cut-short"></div>
+                    <label for="ora" class="placeholder">Orario</label>
+                    <br><br><br>
+                    <input type="radio" id="5h" name="orario" value="5" checked="checked"> 5H
+                    <input type="radio" id="8h" name="orario" value="8"> 8H
+                </div>
+                <br><br>
+                <div class="input-container ic2">
+                    <div class="cut cut-short"></div>
+                    <label for="salario" class="placeholder">Salario</label>
+                    <br><br><br>
+                    <input id="salario" type="range" name="stiendio" value="1000" min="800" max="2000" oninput="this.nextElementSibling.value = this.value">
+                    <output>1000</output>&nbsp;€
+                </div>
+                <div class="input-container ic2">
+                    <b><label id="errore" class="placeholder" style="color:red"></label></b>
+                </div>
+                <br>
+                <br>
+                <button type="text" class="submit" @click="creaDipendente">Ingaggia</button>
+            </div>
+        </div>
     </div>
-    
+
 
     <script type="application/javascript" src="../../JS/ingaggio_script.js"></script>
 </body>

@@ -89,14 +89,15 @@ var app = new Vue({
                 datai: document.getElementById("inizio").value,
                 dataf: document.getElementById("fine").value,
                 idDip: $('.contratto')[0].id,
+                rfid: document.getElementById("rfid").value,
             }, function (data) {
                 console.log(data);
                 if (data != "Errore") {
                     $('#myModal').modal('hide');
-                    app.compariAlertSuccess("Dipendente modificato");
+                    app.compariAlertSuccess("Modificato");
                 }
                 else
-                    app.compariAlertErrore("Errore modifica dipendente");
+                    app.compariAlertErrore("Errore modifica");
             });
         },
         compariAlertErrore($stringa) {
