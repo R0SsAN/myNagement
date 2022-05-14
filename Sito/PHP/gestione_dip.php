@@ -6,7 +6,7 @@ session_start();
 // -Nome dipendente -Contratto dipendente -Ore totali -stipendio -Giorni cassa integrazione -Giorni malattia -Giorni ferie -Giorni maternita 
 
 if (isset($_POST["mese"])) {
-    $query = "SELECT dipendenti.Cod,dipendenti.Nome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)=" . $_POST['year'] . " GROUP BY dipendenti.Cod";
+    $query = "SELECT dipendenti.Cod,dipendenti.Nome,dipendenti.Cognome,contratti.DataFine, (COUNT(presenza.presente)*contratti.OreLavorative) AS ore FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente INNER JOIN presenza ON dipendenti.Cod=presenza.CodDipendente WHERE MONTH(presenza.giorno)=" . $_POST['mese'] . " AND YEAR(presenza.giorno)= " . $_POST['year'] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY dipendenti.Cod";
     if ($result = $link->query($query)) {
         //$cod = mysqli_fetch_array($result)["Cod"];        
         $res = "";
@@ -14,6 +14,7 @@ if (isset($_POST["mese"])) {
             $param = $row["Cod"];
             $res .= "<tr>";
             $res .= "<td>" . $row["Nome"] . "</td>";
+            $res .= "<td>" . $row["Cognome"] . "</td>";
             if ($row["DataFine"] != NULL)
                 $res .= "<td>" . "Determinato" . "</td>";
             else
@@ -84,7 +85,7 @@ if (isset($_POST["mese"])) {
             //$dataM =  mysqli_fetch_array();
 
 
-            $ress = $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            $ress = $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente");
             if (mysqli_num_rows($ress) > 0) {
                 $dataM =  mysqli_fetch_array($ress);
             } else {
@@ -92,7 +93,7 @@ if (isset($_POST["mese"])) {
                 $dataM["inizio"] = "0";
             }
 
-            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente");
             if (mysqli_num_rows($ress) > 0) {
                 $dataC =  mysqli_fetch_array($ress);
             } else {
@@ -100,7 +101,7 @@ if (isset($_POST["mese"])) {
                 $dataC["inizio"] = "0";
             }
 
-            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente");
 
             if (mysqli_num_rows($ress) > 0) {
                 $dataF =  mysqli_fetch_array($ress);
@@ -109,7 +110,7 @@ if (isset($_POST["mese"])) {
                 $dataF["inizio"] = "0";
             }
 
-            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " GROUP BY assenze.CodDipendente");
+            $ress =  $link->query("SELECT MONTH(assenze.DataFine) AS fine ,MONTH(assenze.DataInizio) AS inizio, DAY(assenze.DataInizio) AS iniziod FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND assenze.CodDipendente=" . $row["Cod"] . " AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente");
 
             if (mysqli_num_rows($ress) > 0) {
                 $dataMa =  mysqli_fetch_array($ress);
@@ -119,9 +120,9 @@ if (isset($_POST["mese"])) {
             }
 
             if (intval($dataM["fine"]) > intval($dataM["inizio"])) {
-                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                 $resultCassa = mysqli_fetch_array($link->query($queryCassa));
                 $resultFerie = mysqli_fetch_array($link->query($queryFerie));
                 $resultMat = mysqli_fetch_array($link->query($queryMat));
@@ -141,9 +142,9 @@ if (isset($_POST["mese"])) {
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             } else if (intval($dataC["fine"]) > intval($dataC["inizio"])) {
                 $res .= "<td>" . (cal_days_in_month(CAL_GREGORIAN, $_POST["mese"], $_POST["year"]) - intval($dataC["iniziod"]))  . "</td>";
-                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                 $resultMalattia = mysqli_fetch_array($link->query($queryMalattia));
                 $resultFerie = mysqli_fetch_array($link->query($queryFerie));
                 $resultMat = mysqli_fetch_array($link->query($queryMat));
@@ -161,9 +162,9 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             } else if (intval($dataF["fine"]) > intval($dataF["inizio"])) {
-                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryMat = "SELECT COUNT(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                 $resultMalattia = mysqli_fetch_array($link->query($queryMalattia));
                 $resultCassa = mysqli_fetch_array($link->query($queryCassa));
                 $resultMat = mysqli_fetch_array($link->query($queryMat));
@@ -182,9 +183,9 @@ if (isset($_POST["mese"])) {
                 else
                     $res .= "<td>" . $resultMat["malattia"] . "</td>";
             } else if (intval($dataMa["fine"]) > intval($dataMa["inizio"])) {
-                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
-                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                $queryMalattia = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryCassa = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
+                $queryFerie = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                 $resultMalattia = mysqli_fetch_array($link->query($queryMalattia));
                 $resultCassa = mysqli_fetch_array($link->query($queryCassa));
                 $resultFerie = mysqli_fetch_array($link->query($queryFerie));
@@ -204,46 +205,46 @@ if (isset($_POST["mese"])) {
                 $res .= "<td>" . (cal_days_in_month(CAL_GREGORIAN, $_POST["mese"], $_POST["year"]) - intval($dataMa["iniziod"]))  . "</td>";
             } else if ((intval($dataM["inizio"]) < intval($dataM["fine"])) || (intval($dataC["inizio"]) < intval($dataC["fine"])) || (intval($dataF["inizio"]) < intval($dataF["fine"])) || (intval($dataMa["inizio"]) < intval($dataMa["fine"]))) {
                 if (intval($dataM["inizio"]) < intval($dataM["fine"])) {
-                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 } else {
-                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 }
                 if (intval($dataC["inizio"]) < intval($dataC["fine"])) {
-                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 } else {
-                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 }
                 if (intval($dataF["inizio"]) < intval($dataF["fine"])) {
-                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 } else {
-                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 }
                 if (intval($dataMa["inizio"]) < intval($dataMa["fine"])) {
-                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT DAY(assenze.DataInizio) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 } else {
-                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY assenze.CodDipendente";
+                    $q = "SELECT (DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS d FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY assenze.CodDipendente";
                     $r = mysqli_fetch_array($link->query($queryCassa));
                     $res .= "<td>" . $r["d"]  . "</td>";
                 }
             } else {
-                $queryMalattia = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
-                $queryCassa = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
-                $queryFerie = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
-                $queryMat = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " GROUP BY dipendenti.Nome";
+                $queryMalattia = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Malattia' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY dipendenti.Nome";
+                $queryCassa = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Cassa integrazione' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY dipendenti.Nome";
+                $queryFerie = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Ferie' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY dipendenti.Nome";
+                $queryMat = "SELECT dipendenti.Nome,(DAY(assenze.DataFine)-DAY(assenze.DataInizio)) AS malattia FROM dipendenti INNER JOIN assenze ON dipendenti.Cod=assenze.CodDipendente WHERE assenze.Tipo='Maternita' AND MONTH(assenze.DataInizio)=" . $_POST['mese'] . " AND YEAR(assenze.DataInizio)=" . $_POST['year'] . " AND assenze.CodDipendente=" . $row["Cod"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"] . " GROUP BY dipendenti.Nome";
                 $resultMalattia = mysqli_fetch_array($link->query($queryMalattia));
                 $resultCassa = mysqli_fetch_array($link->query($queryCassa));
                 $resultFerie = mysqli_fetch_array($link->query($queryFerie));
@@ -273,7 +274,7 @@ if (isset($_POST["mese"])) {
     } else
         die(mysqli_error($link));
 } else if (isset($_POST["idDip"]) && !isset($_POST["salario"])) {
-    $anagrafica = "SELECT * FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente WHERE dipendenti.Cod=" . $_POST["idDip"];
+    $anagrafica = "SELECT * FROM dipendenti INNER JOIN contratti ON dipendenti.Cod=contratti.CodDipendente WHERE dipendenti.Cod=" . $_POST["idDip"] . " AND dipendenti.CodAzienda=" . $_SESSION["aziendaId"];
     if ($result = $link->query($anagrafica)) {
         $row = mysqli_fetch_array($result);
         die('<div class="dipendente">
@@ -289,10 +290,11 @@ if (isset($_POST["mese"])) {
                             <b>Ore:</b><input type="text" id="ore" class="txt" value="' . $row["OreLavorative"] . '"disabled></input><br><br>
                             <b>Data inizio:</b><input type="text" id="inizio" class="txt" value="' . $row["DataInizio"] . '"disabled></input><br><br>
                             <b>Data fine:</b><input type="text" id="fine" class="txt" value="' . $row["DataFine"] . '"disabled></input><br><br>                        
+                            <b>RFID:</b><input type="text" id="rfid" class="txt" value="' . $row["RFID"] . '"disabled maxlength="10"></input><br><br>                        
                 </div>');
     }
-} else if (isset($_POST["mansione"]) && isset($_POST["salario"]) && isset($_POST["ore"]) && isset($_POST["datai"]) && isset($_POST["dataf"])) {
-    $modifica = "UPDATE contratti SET Salario = '" . $_POST["salario"] . "', OreLavorative = '" . $_POST["ore"] . "', DataInizio = '" . $_POST["datai"] . "', DataFine = '" . $_POST["dataf"] . "' WHERE contratti.CodDipendente = " . $_POST["idDip"];
+} else if (isset($_POST["mansione"]) && isset($_POST["salario"]) && isset($_POST["ore"]) && isset($_POST["datai"]) && isset($_POST["dataf"]) && isset($_POST["rfid"])) {
+    $modifica = "UPDATE contratti SET Salario = '" . $_POST["salario"] . "', OreLavorative = '" . $_POST["ore"] . "', DataInizio = '" . $_POST["datai"] . "', DataFine = '" . $_POST["dataf"] . "', RFID = '" . $_POST["rfid"] . "' WHERE contratti.CodDipendente = " . $_POST["idDip"];
     if ($result = $link->query($modifica)) {
         $modifica = "UPDATE dipendenti SET Mansione='" . $_POST["mansione"] . "' WHERE dipendenti.Cod = " . $_POST["idDip"];
         if ($result = $link->query($modifica)) {

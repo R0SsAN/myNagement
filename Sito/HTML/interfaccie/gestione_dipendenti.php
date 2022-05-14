@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["userId"]))
-    header("Location: login.php");
+    header("Location: ../login.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +46,7 @@ if (!isset($_SESSION["userId"]))
                             <thead>
                                 <tr>
                                     <th>nome</th>
+                                    <th>cognome</th>
                                     <th>contratto</th>
                                     <th>ore totali</th>
                                     <th>stipendio</th>

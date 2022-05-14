@@ -41,7 +41,7 @@ var app = new Vue({
                     orario: this.orario,
                     salario: document.getElementById("salario").value,
                     nascita: document.getElementById("nascita").value,
-
+                    rfid: document.getElementById("rfid").value,
                 }, function (data) {
                     console.log(data);
                     if (data == "true") {
