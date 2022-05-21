@@ -135,11 +135,11 @@ if (isset($_SESSION["userId"]))
                             </div>
                         </div>
                         <div class="campo" style="margin-top: 1px">
-                                <img src="../IMG/icona_mail.png" class="icon">
-                                <div class="testoCampo">
-                                    <input type="text" id="aEmail" class="testoCampo" placeholder="Email">
-                                </div>
+                            <img src="../IMG/icona_mail.png" class="icon">
+                            <div class="testoCampo">
+                                <input type="text" id="aEmail" class="testoCampo" placeholder="Email">
                             </div>
+                        </div>
                         <div class="container-button">
                             <button type="button" class="bCrea" @click="registraAzienda()" style="margin-right:-21px">
                                 <p id="bTesto">REGISTRA AZIENDA</p>
