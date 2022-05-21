@@ -15,7 +15,7 @@ namespace RFID_reader
         static void Main(string[] args)
         {
 
-            arduino = new SerialPort("COM3", 9600);
+            arduino = new SerialPort("COM14", 9600);
             try
             {
                 arduino.Open();
@@ -72,7 +72,8 @@ namespace RFID_reader
             Console.WriteLine("Errore generico");
             arduino.Write("false;");
             */
-
+            Console.WriteLine(id);
+            arduino.Write("true;");
         }
 
     }

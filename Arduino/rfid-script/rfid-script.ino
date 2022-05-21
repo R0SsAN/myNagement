@@ -4,6 +4,13 @@
 #define SS_PIN 10
 #define RST_PIN 9
 
+#define ledR 5
+#define ledG 6
+#define ledB 7
+
+#define buzzer 2
+
+
 RFID rfid(SS_PIN, RST_PIN); 
 
 // Setup variables:
@@ -12,10 +19,6 @@ RFID rfid(SS_PIN, RST_PIN);
     int serNum2;
     int serNum3;
     int serNum4;
-
-#define ledR 2
-#define ledG 3
-#define ledB 4
 
 void setup()
 { 
@@ -26,6 +29,8 @@ void setup()
   pinMode(ledR, OUTPUT);
   pinMode(ledG, OUTPUT);
   pinMode(ledB, OUTPUT);
+  
+  pinMode(buzzer, OUTPUT);
 }
   
 void loop()
@@ -49,17 +54,24 @@ void loop()
     String risposta=leggiFino(';');
     if(risposta=="true")
     {
-      analogWrite(ledR,0);
-      analogWrite(ledG,255);
-      analogWrite(ledB,0);
+      tone(buzzer, 1000, 500);
+      digitalWrite(ledR,LOW);
+      digitalWrite(ledG,HIGH);
+      digitalWrite(ledB,LOW);
       delay(1500);
       spegniLed();
     }
     else if(risposta=="false")
     {
-      analogWrite(ledR,255);
-      analogWrite(ledG,0);
-      analogWrite(ledB,0);
+      digitalWrite(ledR,HIGH);
+      digitalWrite(ledG,LOW);
+      digitalWrite(ledB,LOW);
+      tone(buzzer, 300, 500);
+      delay(500);
+      noTone(buzzer);
+      delay(50);
+      tone(buzzer, 300, 500);
+      
       delay(1500);
       spegniLed();
     }
