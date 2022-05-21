@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,6 +43,8 @@ namespace RFID_reader
         }
         static void inviaRichiesta(string id)
         {
+            
+
             /*var values = string.Format("rfid="+id);
             var bytes = Encoding.ASCII.GetBytes(values);
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://localhost/esercizi/Github/myNagement/Sito/PHP/arduino_api.php"));
@@ -74,7 +77,29 @@ namespace RFID_reader
             */
             Console.WriteLine(id);
             arduino.Write("true;");
+            Dictionary<string, string> pairs = new Dictionary<string, string>()
+            {
+                {"id", id },
+            };
+            bool p = PostMethod("url", pairs);
         }
 
+
+
+
+        public static bool PostMethod(string url, Dictionary<string, string> postValues)
+        {
+            HttpClient client = new HttpClient();
+            try
+            {
+                var response = client.PostAsync(url, new FormUrlEncodedContent(postValues)).Result;
+                string ris = response.Content.ReadAsStringAsync().Result;
+                return Boolean.Parse(ris);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
