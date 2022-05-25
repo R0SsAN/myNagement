@@ -33,7 +33,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="apriDashboard()">
             <span class="icon"><i class="fas fa-home"></i></span>
             <span class="title">Home</span>
           </a>

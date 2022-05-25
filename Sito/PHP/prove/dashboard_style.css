@@ -265,15 +265,15 @@ body {
 }
 
 .details .info .container3 {
-  display: flex;
-  justify-content: center;
-  text-align: center;
   width: 100%;
+  text-align: center;
 }
 
 .details .info .container3 h1 {
   border: solid 5px green;
   height: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 

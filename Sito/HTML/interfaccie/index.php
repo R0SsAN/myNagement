@@ -1,9 +1,7 @@
 <?php
 
 session_start();
-require_once "connect_db.php";
-
-
+require_once "../../PHP/connect_db.php";
 
 $sql = "SELECT COUNT(`CodDipendente`) as cod FROM `assenze` WHERE Tipo=0";
 $sql2 = "SELECT COUNT(`CodDipendente`)as cod2 FROM `presenza` where presente=1";
@@ -23,7 +21,7 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Document</title>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-                    <link rel="stylesheet" href="style.css">
+                    <link rel="stylesheet" href="../../CSS/home_style.css">
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -36,7 +34,7 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                 
                     <div class="cardBox">
                         <div class="card">
-                            <p id=data>Data: &nbsp' . $data . '</p>
+                             <p id=data>Data: &nbsp' . $data . '</p>
                         </div>
                     </div>
                 

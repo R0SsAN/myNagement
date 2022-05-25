@@ -6,6 +6,7 @@ var app = new Vue({
     },
     mounted() {
         console.log("Vue funziona");
+        this.apriDashboard();
     },
     methods: {
         toggleMenu() {
@@ -36,6 +37,9 @@ var app = new Vue({
         },
         apriMagazzino(){
             document.getElementById("iframe").src="interfaccie/gestione_magazzino.php";
+        },
+        apriDashboard(){
+            document.getElementById("iframe").src="interfaccie/index.php";
         },
         logout()
         {
