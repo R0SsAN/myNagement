@@ -271,7 +271,9 @@ var app = new Vue({
             /* $(".mese-anno").each(function()  {
                 $(this).html(mo + " " + app.year);
             }); */
+            $('.mese-anno').html(mo + " " + this.year);
             this.generaStatistiche();
+
 
         },
         aggiornadata2(a, y) {
