@@ -24,6 +24,7 @@
                 console.log("Vue funziona");
             },
             mounted: function() {
+                this.generaPresenze();
                 this.interval = setInterval(() => this.generaPresenze(), 60000);
             },
             methods: {
