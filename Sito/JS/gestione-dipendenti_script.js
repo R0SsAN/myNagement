@@ -140,9 +140,8 @@ $('#myModal').on('hide.bs.modal', function () {
     $('#salva').hide();
     app.hidden = true;
     app.disabilita();
-    //document.location.reload(true)
 });
-//per datatable
+
 function generaDatatable() {
     $('#tabellla').DataTable({
         paging: false,
@@ -180,4 +179,12 @@ function cercaInTabella() {
             }
         }
     }
+}
+
+$(window).on("load", function () {
+    setInterval(myTimer, 3000);
+});
+
+function myTimer() {
+    $(".loader-wrapper").fadeOut("slow");
 }
