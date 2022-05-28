@@ -21,6 +21,7 @@ var app = new Vue({
                     password: document.getElementById("tPassword").value,
                 }, function( data ) 
                 {
+                    console.log(data);
                     if(data=="true")
                         window.location.href = "dashboard.php";
                     else

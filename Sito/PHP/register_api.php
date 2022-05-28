@@ -61,10 +61,14 @@
             if(isset($_POST["email"]) && isset($_POST["password"]))
             {
                 
-                $query="SELECT Cod FROM titolari WHERE titolari.Email= '".$_POST["email"]."' AND titolari.Password='".md5($_POST["password"])."'";
-                if($result=$link->query($query))
+                $stmt=$link->prepare("SELECT Cod FROM titolari WHERE titolari.Email=? AND titolari.Password=? ");
+                $stmt->bind_param("ss",$email , $password);
+                $email=$_POST["email"];
+                $password=md5($_POST["password"]);
+                $stmt->execute();
+                
+                if($result=$stmt->get_result())
                 {
-                    
                     if(mysqli_num_rows($result)>0)
                     {
                         $row=mysqli_fetch_array($result);

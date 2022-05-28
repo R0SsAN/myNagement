@@ -1,8 +1,5 @@
 <?php
     require_once("connect_db.php");
-    session_start();
-    if(!isset($_SESSION["aziendaId"]))
-        die("Errore");
 
     if(isset($_GET["type"]))
     {
@@ -16,11 +13,9 @@
             {
                 if(mysqli_num_rows($result)>0)
                 {
-                    
                     while($row=mysqli_fetch_array($result))
                     {
                         $query="INSERT INTO presenza(CodDipendente, presente, giorno) VALUES ('".$row["Cod"]."' , '0' , '$data')";
-                        
                         $result2=$link->query($query);
                     }
                     die("Success -- ".$data);
