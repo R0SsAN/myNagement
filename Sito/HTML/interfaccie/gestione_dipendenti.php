@@ -20,7 +20,7 @@ if (!isset($_SESSION["userId"]))
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
+
     <link rel="stylesheet" type="text/css" href="../../CSS/tabella_dinamica.css">
     <link rel="stylesheet" href="../../CSS/gestionedipendenti_style.css">
 
@@ -80,6 +80,9 @@ if (!isset($_SESSION["userId"]))
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
         </div>
     </div>
 
