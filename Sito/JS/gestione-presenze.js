@@ -13,7 +13,7 @@ var app = new Vue({
             $.post("../../PHP/presenze_api.php", {
                 genera: true,
             }, function(data) {
-                //console.log(data);
+                console.log(data);
                 document.getElementById("contenutotabella").innerHTML = data;
                 generaDatatable();
             });
@@ -36,6 +36,7 @@ var app = new Vue({
                 percstipendio: document.getElementById("customRange1").value,
                 idutente: app.idutente,
             }, function(data) {
+                console.log(data);
                 app.generatabella()
             });
         },
@@ -56,8 +57,11 @@ function AggiornaButton(am, id) {
 }
 
 function AggiornaAssenze() {
-    $('#myModal').modal('toggle');
-    app.AP();
+    if(document.getElementById("btnam").value=="Modifica"){
+        $.post{}
+        app.AP();
+        $('#myModal').modal('toggle');
+    }
 }
 var slider = document.getElementById("customRange1");
 var output = document.getElementById("percstipendio");
