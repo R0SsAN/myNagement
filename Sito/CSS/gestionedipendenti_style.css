@@ -310,10 +310,10 @@ tbody {
 
 .loader {
     display: inline-block;
-    /* width: 30px;
-    height: 30px;
-    border-radius: 4px solid #Fff; */
+    width: 40px;
+    height: 50px;
     content: url(../IMG/logo.png);
+    /* content: url(../IMG/logo.png); */
     position: relative;
     animation: loader 2s infinite ease;
 }

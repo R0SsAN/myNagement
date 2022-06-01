@@ -8,12 +8,14 @@ var app = new Vue({
     },
     mounted() {
         console.log("Vue funziona");
+        $.fn.dataTableExt.sErrMode = 'throw';
         date = new Date();
         this.year = date.getFullYear();
         this.month = date.getMonth();
         mo = this.monthArr[this.month];
         document.getElementById("current_date").innerHTML = mo + " " + this.year;
         this.aggiornadata(0, 0);
+        setInterval(myTimer, 1000);
     },
     methods: {
         aggiornadata(a, y) {
@@ -47,8 +49,11 @@ var app = new Vue({
                 mese: this.month + 1,
                 year: this.year,
             }, function (data) {
-                //console.log(data);
-                if (data != "Errore") {
+                console.log(data);
+                if(data == "<tr><td>nessun dipendente presente</td></tr>")
+                    document.getElementById("table").innerHTML = data;
+                else if (data != "Errore") 
+                {
                     document.getElementById("table").innerHTML = data;
                     generaDatatable();
                 }
@@ -180,10 +185,6 @@ function cercaInTabella() {
         }
     }
 }
-
-$(window).on("load", function () {
-    setInterval(myTimer, 3000);
-});
 
 function myTimer() {
     $(".loader-wrapper").fadeOut("slow");

@@ -270,6 +270,9 @@ if (isset($_POST["mese"])) {
             $res .= "<td><button class='buttonanagrafica' data-bs-toggle='modal' data-bs-target='#myModal' onclick='anagraficaDip(" . $param . ")'>Informazioni</button></td>";
             $res .= "</tr>";
         }
+        if (mysqli_num_rows($result) <= 0) {
+            die("<tr><td>nessun dipendente presente</td></tr>");
+        }
         die($res);
     } else
         die(mysqli_error($link));
