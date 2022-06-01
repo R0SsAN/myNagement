@@ -9,7 +9,6 @@ if (isset($_POST["genera"])) {
         $sql = "SELECT Nome,Cognome,Cod FROM `dipendenti` WHERE CodAzienda=" . $_SESSION['aziendaId'];
         if ($result = mysqli_query($link, $sql)) {
             if (mysqli_num_rows($result) > 0) {
-                // print("<pre>".print_r(mysqli_num_rows($result),true)."</pre>");
                 $return = "";
                 while ($row = mysqli_fetch_array($result)) {
                     $return .= '<tr>';
@@ -79,10 +78,8 @@ if (isset($_POST["genera"])) {
                 $return .= '</tr>';
 
                 die($return);
-                // Free result set
                 mysqli_free_result($result);
             }
-            // Close connection
             mysqli_close($link);
         }
     }
@@ -121,6 +118,12 @@ if (isset($_POST["aggiornapresenza"]) && isset($_POST["tipomalattia"]) && isset(
         $sql = "UPDATE `assenze` SET DataInizio ='" . $_POST["datainizio"] . "',DataFine ='" . $_POST["datafine"] . "',Tipo='" . $_POST["tipomalattia"] . "', `PercentualeStipendio` = '" . $_POST["percstipendio"] . "' WHERE `assenze`.`CodDipendente` = '" . $_POST["idutente"] . "'";
     }
     if ($result = mysqli_query($link, $sql)) {
+      
         mysqli_close($link);
     }
+    if($_POST['datainizio']>=date("Y-m-d")){
+        $sql = "UPDATE `presenza` SET `presente` = '0' WHERE `presenza`.`CodDipendente` = '" . $_POST["idutente"] . "'";
+        $result = mysqli_query($link, $sql);
+    }
+   
 }
