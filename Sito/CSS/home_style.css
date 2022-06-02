@@ -13,9 +13,36 @@ body {
   width: 80%;
   height: 80%;
 }
+.container3 {
+  width: 100%;
+  text-align: center;
+}
+.tabelle{
+  padding:2%;
+
+}
 
 .titoloPresenze {
   padding-left: 15%;
+}
+.bottone {
+  position:center;
+  background-color: #2284e2;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 25px;
+  height: 50px;
+  margin-top: 38px;
+  margin-bottom: 38px;
+  outline: 0;
+  text-align: center;
+  width: 70%;
+  margin-left:15%;
+  margin-right: auto;
+  padding:2px;
 }
 
 .wrapper {
@@ -39,7 +66,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
+  height: 100%;
 }
 
 body {

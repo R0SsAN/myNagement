@@ -22,6 +22,7 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                     <title>Document</title>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
                     <link rel="stylesheet" href="../../CSS/home_style.css">
+                    
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -43,7 +44,10 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                             <div class="cont">
                                 <h1 id="titoloPresenze" class="titoloPresenze">Presenze giornaliere</h1>
                                 <canvas id="canvas" class="cont"></canvas>
+                                <br>
+                            <input type= "submit" class="bottone" value= "aggiorna presenze"></input>
                             </div>
+                            
                         </div>
                 
                         <div class="recentCustomers">
@@ -57,10 +61,10 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                         <div class="info">
                             <div class="container3">
                                 <h1 id="informazioni" class="andamento">Informazioni</h1><br>
-                                <label for="">Nome azienda</label><br>
-                                <label for="">Numero dipendenti</label><br>
-                                <label for="">Ammontare stipendi</label><br>
-                                <label for="">Note</label><br>
+                                <label for="" style="text-align:left;" ><p class="tabelle">Nome azienda</p></label><br>
+                                <label for="" style="text-align:left;"><p class="tabelle">Numero dipendenti</label><br>
+                                <label for=""style="text-align:left;"><p class="tabelle">Ammontare stipendi</label><br>
+                                <label for="" style="text-align:center;"><p class="tabelle">Note</label><br>
                                 <input type="text"><br>
                             </div>
                         </div>
