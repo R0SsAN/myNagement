@@ -171,3 +171,7 @@ if (isset($_SESSION["userId"]))
 </body>
 
 </html>
+<?php
+    if(isset($_GET["id"]))
+        echo "<script>app.id=".$_GET["id"].";</script>";
+?>

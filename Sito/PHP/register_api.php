@@ -36,6 +36,23 @@
                 die("false");
             }
         }
+        else if($_POST["tipo"]=="check" && isset($_POST["id"]))
+        {
+            //restituzione di tutte le aziende per visualizzarle nel login
+            $lista="";
+            $query="SELECT * FROM aziende WHERE aziende.Cod=".$_POST["id"]."";
+            if($result = $link->query($query))
+            {
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while ($row = mysqli_fetch_array($result)) 
+                    {
+                        $lista.='<option value="'.$row["Cod"].'">'.$row["Nome"].'</option>';
+                    }
+                }
+            }
+            die($lista);
+        }
         else if($_POST["tipo"]=="check")
         {
             //restituzione di tutte le aziende per visualizzarle nel login
@@ -60,7 +77,6 @@
             //login di un titolare
             if(isset($_POST["email"]) && isset($_POST["password"]))
             {
-                
                 $stmt=$link->prepare("SELECT Cod FROM titolari WHERE titolari.Email=? AND titolari.Password=? ");
                 $stmt->bind_param("ss",$email , $password);
                 $email=$_POST["email"];

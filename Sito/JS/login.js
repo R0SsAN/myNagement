@@ -4,6 +4,7 @@ var app = new Vue({
         checkLogin:true,
         checkRegistraUtente:false,
         checkRegistraAzienda:false,
+        id:null,
     },
     mounted(){
         console.log("Vue funziona");
