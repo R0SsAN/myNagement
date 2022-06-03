@@ -12,21 +12,25 @@ body {
 .container2 {
   width: 80%;
   height: 80%;
+  margin-right: 3px solid black;
 }
+
 .container3 {
   width: 100%;
   text-align: center;
 }
-.tabelle{
-  padding:2%;
+
+.tabelle {
+  padding: 2%;
 
 }
 
 .titoloPresenze {
   padding-left: 15%;
 }
+
 .bottone {
-  position:center;
+  position: center;
   background-color: #2284e2;
   border-radius: 12px;
   border: 0;
@@ -40,9 +44,9 @@ body {
   outline: 0;
   text-align: center;
   width: 70%;
-  margin-left:15%;
+  margin-left: 15%;
   margin-right: auto;
-  padding:2px;
+  padding: 2px;
 }
 
 .wrapper {
@@ -285,12 +289,14 @@ body {
   grid-template-columns: 2fr 1fr;
 }
 
-.details .info {
+#info {
   display: flex;
   min-height: 530px;
   background: #fff;
   width: 30%;
-  border-left: solid 5px black;
+  min-width: 300px;
+  border-right: solid 5px black;
+  flex-wrap: nowrap;
 }
 
 .details .info .container3 {
@@ -298,26 +304,31 @@ body {
   text-align: center;
 }
 
-.details .info .container3 h1 {
+#cornice {
   border: solid 5px green;
-  height: 10%;
-  margin-left: 25%;
-  margin-right: 25%;
+  min-width: 300px;
 }
 
+.w3-third {
+  min-width: 300px !important;
+}
 
 .details .recentOrders {
   display: flex;
   min-height: 530px;
   background: #fff;
   width: 30%;
+  min-width: 300px;
+  flex-wrap: nowrap;
 }
 
 .details .recentCustomers {
   display: flex;
   min-height: 530px;
   background: #fff;
+  min-width: 300px;
   width: 30%;
+  flex-wrap: nowrap;
 }
 
 .cardHeader {

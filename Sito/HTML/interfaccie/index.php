@@ -22,7 +22,7 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                     <title>Document</title>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
                     <link rel="stylesheet" href="../../CSS/home_style.css">
-                    
+                    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -35,12 +35,12 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                 
                     <div class="cardBox">
                         <div class="card">
-                             <p id=data>Data: &nbsp' . $data . '</p>
+                             <p id=data>Oggi,' . $data . '</p>
                         </div>
                     </div>
                 
-                    <div class="details">
-                        <div class="recentOrders">
+                    <div class="w3-row-padding">
+                        <div class="w3-third">
                             <div class="cont">
                                 <h1 id="titoloPresenze" class="titoloPresenze">Presenze giornaliere</h1>
                                 <canvas id="canvas" class="cont"></canvas>
@@ -50,7 +50,7 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                             
                         </div>
                 
-                        <div class="recentCustomers">
+                        <div class="w3-third" id="info">
                             <div class="container2">
                                 <h1 id="andamento" class="andamento">Andamento</h1>
                                 <canvas id="canvas2"></canvas>
@@ -58,9 +58,11 @@ if (($result = mysqli_query($link, $sql)) && ($result2 = mysqli_query($link, $sq
                 
                         </div>
                 
-                        <div class="info">
-                            <div class="container3">
-                                <h1 id="informazioni" class="andamento">Informazioni</h1><br>
+                        <div class="w3-third">
+                            <div class="container3">                            
+                                <div id="cornice">
+                                    <h1 id="informazioni" class="andamento">Informazioni</h1><br>
+                                </div>
                                 <label for="" style="text-align:left;" ><p class="tabelle">Nome azienda</p></label><br>
                                 <label for="" style="text-align:left;"><p class="tabelle">Numero dipendenti</label><br>
                                 <label for=""style="text-align:left;"><p class="tabelle">Ammontare stipendi</label><br>
