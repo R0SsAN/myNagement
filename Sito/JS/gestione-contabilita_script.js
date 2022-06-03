@@ -69,8 +69,8 @@ var app = new Vue({
             this.getUsciteProdotti();
             this.getUsciteMovimenti();
             this.getStipendiMensili();
-            setTimeout(function() { app.getRicavo(); }, 200);
-            setTimeout(function() { app.caricaTabellaMovimenti(); }, 400);
+            setTimeout(function() { app.getRicavo(); }, 500);
+            setTimeout(function() { app.caricaTabellaMovimenti(); }, 900);
 
         },
         getStipendiMensili()
@@ -231,7 +231,9 @@ var app = new Vue({
                 }
                 else
                 {
-                    document.getElementById("body").innerHTML=data;
+                    //document.getElementById("body").innerHTML=data;
+
+                    aggiornaTabella(data);
                     generaDatatable();
                 }
                 
@@ -367,6 +369,11 @@ function generaDatatable() {
         autoWidth: false
         
     });
+}
+function aggiornaTabella(data){
+    $('#tabella').DataTable().destroy();
+    document.getElementById("body").innerHTML=data
+    $('#table1').DataTable().draw();
 }
 
 

@@ -40,29 +40,14 @@
         {
             //restituzione di tutte le aziende per visualizzarle nel login
             $lista="";
-            $query="SELECT * FROM aziende WHERE aziende.Cod=".$_POST["id"]."";
+            if($_POST["id"]!=-1)
+                $query="SELECT * FROM aziende WHERE aziende.Cod=".$_POST["id"]."";
+            else
+                $query="SELECT * FROM aziende";
             if($result = $link->query($query))
             {
                 if(mysqli_num_rows($result) > 0)
                 {
-                    while ($row = mysqli_fetch_array($result)) 
-                    {
-                        $lista.='<option value="'.$row["Cod"].'">'.$row["Nome"].'</option>';
-                    }
-                }
-            }
-            die($lista);
-        }
-        else if($_POST["tipo"]=="check")
-        {
-            //restituzione di tutte le aziende per visualizzarle nel login
-            $lista="";
-            $query="SELECT * FROM aziende";
-            if($result = $link->query($query))
-            {
-                if(mysqli_num_rows($result) > 0)
-                {
-                    
                     while ($row = mysqli_fetch_array($result)) 
                     {
                         $lista.='<option value="'.$row["Cod"].'">'.$row["Nome"].'</option>';

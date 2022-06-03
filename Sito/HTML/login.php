@@ -45,7 +45,7 @@ if (isset($_SESSION["userId"]))
                         <button type="button" class="bCrea" @click="switch2Register(1)">
                             <p id="bTesto">CREA ACCOUNT</p>
                         </button>
-                        <button type="button" class="bCrea" @click="switch2Register(-1)">
+                        <button type="button" id="bAzienda" class="bCrea" @click="switch2Register(-1)">
                             <p id="bTesto">REGISTRA AZIENDA</p>
                         </button>
                         <p id="pError" class="pError">&nbsp</p>
@@ -172,6 +172,9 @@ if (isset($_SESSION["userId"]))
 
 </html>
 <?php
-    if(isset($_GET["id"]))
-        echo "<script>app.id=".$_GET["id"].";</script>";
+    if(isset($_POST["id"]))
+        echo "<script>
+            app.id=".$_POST["id"].";
+            document.getElementById('bAzienda').style.display='none';
+            </script>";
 ?>

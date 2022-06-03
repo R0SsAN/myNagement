@@ -4,7 +4,7 @@ var app = new Vue({
         checkLogin:true,
         checkRegistraUtente:false,
         checkRegistraAzienda:false,
-        id:null,
+        id:-1,
     },
     mounted(){
         console.log("Vue funziona");
@@ -146,8 +146,10 @@ var app = new Vue({
         {
             $.post( "../PHP/register_api.php",{
                 tipo: "check",
+                id: this.id,
             }, function( data ) 
             {
+                console.log(data);
                 document.getElementById("tAzienda").innerHTML=data;
             });
         },
