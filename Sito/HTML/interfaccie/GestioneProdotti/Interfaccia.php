@@ -1,8 +1,7 @@
 <?php
-/*
-  session_start();
-  if(!isset($_SESSION["email"]))
-    header("Location: login.html");*/
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: ../../login.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,14 +16,14 @@
 </head>
 
 <body>
-    <div class="content" style="display: flex; flex-wrap: nowrap; flex-direction: row; justify-content: space-between;">
+    <div class="content" style="flex-direction: row; display: inline-flex">
         <a href="Acquistati.php">
             <button class="buttonanagraficaBig" value="PRODOTTI ACQUISTATI">PRODOTTI<br>ACQUISTATI</button>
         </a>
-        <a href="Storico.php">
-             <button class="buttonanagraficaBig" value="PRODOTTI ACQUISTATI">STORICO<br>VENDITE</button>
+        <a href="Storico.php" style="margin-left: 5%;">
+            <button class="buttonanagraficaBig" value="PRODOTTI ACQUISTATI">STORICO<br>VENDITE</button>
         </a>
-        <a href="Vendita.php">
+        <a href="Vendita.php" style="margin-left: 5%;">
             <button class="buttonanagraficaBig" value="PRODOTTI ACQUISTATI">IN VENDITA</button>
         </a>
     </div>
