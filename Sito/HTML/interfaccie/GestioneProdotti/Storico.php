@@ -1,7 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["userId"]))
+    header("Location: ../../../../login.php");
 require_once '../../../PHP/connect_db.php';
-
-$sql = "SELECT * FROM prodotti_venduti";
+$sql = "SELECT * FROM prodotti_venduti WHERE CodAzienda='" . $_SESSION['aziendaId'] . "'";
 if ($result = mysqli_query($link, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo '  
