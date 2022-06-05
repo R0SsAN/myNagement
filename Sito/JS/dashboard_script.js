@@ -36,9 +36,9 @@ var app = new Vue({
             document.getElementById("iframe").src="interfaccie/gestione_contabilita.php";
         },
         apriMagazzino(){
-            document.getElementById("iframe").src="interfaccie/gestione_magazzino.php";
+            document.getElementById("iframe").src="interfaccie/GestioneProdotti/Interfaccia.php";
         },
-        apriDashboard(){
+        apriDashboard(){    
             document.getElementById("iframe").src="interfaccie/index.php";
         },
         logout()

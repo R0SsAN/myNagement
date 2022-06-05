@@ -2,8 +2,8 @@
 session_start();
 if(!isset($_SESSION["userId"]))
     die("Error");
-require "../../PHP/Librerie/PHPMailer/PHPMailerAutoload.php";
-if (isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['oggettoSegnalazione']) && isset($_POST['telefono']) && isset($_POST['societa']) && isset($_POST['mail'])) {
+require "Librerie/PHPMailer/PHPMailerAutoload.php";
+if (isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['oggettoSegnalazione']) && isset($_POST['telefono']) && isset($_POST['societa']) && isset($_POST['mail']) && isset($_POST["testo_richiesta"])) {
     //invio mail
     $mail = new PHPMailer(true);
     try {
@@ -28,4 +28,5 @@ if (isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['oggettoSe
         die("false");
     }
 }
+die("vuoto");
 ?>

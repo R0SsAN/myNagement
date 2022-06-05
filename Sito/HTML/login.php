@@ -16,9 +16,11 @@ if (isset($_SESSION["userId"]))
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="background-color:lightgray">
     <div id="vue-container">
         <div class="content">
             <!--Form per il login-->
@@ -28,13 +30,13 @@ if (isset($_SESSION["userId"]))
                     <!--div contenente i campi per email e password e il bottone per loggarsi-->
                     <div id="dati" v-if="checkLogin" ref="dati">
                         <div class="campo">
-                            <img src="../IMG/icona_mail.png" class="icon">
+                            <img src="../IMG/envelope.svg" class="icon">
                             <div class="testoCampo">
                                 <input type="text" id="tEmail" class="testoCampo" placeholder="Email" v-on:keyup.enter="onEnter">
                             </div>
                         </div>
                         <div class="campo">
-                            <img src="../IMG/icona_mail.png" class="icon">
+                            <img src="../IMG/lock.svg" class="icon">
                             <div class="testoCampo">
                                 <input type="password" id="tPassword" class="testoCampo" placeholder="Password" v-on:keyup.enter="onEnter">
                             </div>
@@ -54,19 +56,19 @@ if (isset($_SESSION["userId"]))
                         <div class="registra-full">
                             <div class="registra-semi">
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/person.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="tNome" class="testoCampo" placeholder="Nome">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/person.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="tCognome" class="testoCampo" placeholder="Cognome">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/telephone.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="number" id="tTelefono" class="testoCampo" placeholder="Telefono">
                                     </div>
@@ -74,19 +76,19 @@ if (isset($_SESSION["userId"]))
                             </div>
                             <div class="registra-semi">
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/envelope.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="tEmail" class="testoCampo" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/lock.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="password" id="tPassword" class="testoCampo" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/building.svg" class="icon">
                                     <div class="testoCampo">
                                         <select name="azienda" id="tAzienda" class="testoCampo"></select>
                                     </div>
@@ -107,13 +109,13 @@ if (isset($_SESSION["userId"]))
                         <div class="registra-full">
                             <div class="registra-semi">
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/building.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="aNome" class="testoCampo" placeholder="Nome azienda">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/telephone.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="number" id="aTelefono" class="testoCampo" placeholder="Telefono">
                                     </div>
@@ -121,13 +123,13 @@ if (isset($_SESSION["userId"]))
                             </div>
                             <div class="registra-semi">
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/briefcase.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="aRagione" class="testoCampo" placeholder="Ragione sociale">
                                     </div>
                                 </div>
                                 <div class="campo">
-                                    <img src="../IMG/icona_mail.png" class="icon">
+                                    <img src="../IMG/geo-alt.svg" class="icon">
                                     <div class="testoCampo">
                                         <input type="text" id="aIndirizzo" class="testoCampo" placeholder="Indirizzo">
                                     </div>
@@ -135,7 +137,7 @@ if (isset($_SESSION["userId"]))
                             </div>
                         </div>
                         <div class="campo" style="margin-top: 1px">
-                            <img src="../IMG/icona_mail.png" class="icon">
+                            <img src="../IMG/envelope.svg" class="icon">
                             <div class="testoCampo">
                                 <input type="text" id="aEmail" class="testoCampo" placeholder="Email">
                             </div>

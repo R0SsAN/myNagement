@@ -58,7 +58,6 @@ function AggiornaButton(am, id) {
 
 function AggiornaAssenze() {
     if(document.getElementById("btnam").value=="Modifica"){
-        $.post{}
         app.AP();
         $('#myModal').modal('toggle');
     }

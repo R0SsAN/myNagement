@@ -22,8 +22,8 @@ var app = new Vue({
                     password: document.getElementById("tPassword").value,
                 }, function( data ) 
                 {
-                    console.log(data);
-                    if(data=="true")
+                    var json=JSON.parse(data);
+                    if(json.status=="true")
                         window.location.href = "dashboard.php";
                     else
                         app.compariAlertErrore("Credenziali non valide");
@@ -67,8 +67,15 @@ var app = new Vue({
                     azienda: document.getElementById("tAzienda").value,
                 }, function( data ) 
                 {
-                    console.log(data);
-                    app.switch2Register(0);
+                    var json=JSON.parse(data);
+                    if(json.status=="true")
+                    {
+                        app.compariAlertSuccess("Titolare registrato correttamente");
+                        app.switch2Register(0);
+                    }
+                    else
+                        app.compariAlertErrore("Errore registrazione titolare");
+                    
                 });
             }
             else
@@ -129,8 +136,14 @@ var app = new Vue({
                     indirizzo: document.getElementById("aIndirizzo").value,
                 }, function( data ) 
                 {
-                    console.log(data);
-                    app.switch2Register(0);
+                    var json=JSON.parse(data);
+                    if(json.status=="true")
+                    {
+                        app.compariAlertSuccess("Azienda registrata correttamente");
+                        app.switch2Register(0);
+                    }
+                    else
+                        app.compariAlertErrore("Errore registrazione azienda");
                 });
             }
             else
@@ -149,8 +162,14 @@ var app = new Vue({
                 id: this.id,
             }, function( data ) 
             {
-                console.log(data);
-                document.getElementById("tAzienda").innerHTML=data;
+                var json=JSON.parse(data);
+                if(json.status=="true")
+                {
+                    var temp="";
+                    for(var i in json.aziende)
+                        temp+='<option value="'+json.aziende[i].Cod+'">'+json.aziende[i].Nome+'</option>';
+                    document.getElementById("tAzienda").innerHTML=temp;
+                }
             });
         },
         compariAlertErrore($stringa)
