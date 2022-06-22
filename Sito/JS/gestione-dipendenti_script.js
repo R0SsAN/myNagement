@@ -61,7 +61,7 @@ var app = new Vue({
                     error = "Errore";
             });
         },
-        anagraficaDip(id) {
+        anagraficaDip(id) {            
             $.post("../../PHP/gestione_dip.php", {
                 idDip: id,
             }, function (data) {

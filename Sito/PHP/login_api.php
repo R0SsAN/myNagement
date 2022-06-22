@@ -1,31 +1,20 @@
 <?php header('Access-Control-Allow-Origin: *'); ?>
 <?php
-    session_start();
-    if(isset($_SESSION["email"]))
-        header("Location: dashboard.html");
-    if(isset($_POST["email"]) && isset($_POST["password"]))
-    {
-        $email=$_POST["email"];
-        $password=$_POST["password"];
-        //mi connetto al server sql
-        if($conx=mysqli_connect("b1yzhtxfs1l3kmuousjz-mysql.services.clever-cloud.com","udk4l84vcxclrpyq","BWqKOkPCdBuILkRM7vSZ","b1yzhtxfs1l3kmuousjz"))
-        {
-            $comando="select count(*) as cntUser from users where email='".$email."' and password='".$password."'";
-            $result=mysqli_query($conx,$comando);
-            $row = mysqli_fetch_array($result);
-    
-            $count = $row['cntUser'];
-            if($count > 0)
-            {
-                $_SESSION["email"]=$email;
-                echo "true";
-            }
-            else
-                echo "false";
-        }
-        else
-            echo "false";
-    }
-    else
-        echo "Errore :)";
+require_once "connect_db.php";
+session_start();
+if (isset($_SESSION["email"]))
+    header("Location: dashboard.html");
+if (isset($_POST["email"]) && isset($_POST["password"])) {
+    $stmt = $link->prepare("SELECT Cod FROM titolari WHERE titolari.Email=? AND titolari.Password=? ");
+    $stmt->bind_param("ss", $email, $password);
+    $email = $_POST["email"];
+    $password = md5($_POST["password"]);
+    $stmt->execute();
+    if ($result = $stmt->get_result()) {
+        $_SESSION["email"] = $email;
+        echo "true";
+    } else
+        echo "false";
+} else
+    echo "Errore :)";
 ?>
